@@ -45,7 +45,7 @@ const EventsScreens = ({ navigation }) => {
   const [BTN, setBTN] = useState(false)
   const [ageVer, setAgeVer] = useState()
 
-  console.log("umar ", ageVer)
+  // console.log("umar ", ageVer)
   const userId = useSelector((state) => state?.auth?.credential?.User?._id)
   const Name = useSelector((state) => state?.auth?.credential?.User?.lastName)
   const DOB = useSelector((state) => state?.auth?.credential?.User?.birthDate)
@@ -66,7 +66,7 @@ const EventsScreens = ({ navigation }) => {
 
     setEvents(data)
   };
-
+// console.log("eventsss",events?.data?.length)
   const Profile_Checking = async () => {
     const { data } = await dispatch(ProfileChecking(userId, setPower, setBTN));
 
@@ -698,14 +698,20 @@ const EventsScreens = ({ navigation }) => {
 
           </View>
           <ScrollView>
-            <View style={{ marginBottom: height * 0.25 }}>
+          { events?.data?.length!==0?
+           <View style={{ marginBottom: height * 0.25 }}>
               <FlatList
                 scrollEnabled={true}
                 data={events?.data}
                 keyExtractor={item => item.id}
                 renderItem={LowerRender}
               />
-            </View>
+            </View> 
+            :
+            
+            <Image
+            style={{alignSelf:"center",resizeMode:"contain",marginTop:height*0.08}}
+            source={require("../../assets/images/noevent.png")} />}
           </ScrollView>
           <View>
             <RBSheet

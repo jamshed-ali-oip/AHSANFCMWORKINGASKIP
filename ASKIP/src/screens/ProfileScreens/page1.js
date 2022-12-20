@@ -18,7 +18,7 @@ const Page1 = ({ setPage, profile }) => {
   const [detail, setDetail] = useState()
   const [Reminder, setReminder] = useState(false);
   const dispatch = useDispatch()
-  console.log("0+detail?.phone?.slice(2)",0+detail?.phone?.slice(2))
+  // console.log("0+detail?.phone?.slice(2)",0+detail?.phone?.slice(2))
   useEffect(() => {
 
     UserInfo()

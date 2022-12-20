@@ -107,11 +107,11 @@ const Selectscreen = ({ navigation }) => {
       phone: phone?.replace(/ /g, '').slice(1),
       password,
     };
-    console.log(data)
+    // console.log(data)
     if (data.phone == undefined || data.password == undefined) {
       setError(true)
     } else {
-      console.log("hhda", data)
+      // console.log("hhda", data)
       dispatch(userLogin(data, setLoading, setError));
     }
 
@@ -124,7 +124,7 @@ const Selectscreen = ({ navigation }) => {
       lastName: lastName,
       phone: phoneNumber?.replace(/ /g, '').slice(1)
     };
-    console.log(data)
+    // console.log(data)
     if (data.firstName === undefined || data.lastName === undefined || data.phone === undefined) {
       setError2(true)
 
@@ -139,13 +139,13 @@ const Selectscreen = ({ navigation }) => {
       email: Verifyemail || null,
       phone: number.slice(1) || null
     };
-    console.log(data)
+    // console.log(data)
     dispatch(forget_Password(data, setM2, setM3));
   };
 
   const confirmOtpData_email = useSelector(state => state?.auth?.credential?.email);
   const confirmOtpData_phone = useSelector(state => state?.auth?.credential?.phone);
-  console.log(confirmOtpData_email, confirmOtpData_phone, "confirmOtpData");
+  // console.log(confirmOtpData_email, confirmOtpData_phone, "confirmOtpData");
 
   const userConfirmation = () => {
     let userVerify = {
@@ -163,7 +163,7 @@ const Selectscreen = ({ navigation }) => {
       newPassword: newPassword,
       confirmPassword: confirmPassword,
     };
-    console.log('------------------------', data);
+    // console.log('------------------------', data);
     dispatch(password_Reset(data, refRBSheet3));
   };
 

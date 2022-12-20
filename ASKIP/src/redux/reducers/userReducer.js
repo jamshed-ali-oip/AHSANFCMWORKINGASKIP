@@ -57,7 +57,7 @@ const userReducer = (state = InitialState, action) => {
         data: []
       };
     case GET_EVENTS:
-      console.log("event details",action?.payload)
+      // console.log("event details",action?.payload)
       return {
         ...state,
         getEvents:action?.payload

@@ -78,9 +78,9 @@ const Page3 = ({ setPage, profile }) => {
     setDetail(data?.User)
 
   }
-console.log("details22",detail)
+// console.log("details22",detail)
   const thirdPageData = useSelector((state) => state?.user?.getKiffsData)
-  console.log("thirdPageData", myKiffs)
+  // console.log("thirdPageData", myKiffs)
 
   const dispatch = useDispatch();
 
@@ -243,7 +243,7 @@ console.log("details22",detail)
   };
 
   const renderItem = ({ item }) => {
-    console.log("item", item)
+    // console.log("item", item)
     return (
       <View>
         <TouchableOpacity
@@ -406,13 +406,13 @@ console.log("details22",detail)
           if (myKiffs?.find((k) => k?.name.toUpperCase() == "E-SPORT" && k?.selected ==false )) {
             PageThreeData()
             // console.log(first)
-            console.log("not avial")
+            // console.log("not avial")
           }
           else if (myKiffs?.find((k) => k?.name.toUpperCase() == "E-SPORT" && k?.selected ==true) &&  isRegexMatch ) {
             PageThreeData()
-            console.log("avail")
+            // console.log("avail")
           }else{
-            console.log("llll")
+            // console.log("llll")
           }
         }}
 //         onPress={() => {

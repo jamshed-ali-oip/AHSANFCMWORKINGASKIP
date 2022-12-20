@@ -33,10 +33,10 @@ const Page5 = ({ setPage, profile }) => {
     setDetail(data?.User)
 
   }
-  console.log("details22", detail)
+  // console.log("details22", detail)
   const profileData = useSelector((state) => state?.auth?.profileData?.data)
   const profileData2 = useSelector((state) => state?.auth?.profileData?.data)
-  console.log("lll", profileData);
+  // console.log("lll", profileData);
   const USER_DATA = useSelector((state) => state?.auth?.User)
   // useEffect(()=>{
   // if(USER_DATA){
@@ -56,7 +56,7 @@ const Page5 = ({ setPage, profile }) => {
   // const fivePageData = useSelector((state) => state?.auth?.User)
   const fivePageData = useSelector((state) => state?.user?.data)
 
-  console.log(fivePageData, "fivePageData fivePageData fivePageData")
+  // console.log(fivePageData, "fivePageData fivePageData fivePageData")
 
 
 
@@ -88,9 +88,9 @@ const Page5 = ({ setPage, profile }) => {
 
       if (response) {
         dispatch(imageUpload(response.assets?.[0],setReminder))
-        console.log("func", imageUpload)
+        // console.log("func", imageUpload)
         setimageName(response.assets?.[0].type)
-        console.log("datadtadtatta", response)
+        // console.log("datadtadtatta", response)
 
       }
     });

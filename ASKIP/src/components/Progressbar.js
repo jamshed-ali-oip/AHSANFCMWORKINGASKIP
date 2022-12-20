@@ -8,10 +8,7 @@ const { height, width } = Dimensions.get('window');
 const Progressbar = (props) => {
   const ok = useSelector(state => state?.auth?.progress)
   const percent = useSelector(state => state?.auth?.percent)
-  //   const step = useSelector(state => state?.auth?.User?.data?.futurGoal)
-  //   var Board=step !== null
-  //   step !== null?1:
-  // console.log(step)
+
 
   return (
 <>

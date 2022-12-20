@@ -5,7 +5,7 @@ const {width, height} = Dimensions.get('window');
 
 const CPage10 = ({setPage}) => {
   // const email=useSelector(state => state?.auth?.User?.email)
-  console.log("emaillllllllll",email||credentialemail)
+  // console.log("emaillllllllll",email||credentialemail)
   // const credentialemail=useSelector(state => state?.auth?.credential?.User?.email)
   const email=useSelector(state => state?.auth?.User?.data?.email)
   const credentialemail=useSelector(state => state?.auth?.credential?.User?.email)

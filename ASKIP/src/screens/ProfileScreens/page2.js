@@ -47,7 +47,7 @@ const Page2 = ({ setPage, profile }) => {
     setDetail(data?.User)
 
   }
-  console.log("details22", detail)
+  // console.log("details22", detail)
 
 
   useEffect(() => {
@@ -126,7 +126,7 @@ const Page2 = ({ setPage, profile }) => {
         })
         .catch((err) => {
           setValidEmail("invalid")
-          console.log(err.response.data)
+          // console.log(err.response.data)
           setEmailMessage(err.response?.data?.error)
         })
     }
@@ -210,6 +210,8 @@ const Page2 = ({ setPage, profile }) => {
             open={open}
             date={date}
             locale={'fr'}
+            // minimumDate={new Date(1990, 1, 1)}
+            maximumDate={new Date(2006, 12, 1)}
             onConfirm={date => {
               setOpen(false);
               setDate(date);

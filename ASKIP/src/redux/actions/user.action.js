@@ -8,7 +8,7 @@ export const userLogin = (data, setLoading, setError) => async (dispatch) => {
   try {
     setLoading(true)
     const response = await axios.post(`${base_URL}/user/login`, data)
-    console.log(response)
+    // console.log(response)
     if (response?.data?.data?.success) {
       setLoading(false)
       dispatch({
@@ -20,7 +20,7 @@ export const userLogin = (data, setLoading, setError) => async (dispatch) => {
   catch (error) {
     setLoading(false)
     setError(true)
-    console.log(error)
+    // console.log(error)
   }
 };
 
@@ -30,7 +30,7 @@ export const registerUser = (data, setLoading2, setError2, refRBSheet, refRBShee
   try {
     setLoading2(true)
     const response = await axios.post(`${base_URL}/user/register`, data)
-    console.log("register", response.data)
+    // console.log("register", response.data)
     if (response?.data?.data?.success) {
       refRBSheet.current.open()
       refRBSheet2.current.close()
@@ -41,14 +41,14 @@ export const registerUser = (data, setLoading2, setError2, refRBSheet, refRBShee
   catch (error) {
     setLoading2(false)
     setError2(true)
-    console.log(error)
+    // console.log(error)
   }
 };
 
 export const forget_Password = (data, setM2, setM3) => async (dispatch) => {
   try {
     const response = await axios.post(`${base_URL}/user/sendotp`, data)
-    console.log(response.data,"khjgjhgkgkjgkg")
+    // console.log(response.data,"khjgjhgkgkjgkg")
     if (response?.data?.data?.success) {
       setM2(false)
       setM3(true)
@@ -59,7 +59,7 @@ export const forget_Password = (data, setM2, setM3) => async (dispatch) => {
     }
   }
   catch (error) {
-    console.log(error)
+    // console.log(error)
   }
 };
 
@@ -84,16 +84,16 @@ export const forget_Inner_Password = (data, setPage) => async (dispatch) => {
 
 
 export const userVerifyInfo = (data, setpasswordSet) => async () => {
-  console.log("canhbdkjbs csbkj xm ckjs sck b", data)
+  // console.log("canhbdkjbs csbkj xm ckjs sck b", data)
   try {
     const response = await axios.post(`${base_URL}/user/verfi`, data)
-    console.log(response.data)
+    // console.log(response.data)
     if (response?.data) {
       setpasswordSet(true)
     }
   }
   catch (error) {
-    console.log(error)
+    // console.log(error)
   }
 };
 export const Inner_userVerifyInfo = (data, setPage) => async () => {
@@ -105,7 +105,7 @@ export const Inner_userVerifyInfo = (data, setPage) => async () => {
     }
   }
   catch (error) {
-    console.log(error)
+    // console.log(error)
   }
 };
 export const password_Reset = (data, refRBSheet3) => async () => {
@@ -121,7 +121,7 @@ export const password_Reset = (data, refRBSheet3) => async () => {
     }
   }
   catch (error) {
-    console.log("erorrrrrrrrrrr", error)
+    // console.log("erorrrrrrrrrrr", error)
   }
 };
 export const Inner_password_Reset = (data, setPage) => async () => {
@@ -132,7 +132,7 @@ export const Inner_password_Reset = (data, setPage) => async () => {
     }
   }
   catch (error) {
-    console.log("erorrrrrrrrrrr", error)
+    // console.log("erorrrrrrrrrrr", error)
   }
 };
 export const imageUpload = (data,setReminder) => async (dispatch) => {
@@ -416,6 +416,18 @@ export const UserDetail = async (userId)  => {
     console.log("detailss", error)
   }
 };
+export const ProfilePictureSet = (userId, body) => async (dispatch) => {
+  try {
+    const { data } = await axios.put(`${base_URL}/user/${userId}`, body)
+    console.log(data)
+    if (data?.data?.success) {
+   
+   
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 // events section 
 
@@ -536,6 +548,51 @@ export const ageVerification = async (userId)  => {
     console.log("age verification eror ", error)
   }
 };
+
+// PUSH NOTIFICATION API && INVITES
+
+export const FCMUPDATE = (data, userId) => async (dispatch) => {
+  try {
+    const response = await axios.put(`${base_URL}/fcmTokenUpdate/${userId}`, data)
+    console.log("FCM DATA USER ACTION",response)
+    
+    if (response?.data?.data) {
+
+    }
+  }
+  catch (error) {
+    console.log("FCM ERROR",error)
+
+  }
+}; 
+
+export const MESINVITES = async (userId) => {
+  try {
+    const response = await axios.get(`${base_URL}/invitationUser/${userId}`)
+    console.log("MES INVITATION ACTION CLG",response)
+    return response
+
+  }
+  catch (error) {
+    console.log("MES INVITATION ACTION CLG eror ", error)
+  }
+};
+export const StatusUpdate = (data, inviteId) => async (dispatch) => {
+  try {
+    const response = await axios.put(`${base_URL}/updateStatus/${inviteId}`, data)
+    console.log("updtae successss",response)
+    
+    if (response?.data?.data) {
+
+    }
+  }
+  catch (error) {
+    console.log("uppdate fail",error)
+
+  }
+};
+
+
 
 
 

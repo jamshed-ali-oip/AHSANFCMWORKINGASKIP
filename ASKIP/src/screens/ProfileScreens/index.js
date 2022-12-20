@@ -28,7 +28,7 @@ const ProfileScreens = ({navigation}) => {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [image, setImage] = useState();
-  console.log("tasweer",image)
+  // console.log("tasweer",image)
   const signOut = () => {
     dispatch({
       type: LOG_OUT
@@ -46,11 +46,11 @@ const ProfileScreens = ({navigation}) => {
     launchImageLibrary(options, (response) => {
       // Same code as in above section!
 
-      console.log(("image================",response.assets))
+      // console.log(("image================",response.assets))
       if (response) {
       
       }else{
-        console.log("not selected")
+        // console.log("not selected")
       }
      
     });
@@ -184,7 +184,7 @@ const ProfileScreens = ({navigation}) => {
                       onPress={() => {
                         // signout();
                         signOut()
-                        console.log("logout here...")
+                        // console.log("logout here...")
                       }}
                       style={styles.Butons}>
                       <Text style={styles.btn}>Oui</Text>

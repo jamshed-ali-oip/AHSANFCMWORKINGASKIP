@@ -8,12 +8,12 @@ import {
   Alert,
 
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Inputs from '../../components/Inputs';
 import FormInput from '../../components/Forminput';
 import { SignupBtn, Loginbtn } from '../../components/BTNS';
 import { useSelector, useDispatch } from 'react-redux';
-import { ChangesPassword, Delete_User } from "../../redux/actions/user.action"
+import { ChangesPassword, Delete_User, UserDetail } from "../../redux/actions/user.action"
 import { SceneMap } from 'react-native-tab-view';
 
 const { height, width } = Dimensions.get('window');
@@ -25,22 +25,32 @@ const CPage1 = ({ page, setPage, navigationState }) => {
   const [oldPass, setOldPass] = useState();
   const [newPass, setNewPass] = useState();
   const [confNewPass, setConfNewPass] = useState();
+  const [detail, setDetail] = useState()
   const id = useSelector(state => state?.auth?.credential?.User?._id);
   const token = useSelector(state => state?.auth?.credential?.token);
   const credentialemail = useSelector(state => state?.auth?.credential?.User?.email)
   const email = useSelector(state => state?.auth?.User?.data?.email)
   const userData = useSelector(state => state?.auth?.User)
   const [error, setError] = useState("")
-  console.log("page1 email", email)
+
   const dispatch = useDispatch()
   const delete_User = () => {
     dispatch(Delete_User(id, token))
   }
+  useEffect(() => {
 
+    UserInfo()
 
-  console.log(page)
+  }, [])
+  const UserInfo = async () => {
+    const {data}  = await UserDetail(id)
+    setDetail(data?.User)
+
+  }
+  console.log("page1 email",detail?.email)
+  // console.log(page)
   const consultdata = () => {
-    if (email || credentialemail) {
+    if (detail?.email) {
       setPage(7)
     } else {
       Alert.alert(
@@ -59,7 +69,7 @@ const CPage1 = ({ page, setPage, navigationState }) => {
     }
   }
   const Delete_data = () => {
-    if (email || credentialemail) {
+    if (detail?.email) {
       setPage(10)
     } else {
       Alert.alert(
@@ -189,10 +199,10 @@ const CPage1 = ({ page, setPage, navigationState }) => {
         </TouchableOpacity>
       </View>
       <Loginbtn link={() => changePassword()} title={'Confirmer'} />
-      <SignupBtn link={() => consultdata()} title={'Télécharger mes données'} />
+      <SignupBtn link={() =>{ consultdata(),UserInfo()}} title={'Télécharger mes données'} />
       <SignupBtn
         // link={()=>{delete_User()}}
-        link={() => Delete_data()}
+        link={() => {Delete_data(),UserInfo()}}
         title={'Supprimer mon compte'} />
     </View>
   );

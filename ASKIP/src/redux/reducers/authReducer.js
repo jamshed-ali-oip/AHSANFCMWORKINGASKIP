@@ -29,12 +29,12 @@ const authReducer = (state = InitialState, action) => {
         credential: {},
       };
     case REGISTER:
-      console.log(action.payload);
+      // console.log(action.payload);
       return {
         credential: action.payload
       };
     case SEND_OTP:
-      console.log(action.payload)
+      // console.log(action.payload)
       return {
         ...state,
         credential: action.payload
@@ -52,7 +52,7 @@ const authReducer = (state = InitialState, action) => {
         forgetInnerPassData: action.payload
       }
     case SET_PAGE_ONE:
-      console.log(action.payload);
+      // console.log(action.payload);
       return {
         ...state,
         // data: action.payload,

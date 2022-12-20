@@ -105,7 +105,7 @@ console.log("details22",detail)
   }
   let QuestionNo2 = relevantData?.data?.findRevelateur
   // console.log(QuestionNo2.filter((i)=>{i?._id=="637f7d7891403ccdae2de110"}),"ghhh",QuestionNo2,profile?.relatedRevelateur, "QQQQQQQQQQQQQQQQQQQQQQQQQ")
-console.log("dtadatdtatattadt", relevantData?.data?.findRevelateur.filter(it => it._id == profile?.relatedRevelateur)[0])
+// console.log("dtadatdtatattadt", relevantData?.data?.findRevelateur.filter(it => it._id == profile?.relatedRevelateur)[0])
 
   useEffect(() => {
     fetchData()
@@ -130,7 +130,7 @@ console.log("dtadatdtatattadt", relevantData?.data?.findRevelateur.filter(it => 
     if (profile?.relatedRevelateur !== null) {
       const q2Data = relevantData?.data?.findRevelateur.filter(it => it._id == profile?.relatedRevelateur)[0]
       
-      console.log("q2Dataq2Dataq2Dataq2Data",q2Data)
+      // console.log("q2Dataq2Dataq2Dataq2Data",q2Data)
       setQ2(relevantData?.data?.findRevelateur.filter(it => it._id == profile?.relatedRevelateur)[0])
     }
     if (profile?.registeredSPE !== null) {
@@ -159,7 +159,7 @@ console.log("dtadatdtatattadt", relevantData?.data?.findRevelateur.filter(it => 
   const relevator = () => {
     useDispatch(relevant(userId))
   }
-  console.log(Q2, "kfklsafaskdgfkjefjgaskljfglkdsjaglufk")
+  // console.log(Q2, "kfklsafaskdgfkjefjgaskljfglkdsjaglufk")
   return (
     <ScrollView>
       <View style={{ marginTop: height * 0.01 }}>
