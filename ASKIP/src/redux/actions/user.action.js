@@ -4,17 +4,20 @@ import { base_URL, base_URL_Muhib } from "../../config/config";
 import { LOG_IN, REGISTER, FORGET_PASSWORD, SEND_OTP, LOG_OUT, ID_CARD_IMAGE, FORGET_INNER_PASSWORD, GET_KIFFS_DATA, CONSULT_DATA, RELEVENT, DATA_EMPTY, SET_PAGE_ONE, SET_PAGE_TWO, SET_PAGE_THREE, SET_PAGE_FOUR, PROFILE_IMAGE, GET_EVENTS } from "../const/const";
 
 
-export const userLogin = (data, setLoading, setError) => async (dispatch) => {
+export const userLogin = (data, setLoading, setError,refRBSheet) => async (dispatch) => {
   try {
     setLoading(true)
     const response = await axios.post(`${base_URL}/user/login`, data)
     // console.log(response)
     if (response?.data?.data?.success) {
-      setLoading(false)
-      dispatch({
-        type: LOG_IN,
-        payload: response?.data?.data
-      })
+      refRBSheet?refRBSheet.current.close():null
+      setTimeout(()=>{
+        setLoading(false)
+        dispatch({
+          type: LOG_IN,
+          payload: response?.data?.data
+        })
+      },200)
     }
   }
   catch (error) {
@@ -35,7 +38,9 @@ export const registerUser = (data, setLoading2, setError2, refRBSheet, refRBShee
       refRBSheet.current.open()
       refRBSheet2.current.close()
       setLoading2(false)
-      setReminder(true)
+      setTimeout(()=>{
+        setReminder(true)
+      },200)
     }
   }
   catch (error) {

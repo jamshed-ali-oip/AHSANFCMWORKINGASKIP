@@ -59,10 +59,10 @@ const Selectscreen = ({ navigation }) => {
   const [Reminder, setReminder] = useState(false);
 
   useEffect(() => {
-      if(phoneNumber){
-        setPhone(phoneNumber)
-      }
-  }, [phone,phoneNumber])
+    if (phoneNumber) {
+      setPhone(phoneNumber)
+    }
+  }, [phone, phoneNumber])
   const data2 = [
     {
       type: 'email',
@@ -112,7 +112,7 @@ const Selectscreen = ({ navigation }) => {
       setError(true)
     } else {
       // console.log("hhda", data)
-      dispatch(userLogin(data, setLoading, setError));
+      dispatch(userLogin(data, setLoading, setError,refRBSheet));
     }
 
   };
@@ -129,7 +129,7 @@ const Selectscreen = ({ navigation }) => {
       setError2(true)
 
     } else {
-      dispatch(registerUser(data, setLoading2, setError2, refRBSheet, refRBSheet2,setReminder))
+      dispatch(registerUser(data, setLoading2, setError2, refRBSheet, refRBSheet2, setReminder))
       setError2(false)
     }
 
@@ -278,7 +278,7 @@ const Selectscreen = ({ navigation }) => {
               value={phone}
               placeholder="06.06.06.06.06"
               placeholderTextColor="#afafaf"
-              style={{ color: "black" }}
+              style={{ color: "black", height: height * 0.065 }}
               onChangeText={(masked, unmasked) => {
                 setPhone(masked);
               }}
@@ -333,7 +333,10 @@ const Selectscreen = ({ navigation }) => {
           <TouchableOpacity
             onPress={() => {
               // navigation.navigate('Forget');
-              setForget(true);
+              refRBSheet.current.close();
+              setTimeout(() => {
+                setForget(true);
+              }, 200)
             }}>
             <Text style={style.forget}>
               Mot de passe oublié ? Je le réinitialise
@@ -387,7 +390,9 @@ const Selectscreen = ({ navigation }) => {
           <SignupBtn
             link={() => {
               refRBSheet.current.close();
-              refRBSheet2.current.open();
+              setTimeout(() => {
+                refRBSheet2.current.open();
+              }, 200)
             }}
             title="Se créer un compte"
           />
@@ -566,7 +571,7 @@ const Selectscreen = ({ navigation }) => {
               value={phoneNumber}
               placeholder="06.06.06.06.06"
               placeholderTextColor="#afafaf"
-              style={{ color: "black" }}
+              style={{ color: "black", height: height * 0.065 }}
               onChangeText={(masked, unmasked) => {
                 setphoneNumber(masked);
               }}
@@ -733,7 +738,9 @@ const Selectscreen = ({ navigation }) => {
           <SignupBtn
             link={() => {
               refRBSheet2.current.close();
-              refRBSheet.current.open();
+              setTimeout(() => {
+                refRBSheet.current.open();
+              }, 200);
             }}
             title="Se connecter"
           />
@@ -860,6 +867,8 @@ const Selectscreen = ({ navigation }) => {
                     <Inputs
                       width={width * 0.6}
                       widths={width * 0.6}
+                      height={height * 0.065}
+                      heights={height * 0.065}
                       setvalue={setVerifyemail}
                       value={Verifyemail}
                       placeholder="e-mail"
@@ -870,6 +879,8 @@ const Selectscreen = ({ navigation }) => {
                       widths={width * 0.6}
                       setvalue={setnumber}
                       value={number}
+                      height={height * 0.065}
+                      heights={height * 0.065}
                       placeholder="numéro de téléphone"
                       type="numeric"
                       maxletter={10}
@@ -911,7 +922,9 @@ const Selectscreen = ({ navigation }) => {
                       setM2(false),
                       setM3(false),
                       setForget(false),
-                      refRBSheet3.current.open()
+                      setTimeout(()=>{
+                        refRBSheet3.current.open()
+                      },200)
                     )}
                     style={[
                       style.Connnection,
@@ -925,15 +938,15 @@ const Selectscreen = ({ navigation }) => {
           </View>
         </Modal>
         <Modal
-        animationType="slide"
-        transparent={true}
-        visible={Reminder}
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-          setReminder(!Reminder);
-        }}
-      >
-         <View style={style.centeredView}>
+          animationType="slide"
+          transparent={true}
+          visible={Reminder}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setReminder(!Reminder);
+          }}
+        >
+          <View style={style.centeredView}>
             <View style={style.rawBottomModalView}>
               <ImageBackground
                 imageStyle={{ borderRadius: width * 0.08 }}
@@ -950,23 +963,23 @@ const Selectscreen = ({ navigation }) => {
                       flexDirection: 'row',
                       paddingHorizontal: width * 0.045,
                       // alignItems:"center"
-                      justifyContent:"center"
-                     
+                      justifyContent: "center"
+
                     }}>
                     <TouchableOpacity
-                       onPress={()=>setReminder(!Reminder)}
+                      onPress={() => setReminder(!Reminder)}
                       style={style.rawBottomButons}>
                       <Text style={style.btn}>D'accord</Text>
                     </TouchableOpacity>
-                   
+
                   </View>
                 </>
 
               </ImageBackground>
             </View>
           </View>
-      </Modal>
-   
+        </Modal>
+
       </>
     </View>
   );
@@ -1107,7 +1120,7 @@ const style = StyleSheet.create({
   },
   Connnection: {
     height: height * 0.06,
-    width: width * 0.65,
+    width: width * 0.6,
     borderRadius: width * 0.02,
     // alignItems:"center",
     justifyContent: 'center',
@@ -1145,6 +1158,7 @@ const style = StyleSheet.create({
   },
   tage: {
     marginLeft: width * 0.12,
+    marginTop: width * 0.012,
     paddingBottom: height * 0.01,
     color: "black",
     fontWeight: "600",
@@ -1170,12 +1184,12 @@ const style = StyleSheet.create({
     backgroundColor: 'white',
     // marginTop: height * 0.3,
     alignSelf: 'center',
-  },  rawBottomModalImage: {
+  }, rawBottomModalImage: {
     width: width * 0.8,
     height: height * 0.22,
     // borderRadius: width * 0.08,
     resizeMode: 'contain',
-  },  modalText: {
+  }, modalText: {
     textAlign: 'center',
     // fontSize: width * 0.045,
     // fontWeight: '400',
@@ -1189,7 +1203,7 @@ const style = StyleSheet.create({
     // letterSpacing: -1,
     fontFamily: 'Bebas Neue Bold Regular',
     fontSize: width * 0.045,
-  } , rawBottomButons: {
+  }, rawBottomButons: {
     width: width * 0.22,
     height: height * 0.065,
     backgroundColor: '#081a4f',

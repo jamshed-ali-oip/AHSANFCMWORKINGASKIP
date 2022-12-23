@@ -92,11 +92,11 @@ const HomeScreens = ({ navigation }) => {
   ];
 
   const RawBottomSheet = () => {
-   
-    let b=getSub?.item?.subsIdAdminAndRevelature?.filter((i) => i._id === Revelator||RID );
-    let c=b?.[0]?.firstName +" " + b?.[0]?.lastName
-    let d=getSub?.item?.subsIdAdminAndRevelature[0]?.firstName+" "+getSub?.item?.subsIdAdminAndRevelature[0]?.lastName
-     console.log(c,d)
+
+    let b = getSub?.item?.subsIdAdminAndRevelature?.filter((i) => i._id === Revelator || RID);
+    let c = b?.[0]?.firstName + " " + b?.[0]?.lastName
+    let d = getSub?.item?.subsIdAdminAndRevelature[0]?.firstName + " " + getSub?.item?.subsIdAdminAndRevelature[0]?.lastName
+    console.log(c, d)
     return (
       <View
         style={{
@@ -134,7 +134,7 @@ const HomeScreens = ({ navigation }) => {
         <View style={styles.rawBottomSecondView}>
           <Text style={styles.rawBottomdescription}>{getSub?.item?.category}</Text>
           <Text style={styles.rawBottomdateandtime}>
-          {moment(getSub?.item?.beginAt).locale('fr').format('llll')} de {getSub?.item?.startTime} à {getSub?.item?.endTime}
+            {moment(getSub?.item?.beginAt).locale('fr').format('llll')} de {getSub?.item?.startTime} à {getSub?.item?.endTime}
           </Text>
         </View>
         <View style={styles.rawBottomThirdView}>
@@ -186,7 +186,7 @@ const HomeScreens = ({ navigation }) => {
             }}>
             <Text style={styles.flatlistheading}> {item.item.eventName}-{item?.item?.city} </Text>
 
-            <View style={{ flexDirection: 'row',justifyContent:"space-between",paddingRight:width*0.02,alignItems:"center" }}>
+            <View style={{ flexDirection: 'row', justifyContent: "space-between", paddingRight: width * 0.02, alignItems: "center" }}>
               <Text style={styles.flatlistdescription}>
                 {item?.item?.category}
               </Text>
@@ -203,14 +203,14 @@ const HomeScreens = ({ navigation }) => {
             setModalVisible(false);
           }}>
           <TouchableOpacity
-          onPress={()=>{  setModalVisible(false);}}
-          style={styles.QRModalView}>
+            onPress={() => { setModalVisible(false); }}
+            style={styles.QRModalView}>
             <View style={styles.QRModalInnerView}>
               <TouchableOpacity
                 onPress={() => {
                   // setModalVisible(false);
                 }}>
-                <QRCode size={170} value={JSON.stringify({userId:userId,eventId:EventID,lastName:firstName || userdataFname,firstName:Fname || UserFirstName})} />
+                <QRCode size={170} value={JSON.stringify({ userId: userId, eventId: EventID, lastName: firstName || userdataFname, firstName: Fname || UserFirstName })} />
               </TouchableOpacity>
             </View>
           </TouchableOpacity>
@@ -312,6 +312,13 @@ const HomeScreens = ({ navigation }) => {
                 // padding:width*0.00,
                 width: width * 0.18,
                 elevation: 5,
+                shadowColor: "#000",
+                shadowOffset: {
+                  width: 0,
+                  height: 2,
+                },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
                 borderRadius: width * 0.02,
                 height: height * 0.025,
                 alignItems: "center",
@@ -479,6 +486,13 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: height * 0.03,
     elevation: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
     paddingHorizontal: width * 0.035,
   },
   mainHeading: {

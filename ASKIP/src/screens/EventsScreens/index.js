@@ -66,7 +66,7 @@ const EventsScreens = ({ navigation }) => {
 
     setEvents(data)
   };
-// console.log("eventsss",events?.data?.length)
+  // console.log("eventsss",events?.data?.length)
   const Profile_Checking = async () => {
     const { data } = await dispatch(ProfileChecking(userId, setPower, setBTN));
 
@@ -571,7 +571,7 @@ const EventsScreens = ({ navigation }) => {
           }
           <View style={styles.LowerRendersecondview}>
             <Text style={styles.flatlistheading}>{item?.item?.eventName}-{item?.item?.city}.. </Text>
-            <View style={{ flexDirection: 'row', justifyContent:"space-between",paddingRight:width*0.02,alignItems:"center"}}>
+            <View style={{ flexDirection: 'row', justifyContent: "space-between", paddingRight: width * 0.02, alignItems: "center" }}>
               <Text style={styles.flatlistdescription}>
                 {item?.item?.category}
               </Text>
@@ -698,20 +698,20 @@ const EventsScreens = ({ navigation }) => {
 
           </View>
           <ScrollView>
-          { events?.data?.length!==0?
-           <View style={{ marginBottom: height * 0.25 }}>
-              <FlatList
-                scrollEnabled={true}
-                data={events?.data}
-                keyExtractor={item => item.id}
-                renderItem={LowerRender}
-              />
-            </View> 
-            :
-            
-            <Image
-            style={{alignSelf:"center",resizeMode:"contain",marginTop:height*0.08}}
-            source={require("../../assets/images/noevent.png")} />}
+            {events?.data?.length !== 0 ?
+              <View style={{ marginBottom: height * 0.25 }}>
+                <FlatList
+                  scrollEnabled={true}
+                  data={events?.data}
+                  keyExtractor={item => item.id}
+                  renderItem={LowerRender}
+                />
+              </View>
+              :
+
+              <Image
+                style={{ alignSelf: "center", resizeMode: "contain", marginTop: height * 0.08 }}
+                source={require("../../assets/images/noevent.png")} />}
           </ScrollView>
           <View>
             <RBSheet
@@ -982,6 +982,14 @@ const styles = StyleSheet.create({
     borderRadius: width * 0.035,
     resizeMode: 'stretch',
     elevation: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.58,
+    shadowRadius: 16.00,
+
   },
   LowerRenderfirstview: {
     // width: width * 0.4,
