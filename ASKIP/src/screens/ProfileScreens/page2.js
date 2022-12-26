@@ -259,7 +259,7 @@ const Page2 = ({ setPage, profile }) => {
       <TouchableOpacity onPress={() => setPageTwoData()}
 
         style={Styles.touch}>
-        <Text style={Styles.text2}>Enregistrer les modifications</Text>
+        <Text style={Styles.text2}>Continuer</Text>
       </TouchableOpacity>
       <Modal
         animationType="slide"

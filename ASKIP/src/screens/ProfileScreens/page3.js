@@ -427,7 +427,7 @@ const Page3 = ({ setPage, profile }) => {
 //         }}
         style={styles.touch}
       >
-        <Text style={styles.text2}>Enregistrer les modifications</Text>
+        <Text style={styles.text2}>Continuer</Text>
       </TouchableOpacity>
       <View
         style={{

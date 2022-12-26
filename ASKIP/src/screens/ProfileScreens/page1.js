@@ -107,7 +107,7 @@ const Page1 = ({ setPage, profile }) => {
         onPress={() => setPageOneData()}
 
         style={styles.touch}>
-        <Text style={styles.text2}>Enregistrer les modifications</Text>
+        <Text style={styles.text2}>Continuer</Text>
       </TouchableOpacity>
 
       <Modal

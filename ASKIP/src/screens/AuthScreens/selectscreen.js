@@ -1031,7 +1031,7 @@ const style = StyleSheet.create({
     marginTop: height * 0.7,
   },
   box: {
-    marginTop: height * 0.05,
+    marginTop: height * 0.04,
   },
   head: {
     // fontSize: width * 0.055,

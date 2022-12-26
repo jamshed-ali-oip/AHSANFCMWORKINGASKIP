@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
   Modal,
+  LayoutAnimation,
 } from 'react-native';
 import React, { useState } from 'react';
 import TopTab from '../../components/TopTab';
@@ -27,12 +28,28 @@ const ProfileScreens = ({navigation}) => {
   const kiffs=useSelector(state => state?.auth?.credential?.User?.kiffs)
 
   const [modalVisible, setModalVisible] = useState(false);
+  console.log("modalVisible",modalVisible)
   const [image, setImage] = useState();
   // console.log("tasweer",image)
-  const signOut = () => {
-    dispatch({
-      type: LOG_OUT
+  const test = async () =>{
+    await dispatch({
+      type:LOG_OUT
     })
+  }
+  const closeModal=async()=>{
+    await setModalVisible(false);
+    test()
+  }
+  const signOut =async () => {
+    console.log('====================================');
+    await closeModal()
+    // console.log(modalVisible);
+    console.log('====================================');
+    // LayoutAnimation.easeInEaseOut();
+    // dispatch({
+    //   type: LOG_OUT
+    // })
+
   }
 
   const onFromPickerImage = () => {
@@ -179,6 +196,7 @@ const ProfileScreens = ({navigation}) => {
                     style={{
                       flexDirection: 'row',
                       paddingHorizontal: width * 0.045,
+                      marginTop:-height*0.02
                     }}>
                     <TouchableOpacity
                       onPress={() => {

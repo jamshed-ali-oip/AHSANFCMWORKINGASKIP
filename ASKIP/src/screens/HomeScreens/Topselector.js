@@ -211,7 +211,7 @@ const Topselector = ({ }) => {
     return (
       <>
         {
-          item?.item?.id == 1 ? (
+          item?.item?.id == 1 && Count >0 ? (
             <View
             style={{
               position: "absolute",
@@ -731,11 +731,11 @@ const styles = StyleSheet.create({
     paddingVertical: height * 0.0057,
   },
   circle: {
-    width: width * 0.115,
+    width: Platform.OS =="ios" ? width * 0.089:width * 0.11,
     height: height * 0.055,
     // backgroundColor: '#ffbc15',
     // borderRadius: width * 0.1,
-    marginTop: width * 0.037,
+    marginTop: Platform.OS =="ios" ? width * 0.1:width * 0.037,
     marginLeft: width * 0.027,
     resizeMode: 'contain',
   },

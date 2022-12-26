@@ -412,6 +412,7 @@ const styles = StyleSheet.create({
     width: width * 0.09,
     height: height * 0.049,
     marginRight: width * 0.02,
+    resizeMode:"contain"
   },
   mainText: {
     fontSize: width * 0.065,

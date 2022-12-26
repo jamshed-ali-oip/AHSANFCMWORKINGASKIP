@@ -129,7 +129,7 @@ const Page5 = ({ setPage, profile }) => {
       <TouchableOpacity
         onPress={() => SavePageFivedata()}
         style={styles.touch}>
-        <Text style={styles.text2}>Enregistrer les modifications</Text>
+        <Text style={styles.text2}>Enregistrer mon profil</Text>
       </TouchableOpacity>
       <View style={{ height: height * 0.096 }}></View>
       <Modal

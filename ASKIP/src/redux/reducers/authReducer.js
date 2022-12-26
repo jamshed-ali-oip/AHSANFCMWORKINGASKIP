@@ -10,7 +10,8 @@ const InitialState = {
   consultData: [],
   userInfo: [],
   progress:0.1,
-  Tasweer:[]
+  Tasweer:[],
+  Test:false
 
 };
 
@@ -92,6 +93,8 @@ const authReducer = (state = InitialState, action) => {
         ...state,
         User: action.payload,
         progress:1,
+        Test:true
+
      
       }
       case PROFILE_IMAGE:
@@ -100,6 +103,11 @@ const authReducer = (state = InitialState, action) => {
           ...state,
           Tasweer: action.payload
         }
+        case "CLOSE":
+          return{
+            ...state,
+            Test:false
+          }
 
     default:
       return state;

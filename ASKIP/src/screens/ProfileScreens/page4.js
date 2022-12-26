@@ -276,7 +276,7 @@ console.log("details22",detail)
         <TouchableOpacity
           onPress={() => savePageFourdata()}
           style={styles.touch}>
-          <Text style={styles.text2}>Enregistrer les modifications</Text>
+          <Text style={styles.text2}> Continuer</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>

@@ -1,24 +1,36 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { Alert, Modal, StyleSheet, Text, Pressable, View, ImageBackground,Dimensions,TouchableOpacity } from "react-native";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 const { width, height } = Dimensions.get('window');
 const Cmodal = (props) => {
   const ok = useSelector(state => state?.auth?.progress)
+  const notok=useSelector(state => state?.auth?.Test)
+  console.log("lora merea ",notok)
   const [modalVisible, setModalVisible] = useState(false);
-  
+  // console.log('====================================');
+  // console.log();
+  // console.log('====================================');
   useEffect(()=>{
-    if(ok ===1){
-      setModalVisible(!modalVisible)
+    if(notok ===true){
+      setModalVisible(true)
     }
   },[ok])
   const handleOnpress = () =>{
     props.onPress();
-    setModalVisible(false)
+    setModalVisible(false);
+    dispatch({
+      type:"CLOSE"
+    })
+    
   }
+  const dispatch = useDispatch()
     const handleOnpress2 = () =>{
     props.onPress2();
     setModalVisible(false)
+    dispatch({
+      type:"CLOSE"
+    })
   }
   return (
     <View style={styles.centeredView}>
@@ -40,7 +52,7 @@ const Cmodal = (props) => {
 
                 <>
                   <Text style={styles.modalText}>
-                    <Text style={{ fontFamily: 'Bebas Neue Pro Bold', fontSize: width * 0.048 }}> </Text>
+                    <Text style={{  fontSize: width * 0.048 }}> </Text>
                     Inscris-toi dès maintenant aux évènements ASKIP’
                   </Text>
                   <View

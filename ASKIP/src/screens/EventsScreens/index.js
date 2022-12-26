@@ -98,13 +98,16 @@ const EventsScreens = ({ navigation }) => {
   };
 
   const AgeHandle = () => {
-    if (ageVer === false) {
-      Setmodalsec(true)
-    } else {
-      SubscribeEvent();
+    SubscribeEvent();
       SetShowModal(false);
       refRBSheet.current.close()
-    }
+    // if (ageVer === false) {
+    //   Setmodalsec(true)
+    // } else {
+    //   SubscribeEvent();
+    //   SetShowModal(false);
+    //   refRBSheet.current.close()
+    // }
   }
   const Okhandle = () => {
     Setmodalsec(false);
