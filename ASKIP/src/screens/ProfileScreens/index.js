@@ -8,6 +8,7 @@ import {
   Image,
   Modal,
   LayoutAnimation,
+  Platform,
 } from 'react-native';
 import React, { useState } from 'react';
 import TopTab from '../../components/TopTab';
@@ -90,7 +91,7 @@ const ProfileScreens = ({navigation}) => {
               setModalVisible(true);
             }}>
             <Image
-              style={{ alignSelf: 'flex-end' }}
+              style={{ alignSelf: 'flex-end',marginTop:Platform.OS=="ios"?height*0.05:null }}
               source={require('../../assets/images/signout.png')}
             />
           </TouchableOpacity>
@@ -102,6 +103,7 @@ const ProfileScreens = ({navigation}) => {
             style={{
               flexDirection: 'row',
               justifyContent: 'center',
+              marginTop:Platform.OS=="ios"?height*0.003:null
             }}>
             <Text
               style={{
@@ -294,8 +296,15 @@ const styles = StyleSheet.create({
     position: 'absolute',
     alignSelf: 'center',
     borderRadius: width * 0.05,
-    elevation: 5,
-    marginTop: height * 0.08,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.39,
+    shadowRadius: 8.30,
+    elevation: 12,
+    marginTop: Platform.OS=="ios"?height * 0.09:height * 0.08,
   },
   profile: {
     backgroundColor: Colors.whitetext,

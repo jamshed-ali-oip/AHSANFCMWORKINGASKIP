@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View,TouchableOpacity,Image,Dimensions } from 'react-native'
+import { StyleSheet, Text, View,TouchableOpacity,Image,Dimensions, Platform } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { profileImage, ProfilePictureSet, UserDetail } from '../../redux/actions/user.action';
 import { useDispatch, useSelector } from 'react-redux';
@@ -62,7 +62,7 @@ const ProfileImage = () => {
               <Image
                 style={{
                   height: height * 0.11,
-                  width: width * 0.2,
+                  width: width * 0.21,
                   resizeMode: 'contain',
                   borderRadius: width * 0.5,
                   alignSelf: 'center',
@@ -80,10 +80,18 @@ export default ProfileImage
 const styles = StyleSheet.create({ profile: {
     backgroundColor: Colors.whitetext,
     height: height * 0.12,
-    width: width * 0.22,
+    width: width * 0.23,
     alignSelf: 'center',
     borderRadius: width * 0.8,
-    marginTop: -height * 0.05,
-    elevation: 5,
+    marginTop: Platform.OS === "ios"?-height * 0.03:-height * 0.05,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.30,
+    shadowRadius: 4.65,
+    
+    elevation: 8,
     justifyContent: 'center',
   },})

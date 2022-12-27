@@ -4,10 +4,13 @@ import {
   Text, 
   View,
   Image,
-  Dimensions
+  Dimensions,
+  SafeAreaView,
+  StatusBar
 } from 'react-native'
 import React from 'react'
 import { useSelector } from 'react-redux';
+import Colors from '../../components/Colors';
 const {height, width} = Dimensions.get('window');
 
 const WalletScreens = () => {
@@ -15,7 +18,11 @@ const WalletScreens = () => {
   const userId = useSelector((state) => state?.auth?.credential?.User?._id)
  console.log("real oid",userId)
   return (
-    <View
+    
+    <SafeAreaView
+    style={styles.container}>
+   
+      <View
     style={styles.container}
     >
       <Image
@@ -23,6 +30,7 @@ const WalletScreens = () => {
       source={require("../../assets/images/comingsoon.png")}
       />      
     </View>
+    </SafeAreaView>
   )
 }
 

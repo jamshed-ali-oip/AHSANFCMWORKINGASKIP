@@ -596,7 +596,27 @@ export const StatusUpdate = (data, inviteId) => async (dispatch) => {
 
   }
 };
-
+export const Stackprofile = (userId,setProfilStatus) => async (dispatch) => {
+  console.log(userId)
+  try {
+    const response = await axios.get(`${base_URL}/user/checkingSteps/${userId}`)
+    console.log("Stackprofile yahan aja ",response?.data?.success)
+   
+    if (response?.data?.success){
+  
+      console.log("",response)
+      setProfilStatus(response?.data)
+      
+    }
+    // setProfilStatus({ ji: "jjjjjjj" })
+    
+  }
+  catch (error) {
+    setPower(true)
+    console.log("Stackprofile", error)
+    setProfilStatus(false)
+  }
+};
 
 
 

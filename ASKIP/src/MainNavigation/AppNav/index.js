@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {Dimensions, Image} from 'react-native';
 import {View, Text} from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -14,32 +14,49 @@ import ProfileScreens from '../../screens/ProfileScreens';
 import Colors from '../../assets/colors/Colors';
 import Connexion from '../../screens/ProfileScreens/Connexion';
 import {Svg, Path} from 'react-native-svg';
+import { useDispatch, useSelector } from 'react-redux';
+import { Stackprofile } from '../../redux/actions/user.action';
 let {width, height} = Dimensions.get('window');
 
 const Stack = createNativeStackNavigator();
-const HomeComponent = () => {
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-        tabBarHideOnKeyboard: true,
-      }}
-      initialRouteName="ProfileScreens">
-      <Stack.Screen name="HomeScreens" component={HomeScreens} />
-      <Stack.Screen name="EventsScreens" component={EventsScreens} />
-      <Stack.Screen name="WalletScreens" component={WalletScreens} />
-      <Stack.Screen name="ProfileScreens" component={ProfileScreens} />
+
+// const HomeComponent = () => {
+//   const [ProfilStatus,setProfilStatus]=useState(false)
+//   const userId = useSelector((state) => state?.auth?.credential?.User?._id)
+//   useEffect(()=>{
+//     StackChanges()
+//   },[])
+//   const StackChanges = async () => {
+//     const { data } = await dispatch(Stackprofile(userId,setProfilStatus));
+//     console.log("============================================================")
+//     console.log("StackChanges",data)
+//     console.log("============================================================")
+
+//   }
+//   return (
+//     <Stack.Navigator
+//       screenOptions={{
+//         headerShown: false,
+//         tabBarHideOnKeyboard: true,
+//       }}
+//       initialRouteName="HomeScreens">
+//       <Stack.Screen name="HomeScreens" component={HomeScreens} />
+//       <Stack.Screen name="EventsScreens" component={EventsScreens} />
+//       <Stack.Screen name="WalletScreens" component={WalletScreens} />
+//       <Stack.Screen name="ProfileScreens" component={ProfileScreens} />
    
       
       
-    </Stack.Navigator>
-  );
-};
+//     </Stack.Navigator>
+//   );
+// };
 const AppNav = () => {
+  
   const Tab = AnimatedTabBarNavigator();
   return (
     <Tab.Navigator
-      initialRouteName="ProfileScreens"
+ 
+      initialRouteName="HomeScreens"
       tabBarOptions={{
         activeTintColor: 'white',
         inactiveTintColor: 'white',

@@ -204,7 +204,11 @@ const EventsScreens = ({ navigation }) => {
     let b = eventsDetail?.data?.data?.subsIdAdminAndRevelature?.filter((i) => i._id === Revelator || RID);
     let c = b?.[0]?.firstName + " " + b?.[0]?.lastName
     let d = eventsDetail?.data?.data?.subsIdAdminAndRevelature[0]?.firstName + " " + eventsDetail?.data?.data?.subsIdAdminAndRevelature[0]?.lastName
-
+console.log("eventsDetail?.data?.dataeventsDetail?.data?.dataeventsDetail?.data?.data")
+console.log(eventsDetail?.data?.data?.participationType[0]?.[0])
+console.log("eventsDetail?.data?.dataeventsDetail?.data?.dataeventsDetail?.data?.data")
+const online=eventsDetail?.data?.data?.participationType[0]?.[0]?.distancielThumbnail
+const offline=eventsDetail?.data?.data?.participationType[0]?.[0]?.presentielThumbnail
     return (
       <View
         style={{
@@ -267,7 +271,7 @@ const EventsScreens = ({ navigation }) => {
             {/* {data.item.Dateandtime} */}
           </Text>
         </View>
-        {eventsDetail?.data?.data?.mandatoryRegistrationOnline == false ? <View style={styles.rawBottomThirdView}>
+        {online == false ? <View style={styles.rawBottomThirdView}>
           <Image
             style={styles.rawBottomtinyImage}
             source={require('../../assets/images/locLogo.png')}
@@ -311,10 +315,11 @@ const EventsScreens = ({ navigation }) => {
                 <View
                   style={{ marginBottom: height * 0.1111, flexDirection: "row", justifyContent: "space-around" }}
                 >
-                  {eventsDetail?.data?.data?.mandatoryRegistrationOnSite == true ?
+                  {offline== true ?
                     <TouchableOpacity
                       onPress={() => {
-                        Age(), SetShowModal(true)
+                        // Age(),
+                         SetShowModal(true)
                       }
                       }
                       style={{
@@ -1185,8 +1190,8 @@ const styles = StyleSheet.create({
   },
   rawBottomButtonText: {
     color: 'white',
-    // padding: 14,
-    fontSize: width * 0.048,
+    paddingHorizontal: width*0.025,
+    fontSize: width * 0.045,
     letterSpacing: 0.15,
     textAlign: 'center',
     fontFamily: 'Bebas Neue Pro Bold',

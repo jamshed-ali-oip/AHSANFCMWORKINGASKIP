@@ -2,7 +2,7 @@
  * @format
  */
 
-import { AppRegistry,SafeAreaView } from 'react-native';
+import { AppRegistry,Dimensions,Platform,SafeAreaView, StatusBar } from 'react-native';
 
 import MainNavigation from './src/MainNavigation';
 import { name as appName } from './app.json';
@@ -11,7 +11,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from "redux-persist/integration/react"
 import messaging from '@react-native-firebase/messaging';
 import PushNotification, { Importance } from 'react-native-push-notification'
-
+let {width, height} = Dimensions.get('window');
 PushNotification.createChannel(
     {
         channelId: "channel-id", // (required)
@@ -33,7 +33,11 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
 const RoutreStack = () => {
     return (
         <Provider store={store}>
-            <SafeAreaView style={{flex:1}}>
+            <SafeAreaView style={{flex:1,
+                marginTop: Platform.OS=="ios" ?-height*0.06:null,
+                marginBottom:Platform.OS=="ios" ?-height*0.04:null,
+                }}>
+                
                 <PersistGate loading={null} persistor={persistor}>
                     <MainNavigation />
                 </PersistGate>

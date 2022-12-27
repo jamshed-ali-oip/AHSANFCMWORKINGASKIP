@@ -5,6 +5,7 @@ import {
   Image,
   ImageBackground,
   Modal,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -17,7 +18,7 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import QRCode from 'react-native-qrcode-svg';
 import Topselector from './Topselector';
 import { useSelector, useDispatch } from 'react-redux';
-import { getSubscribedEvents } from '../../redux/actions/user.action';
+import { getSubscribedEvents, Stackprofile } from '../../redux/actions/user.action';
 import { base_URL_IMAGE } from '../../config/config';
 // import moment from 'moment';
 import moment from 'moment/min/moment-with-locales'
@@ -26,6 +27,8 @@ const { width, height } = Dimensions.get('window');
 
 const HomeScreens = ({ navigation }) => {
   // const [textInput, setTextInput] = useState('');
+
+  
   const refRBSheet = useRef();
   const refRBSheet2 = useRef();
   const [modalVisible, setModalVisible] = useState(false);
@@ -34,6 +37,7 @@ const HomeScreens = ({ navigation }) => {
   const [getSubEv, setgetSubEv] = useState()
   const [getSub, setgetSub] = useState()
   const [EventID, setEventID] = useState()
+    const [ProfilStatus,setProfilStatus]=useState(false)
   const firstName = useSelector(state => state?.auth?.User?.data?.lastName)
   const Revelator = useSelector(state => state?.auth?.User?.relatedRevelateur)
   const RID = useSelector(state => state?.auth?.credential?.User?.relatedRevelateur)
@@ -42,12 +46,21 @@ const HomeScreens = ({ navigation }) => {
   const UserFirstName = useSelector(state => state?.auth?.credential?.User?.firstName)
   const userId = useSelector((state) => state?.auth?.credential?.User?._id)
   const dispatch = useDispatch()
+  const ok = useSelector(state => state?.auth?.progress)
+  useEffect(()=>{
 
+    dispatch(Stackprofile(userId,(data) => {
+      console.log("my lord ",data.success)
+      if(data.success==false){
+        navigation.navigate("ProfileScreens")
+      }
+    }));
+  },[])
   useEffect(() => {
     fetchData();
-
   }, [])
 
+ 
   const fetchData = async () => {
     const { data } = await getSubscribedEvents(userId)
     setgetSubEv(data)
@@ -279,7 +292,18 @@ const HomeScreens = ({ navigation }) => {
           <Text style={styles.mainText}>Bienvenue, {firstName || userdataFname} !</Text>
         </View>
         <View style={styles.viewtwo}>
-          <Text style={styles.simpleText}>
+          {
+            ok==1?<Text
+            style={{
+              color:Colors.theme_color,
+              fontFamily: 'Bebas Neue Pro Bold',
+              fontSize:Platform.OS=="ios"?width*0.045:width*0.035,
+              fontStyle:"italic"
+            }}
+            >
+              {/* Fais entendre ta voie ! */}
+              FAIS ENTENDRE TA VOIE !
+            </Text>:<Text style={styles.simpleText}>
             N’oublie pas de
             <Text> </Text>
             <Text
@@ -292,6 +316,7 @@ const HomeScreens = ({ navigation }) => {
             </Text>
             <Text> </Text>!
           </Text>
+          }
         </View>
         {/* {/ seracher  /} */}
         <Searcher />

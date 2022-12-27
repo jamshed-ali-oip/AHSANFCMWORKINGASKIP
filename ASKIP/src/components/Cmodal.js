@@ -6,7 +6,7 @@ const { width, height } = Dimensions.get('window');
 const Cmodal = (props) => {
   const ok = useSelector(state => state?.auth?.progress)
   const notok=useSelector(state => state?.auth?.Test)
-  console.log("lora merea ",notok)
+  // console.log("lora merea ",notok)
   const [modalVisible, setModalVisible] = useState(false);
   // console.log('====================================');
   // console.log();
