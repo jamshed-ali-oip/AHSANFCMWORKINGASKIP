@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   Image,
   Alert,
+  Modal,
+  ImageBackground
 
 } from 'react-native';
 import React, { useState,useEffect } from 'react';
@@ -32,11 +34,12 @@ const CPage1 = ({ page, setPage, navigationState }) => {
   const email = useSelector(state => state?.auth?.User?.data?.email)
   const userData = useSelector(state => state?.auth?.User)
   const [error, setError] = useState("")
-
+  const [mymodal, setmymodal] = useState(false);
   const dispatch = useDispatch()
   const delete_User = () => {
     dispatch(Delete_User(id, token))
   }
+  
   useEffect(() => {
 
     UserInfo()
@@ -97,7 +100,7 @@ const CPage1 = ({ page, setPage, navigationState }) => {
     if (data?.oldPassword == undefined || data?.newPassword == undefined || data?.confirmPassword == undefined) {
       alert("fill all")
     } else {
-      dispatch(ChangesPassword(data, id, setError))
+      dispatch(ChangesPassword(data, id, setError,setmymodal,))
     }
 
 
@@ -198,12 +201,53 @@ const CPage1 = ({ page, setPage, navigationState }) => {
           />
         </TouchableOpacity>
       </View>
-      <Loginbtn link={() => changePassword()} title={'Confirmer'} />
+      {/* changePassword() */}
+      <Loginbtn link={() =>  changePassword()} title={'Confirmer'} />
       <SignupBtn link={() =>{ consultdata(),UserInfo()}} title={'Télécharger mes données'} />
       <SignupBtn
         // link={()=>{delete_User()}}
         link={() => {Delete_data(),UserInfo()}}
         title={'Supprimer mon compte'} />
+              <Modal
+          animationType="fade"
+          transparent={true}
+          visible={mymodal}
+          onRequestClose={() => {
+            setmymodal(!mymodal);
+          }}>
+          <View style={styles.centeredView}>
+            <View style={styles.rawBottomModalView}>
+              <ImageBackground
+                imageStyle={{ borderRadius: width * 0.08 }}
+                style={styles.rawBottomModalImage}
+                source={require('../../assets/images/backgroundImage.png')}>
+
+                <>
+                  <Text style={styles.modalText}>
+                    <Text style={{  fontSize: width * 0.048 }}>  </Text>
+                    Ton mot de passe a été modifié avec succès !
+                  </Text>
+             
+                  
+                    <TouchableOpacity
+                      style={styles.rawBottomButons}
+                      onPress={() => {
+                        setmymodal(false),
+                        setConfNewPass(""),
+                        setNewPass(''),
+                        setOldPass("")
+
+                      
+                      }}>
+                      <Text style={styles.btn}>D'accord</Text>
+                    </TouchableOpacity>
+              
+                </>
+
+              </ImageBackground>
+            </View>
+          </View>
+        </Modal>
     </View>
   );
 };
@@ -242,5 +286,111 @@ const styles = StyleSheet.create({
     fontFamily: 'Bebas Neue Pro Regular',
     fontSize: width * 0.04,
     marginLeft: width * 0.12
+  },
+  rawBottomModalImage: {
+    width: width * 0.8,
+    height: height * 0.22,
+    // borderRadius: width * 0.08,
+    resizeMode: 'contain',
+  },
+  rawBottomModalView: {
+    width: width * 0.8,
+    height: height * 0.22,
+    borderRadius: width * 0.08,
+    alignContent: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    // marginTop: height * 0.3,
+    alignSelf: 'center',
+  },
+  rawBottomButons: {
+    width: width * 0.2,
+    height: height * 0.065,
+    backgroundColor: '#081a4f',
+    marginTop: height * 0.025,
+    // marginLeft: width * 0.1,
+    borderRadius: width * 0.018,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    // padding:width*0.04
+  },
+  btn: {
+    color: 'white',
+    textAlign: 'center',
+    fontWeight: '600',
+    fontSize: width * 0.04,
+
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // borderRadius: width * 0.08,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    // marginTop: 22
+  },
+  modalText: {
+    textAlign: 'center',
+    // fontSize: width * 0.045,
+    // fontWeight: '400',
+    color: '#081a4f',
+    marginTop: height * 0.02,
+    width: width * 0.65,
+    // paddingHorizontal: width * 0.045,
+    alignSelf: 'center',
+    textTransform: 'uppercase',
+    width: width * 0.7,
+    // letterSpacing: -1,
+
+    fontSize: width * 0.045,
+  },
+  scndmodalbtn: {
+    width: width * 0.15,
+    height: height * 0.05,
+    backgroundColor: '#081a4f',
+    borderRadius: width * 0.02,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: height * 0.01,
+  },
+  scndmodalimage: {
+    width: width * 0.073,
+    height: height * 0.052,
+    marginRight: -width * 0.02,
+  },
+  scndmodaltext: {
+    fontSize: width * 0.045,
+    textTransform: 'uppercase',
+    // paddingHorizontal: width * 0.01,
+    width: width * 0.7,
+    alignSelf: 'center',
+    // marginBottom: height * 0.0,
+    color: '#081a4f',
+    textAlign: 'center',
+    fontFamily: 'Bebas Neue Pro Regular',
+    fontSize: width * 0.048,
+    lineHeight: height * 0.03
+  },
+  scndmodaltext2: {
+    textTransform: 'uppercase',
+    color: '#081a4f',
+    fontFamily: 'Bebas Neue Pro Regular',
+    fontSize: width * 0.052,
+    marginTop: height * 0.01,
+  },
+  
+  flatlistdescription: {
+    fontSize: width * 0.042,
+    color: '#ffbc15',
+    marginLeft: width * 0.0325,
+    fontFamily: 'Bebas Neue Pro Regular',
+  },
+  flatlistdate: {
+    fontSize: width * 0.04,
+    color: '#001d4f',
+    marginLeft: width * 0.02,
+    fontFamily: 'Bebas Neue Pro Regular',
+    // marginTop: height * 0.0005,
   },
 });

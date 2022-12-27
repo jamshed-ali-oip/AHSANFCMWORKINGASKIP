@@ -387,7 +387,7 @@ export const Send_link = (data, setPage) => async (dispatch) => {
     console.log("erorrrrrrrrrrr", error)
   }
 };
-export const ChangesPassword = (data, userId, setError) => async (dispatch) => {
+export const ChangesPassword = (data, userId, setError,setmymodal) => async (dispatch) => {
   console.log("change passweord datat on useraction",data,userId)
   try {
     const response = await axios.put(`${base_URL}/user/changepass/${userId}`, data)
@@ -395,6 +395,7 @@ export const ChangesPassword = (data, userId, setError) => async (dispatch) => {
 
     if (response?.data?.success) {
       console.log("ok hogya")
+      setmymodal(true)
     }
   }
   catch (error) {
