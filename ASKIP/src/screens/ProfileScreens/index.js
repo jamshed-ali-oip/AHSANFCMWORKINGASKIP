@@ -87,7 +87,7 @@ const ProfileScreens = ({navigation}) => {
           }}
           source={require('../../assets/images/Header.png')}>
           <TouchableOpacity
-          style={{marginTop: 20}}
+          style={{marginTop: Platform.OS == 'ios' ? 0 :  20}}
             onPress={() => {
               setModalVisible(true);
             }}>

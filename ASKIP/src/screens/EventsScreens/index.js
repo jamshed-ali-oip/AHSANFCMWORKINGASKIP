@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   Modal,
   ImageBackground,
+  StatusBar
 } from 'react-native';
 import React, { useState, useRef, useEffect } from 'react';
 import RBSheet from 'react-native-raw-bottom-sheet';
@@ -624,7 +625,8 @@ const offline=eventsDetail?.data?.data?.participationType[0]?.[0]?.presentielThu
   };
 
   return (
-    <SafeAreaView style={{backgroundColor:'white'}}>
+    <View style={{backgroundColor:'white'}}>
+       <StatusBar barStyle='default' backgroundColor='transparent' />
       {Power == false ?
         <>
           <View>
@@ -644,7 +646,7 @@ const offline=eventsDetail?.data?.data?.participationType[0]?.[0]?.presentielThu
                   justifyContent: "space-around",
                   alignItems: "center",
                   borderRadius: width * 0.05,
-                  marginTop: height * 0.05,
+                  marginTop: height * 0.06,
                   // backgroundColor:"red"
                   borderColor: "#081a4f"
 
@@ -818,7 +820,7 @@ const offline=eventsDetail?.data?.data?.participationType[0]?.[0]?.presentielThu
             </ImageBackground>
           </View>
         </>}
-    </SafeAreaView>
+    </View>
 
   );
 };
@@ -938,7 +940,7 @@ const styles = StyleSheet.create({
   },
   upperViewMainImage: {
     width: width * 1,
-    height: height * 0.25,
+    height: height * 0.28,
     // paddingTop: height * 0.05
     // opacity: 0.7,
   },
