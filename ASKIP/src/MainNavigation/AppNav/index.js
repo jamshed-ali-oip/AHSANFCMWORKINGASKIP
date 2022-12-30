@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import {Dimensions, Image} from 'react-native';
-import {View, Text} from 'react-native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { Dimensions, Image, StatusBar } from 'react-native';
+import { View, Text } from 'react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
   AnimatedTabBarNavigator,
   TabButtonLayout,
@@ -13,10 +13,10 @@ import WalletScreens from '../../screens/Walletscreens';
 import ProfileScreens from '../../screens/ProfileScreens';
 import Colors from '../../assets/colors/Colors';
 import Connexion from '../../screens/ProfileScreens/Connexion';
-import {Svg, Path} from 'react-native-svg';
+import { Svg, Path } from 'react-native-svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { Stackprofile } from '../../redux/actions/user.action';
-let {width, height} = Dimensions.get('window');
+let { width, height } = Dimensions.get('window');
 
 const Stack = createNativeStackNavigator();
 
@@ -44,18 +44,18 @@ const Stack = createNativeStackNavigator();
 //       <Stack.Screen name="EventsScreens" component={EventsScreens} />
 //       <Stack.Screen name="WalletScreens" component={WalletScreens} />
 //       <Stack.Screen name="ProfileScreens" component={ProfileScreens} />
-   
-      
-      
+
+
+
 //     </Stack.Navigator>
 //   );
 // };
-const AppNav = () => {
-  
+function TabBar() {
+
   const Tab = AnimatedTabBarNavigator();
   return (
     <Tab.Navigator
- 
+
       initialRouteName="HomeScreens"
       tabBarOptions={{
         activeTintColor: 'white',
@@ -67,6 +67,7 @@ const AppNav = () => {
         tabBarBackground: Colors.theme_color,
         dotCornerRadius: width * 0.035,
       }}>
+
       <Tab.Screen
         name="HomeScreens"
         component={HomeScreens}
@@ -78,7 +79,7 @@ const AppNav = () => {
           headerShown: false,
           tabBarLabel: 'Accueil',
 
-          tabBarIcon: ({focused, color, size}) => (
+          tabBarIcon: ({ focused, color, size }) => (
             <Svg
               xmlns="http://www.w3.org/2000/svg"
               width="23"
@@ -102,7 +103,7 @@ const AppNav = () => {
           tabBarInactiveTintColor: 'black',
           headerShown: false,
           tabBarLabel: 'Événements',
-          tabBarIcon: ({color, size}) => (
+          tabBarIcon: ({ color, size }) => (
             // <Image
             //   style={{
             //     height: height * 0.04,
@@ -134,7 +135,7 @@ const AppNav = () => {
           tabBarActiveTintColor: '#e73d34',
           tabBarInactiveTintColor: 'black',
           headerShown: false,
-          tabBarIcon: ({color, size}) => (
+          tabBarIcon: ({ color, size }) => (
             // <Image
             //   style={{
             //     height: height * 0.04,
@@ -166,7 +167,7 @@ const AppNav = () => {
           tabBarActiveTintColor: 'green',
           tabBarInactiveTintColor: 'black',
           headerShown: false,
-          tabBarIcon: ({color, size}) => (
+          tabBarIcon: ({ color, size }) => (
             // <Image
             //   style={{
             //     height: height * 0.04,
@@ -197,4 +198,15 @@ const AppNav = () => {
     </Tab.Navigator>
   );
 };
+
+const AppNav = () => {
+
+  return (
+
+
+    TabBar()
+
+
+  )
+}
 export default AppNav;

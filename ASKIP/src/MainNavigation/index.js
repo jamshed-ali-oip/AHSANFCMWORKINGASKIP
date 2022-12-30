@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AppNav from './AppNav';
-import { View, Text, ActivityIndicator } from 'react-native';
+import { View, Text, ActivityIndicator, Platform } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AuthNav from './AuthNav';
 import SplashScreen from 'react-native-splash-screen';
@@ -86,7 +86,10 @@ const MainNavigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
+      
         screenOptions={{
+          statusBarTranslucent: true,
+          statusBarHidden: Platform.OS == 'ios' ? true : false,
           headerShown: false,
         }}>
         {token ? (

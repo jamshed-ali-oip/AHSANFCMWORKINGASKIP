@@ -7,6 +7,7 @@ import {
   Modal,
   Platform,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TextInput,
@@ -23,6 +24,7 @@ import { base_URL_IMAGE } from '../../config/config';
 // import moment from 'moment';
 import moment from 'moment/min/moment-with-locales'
 import Colors from '../../components/Colors';
+import MyStatusBar from '../../components/Statusbar';
 const { width, height } = Dimensions.get('window');
 
 const HomeScreens = ({ navigation }) => {
@@ -50,7 +52,7 @@ const HomeScreens = ({ navigation }) => {
   useEffect(()=>{
 
     dispatch(Stackprofile(userId,(data) => {
-      console.log("my lord ",data.success)
+      // console.log("my lord ",data.success)
       if(data.success==false){
         navigation.navigate("ProfileScreens")
       }
@@ -108,7 +110,11 @@ const HomeScreens = ({ navigation }) => {
 
     let b = getSub?.item?.subsIdAdminAndRevelature?.filter((i) => i._id === Revelator || RID);
     let c = b?.[0]?.firstName + " " + b?.[0]?.lastName
-    let d = getSub?.item?.subsIdAdminAndRevelature[0]?.firstName + " " + getSub?.item?.subsIdAdminAndRevelature[0]?.lastName
+    let d = null
+    if(getSub?.item?.subsIdAdminAndRevelature[0]?.firstName && getSub?.item?.subsIdAdminAndRevelature[0]?.lastName){
+      d = getSub?.item?.subsIdAdminAndRevelature[0]?.firstName + " " + getSub?.item?.subsIdAdminAndRevelature[0]?.lastName
+    }
+    
     console.log(c, d)
     return (
       <View
@@ -142,7 +148,10 @@ const HomeScreens = ({ navigation }) => {
           }}></View>
         <View style={styles.rawBottomFirstView}>
           <Text style={styles.rawBottomTitle}>{getSub?.item?.eventName}{' '}</Text>
-          <Text style={styles.rawBottomshortTitle}>avec {d} </Text>
+          {
+            d != null ?
+            <Text style={styles.rawBottomshortTitle}>avec {d} </Text>: null
+          }
         </View>
         <View style={styles.rawBottomSecondView}>
           <Text style={styles.rawBottomdescription}>{getSub?.item?.category}</Text>
@@ -280,7 +289,11 @@ const HomeScreens = ({ navigation }) => {
     );
   };
   return (
+    <>
+ 
+  
     <ScrollView>
+        <StatusBar barStyle='default' backgroundColor='transparent' />
       <ImageBackground
         source={require('../../assets/images/homebg.png')}
         style={styles.background}>
@@ -324,7 +337,7 @@ const HomeScreens = ({ navigation }) => {
         <Topselector />
         <View style={styles.eventoneView}>
           <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}
+            style={{ flexDirection: "row", justifyContent: "space-between", alignItems:'center', height: 70, }}
           >
             <Text style={styles.mainHeading}> Mes billets d'événements</Text>
             <TouchableOpacity
@@ -381,7 +394,7 @@ const HomeScreens = ({ navigation }) => {
             />}
         </View>
         <View style={styles.eventoneView}>
-          <Text style={styles.mainHeading}>Mon historique d’événements</Text>
+          <Text style={[styles.mainHeading,{ paddingTop: 10}]}>Mon historique d’événements</Text>
           <FlatList
             showsHorizontalScrollIndicator={false}
             horizontal={true}
@@ -418,6 +431,7 @@ const HomeScreens = ({ navigation }) => {
         </RBSheet>
       </View>
     </ScrollView>
+    </>
   );
 };
 
@@ -525,7 +539,7 @@ const styles = StyleSheet.create({
     fontSize: width * 0.056,
     color: '#001d4f',
     marginLeft: width * 0.025,
-    marginTop: height * 0.01,
+    // marginTop: height * 0.01,
     fontFamily: 'Bebas Neue Pro Bold',
   },
   flatlistimage: {
