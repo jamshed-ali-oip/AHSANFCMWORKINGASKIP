@@ -34,8 +34,8 @@ const RoutreStack = () => {
     return (
         <Provider store={store}>
             <SafeAreaView style={{flex:1,
-                // marginTop: Platform.OS=="ios" ?-height*0.06:null,
-                // marginBottom:Platform.OS=="ios" ?-height*0.04:null,
+                marginTop: Platform.OS=="ios" ?-height*0.06:null,
+                marginBottom:Platform.OS=="ios" ?-height*0.04:null,
                 }}>
                    <StatusBar  
                         backgroundColor='transparent'  
