@@ -118,7 +118,7 @@ const CPage1 = ({ page, setPage, navigationState }) => {
       <Text style={styles.changeError}>
         {error}
       </Text>
-      <View>
+      <View style={{}}>
         <FormInput
           title="Mot de passe actuel"
           placeholder="****"
@@ -276,7 +276,7 @@ const styles = StyleSheet.create({
   },
   eye: {
     position: 'absolute',
-    marginTop: height * 0.06,
+    marginTop: height * 0.065,
     marginLeft: width * 0.8,
     // alignItems:"center"
   },

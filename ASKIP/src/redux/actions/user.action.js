@@ -440,7 +440,7 @@ export const ProfilePictureSet = (userId, body) => async (dispatch) => {
 export const getEvents = () => async (dispatch) => {
   try {
     const response = await axios.get(`${base_URL}/auth/getEvents`)
-    console.log("revelaothfklasgk ",response)
+    // console.log("revelaothfklasgk ",response)
     return response
     // if (data?.data?.success){
     //   console.log(response)
@@ -457,7 +457,7 @@ export const getEvents = () => async (dispatch) => {
 export const getEventsByID = async (data) => {
   try {
     const response = await axios.get(`${base_URL}/auth/getEvent/${data}`)
-    console.log("event ka data ",response)
+    // console.log("event ka data ",response)
     return response
     // if (data?.data?.success){
     //   console.log(response)
@@ -493,7 +493,7 @@ export const ProfileChecking = (userId,setPower,setBTN) => async (dispatch) => {
   console.log(userId)
   try {
     const response = await axios.get(`${base_URL}/user/checkingSteps/${userId}`)
-    console.log("revelaothfklasgk ",response?.data?.success)
+    // console.log("revelaothfklasgk ",response?.data?.success)
    
     if (response?.data?.success){
       setBTN(true)
@@ -529,7 +529,7 @@ export const Un_Subscribe_Event = (data,userId) => async (dispatch) => {
 export const getSubscribedEvents = async (userId)  => {
   try {
     const response = await axios.get(`${base_URL}/auth/getSubscribeEvents/${userId}`)
-    console.log("revelaothfklasgk ",response)
+    // console.log("revelaothfklasgk ",response)
     return response
     // if (data?.data?.success){
     //   console.log(response)
@@ -575,12 +575,12 @@ export const FCMUPDATE = (data, userId) => async (dispatch) => {
 export const MESINVITES = async (userId) => {
   try {
     const response = await axios.get(`${base_URL}/invitationUser/${userId}`)
-    console.log("MES INVITATION ACTION CLG",response)
+    // console.log("MES INVITATION ACTION CLG",response)
     return response
 
   }
   catch (error) {
-    console.log("MES INVITATION ACTION CLG eror ", error)
+    console.log("Error", error)
   }
 };
 export const StatusUpdate = (data, inviteId) => async (dispatch) => {
@@ -601,11 +601,11 @@ export const Stackprofile = (userId,setProfilStatus) => async (dispatch) => {
   console.log(userId)
   try {
     const response = await axios.get(`${base_URL}/user/checkingSteps/${userId}`)
-    console.log("Stackprofile yahan aja ",response?.data?.success)
+    // console.log("Stackprofile yahan aja ",response?.data?.success)
    
     if (response?.data?.success){
   
-      console.log("",response)
+      // console.log("",response)
       setProfilStatus(response?.data)
       
     }
@@ -613,7 +613,7 @@ export const Stackprofile = (userId,setProfilStatus) => async (dispatch) => {
     
   }
   catch (error) {
-    setPower(true)
+    // setPower(true)
     console.log("Stackprofile", error)
     setProfilStatus(false)
   }

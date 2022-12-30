@@ -81,7 +81,7 @@ const Topselector = ({ }) => {
         <View style={[styles.selectedView, { backgroundColor: item?.item?.status == "pending" ? '#001d4f' : "#ffffff", }]}>
           <View style={styles.insideViewheading}>
             <Text style={[styles.mainheading2, { color: item?.item?.status == "pending" ? "#ffffff" : '#001d4f' }]}>
-              {item?.item?.revelaturId?.firstName + " " + item?.item?.revelaturId?.lastName} t’invite à un événement ! {' '}
+              {item?.item?.revelaturId?.firstName + " " + item?.item?.revelaturId?.lastName} t’invite à un événement ! {' '}
             </Text>
           </View>
           <Text style={[styles.flatlistheading2, { color: item?.item?.status == "pending" ? '#ffbc15' : '#001d4f' }]}>
@@ -104,27 +104,29 @@ const Topselector = ({ }) => {
             <TouchableOpacity
               onPress={() => { setS_event(item?.item), refRBSheet2.current.open() }}
               style={[styles.yellowViewselected, { width: item?.item?.status == "pending" ? width * 0.31 : width * 0.45, }]}>
-              <Text style={styles.yellowText}>Je consulte la fiche </Text>
+              <Text style={styles.yellowText}>Je consulte la fiche </Text>
             </TouchableOpacity>
-            {item?.item?.status == "declined" ?
+            {item?.item?.status == "accepted" ?
               <TouchableOpacity
-                onPress={() => { setStatus("accepted"), setinviteId(item?.item?._id), setModalVisible(true) }}
+              activeOpacity={100}
+              // onPress={() => { setStatus("accepted"), setinviteId(item?.item?._id), setModalVisible(true) }}
                 style={[
                   styles.acceptViewselected,
                   { marginLeft: width * 0.0085 },
                 ]}>
-                <Text style={styles.acceptText}>J’accepte</Text>
+                <Text style={styles.acceptText}>Accepte</Text>
               </TouchableOpacity> : null
             }
             {
-              item?.item?.status == "accepted" ? <TouchableOpacity
-                onPress={() => { setStatus("declined"), setinviteId(item?.item?._id), setModalVisible2(true) }}
+              item?.item?.status == "declined" ? <TouchableOpacity
+              activeOpacity={100}
+                // onPress={() => { setStatus("declined"), setinviteId(item?.item?._id), setModalVisible2(true) }}
                 style={[
                   styles.rejectViewselected,
                   { marginLeft: width * 0.0085, borderColor: item?.item?.status == "pending" ? 'white' : 'red', },
                 ]}>
                 <Text style={[styles.rejectText, { color: item?.item?.status == "pending" ? 'white' : 'red' }]}>
-                  Je refuse
+                 Refuse
                 </Text>
               </TouchableOpacity> : null
             }
@@ -316,7 +318,7 @@ const Topselector = ({ }) => {
           <Text style={styles.rawBottomdescription}>{S_event?.eventId?.category}</Text>
           <Text style={styles.rawBottomdateandtime}>
             {moment(S_event?.eventId?.beginAt).locale('fr').format('llll')}
-            de {S_event?.eventId?.startTime} à {S_event?.eventId?.endTime}
+            {/* de {S_event?.eventId?.startTime} à {S_event?.eventId?.endTime} */}
           </Text>
         </View>
         <View style={styles.rawBottomThirdView}>
@@ -325,14 +327,14 @@ const Topselector = ({ }) => {
             source={require('../../assets/images/locLogo.png')}
           />
           <Text style={styles.rawBottomlocation}>
-            location
+            
             {S_event?.eventId?.postalAddress},{S_event?.eventId?.city},{S_event?.eventId?.zipCode}
           </Text>
         </View>
         <ScrollView showsVerticalScrollIndicator={true}>
           <TouchableOpacity activeOpacity={1}>
             <Text style={styles.rawBottomMainDescription}>
-              description
+              
               {S_event?.eventId?.description}
             </Text>
           </TouchableOpacity>

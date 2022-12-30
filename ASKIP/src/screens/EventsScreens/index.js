@@ -203,10 +203,14 @@ const EventsScreens = ({ navigation }) => {
     let a = (eventsDetail?.data?.data?.subscriptionIds)?.some((i) => i == userId);
     let b = eventsDetail?.data?.data?.subsIdAdminAndRevelature?.filter((i) => i._id === Revelator || RID);
     let c = b?.[0]?.firstName + " " + b?.[0]?.lastName
-    let d = eventsDetail?.data?.data?.subsIdAdminAndRevelature[0]?.firstName + " " + eventsDetail?.data?.data?.subsIdAdminAndRevelature[0]?.lastName
-console.log("eventsDetail?.data?.dataeventsDetail?.data?.dataeventsDetail?.data?.data")
-console.log(eventsDetail?.data?.data?.participationType[0]?.[0])
-console.log("eventsDetail?.data?.dataeventsDetail?.data?.dataeventsDetail?.data?.data")
+    let d = null
+    if(eventsDetail?.data?.data?.subsIdAdminAndRevelature[0]?.firstName && eventsDetail?.data?.data?.subsIdAdminAndRevelature[0]?.lastName){
+      d = eventsDetail?.data?.data?.subsIdAdminAndRevelature[0]?.firstName + " " + eventsDetail?.data?.data?.subsIdAdminAndRevelature[0]?.lastName
+    }
+ 
+// console.log("eventsDetail?.data?.dataeventsDetail?.data?.dataeventsDetail?.data?.data")
+// console.log(eventsDetail?.data?.data?.participationType[0]?.[0])
+// console.log("eventsDetail?.data?.dataeventsDetail?.data?.dataeventsDetail?.data?.data")
 const online=eventsDetail?.data?.data?.participationType[0]?.[0]?.distancielThumbnail
 const offline=eventsDetail?.data?.data?.participationType[0]?.[0]?.presentielThumbnail
     return (
@@ -256,19 +260,23 @@ const offline=eventsDetail?.data?.data?.participationType[0]?.[0]?.presentielThu
             {eventsDetail?.data?.data?.eventName}  {''}
 
           </Text>
-          <Text style={styles.rawBottomshortTitle}>
-
+          {
+            d != null ? 
+            <Text style={styles.rawBottomshortTitle}>
+   
             avec {d}
-          </Text>
+          </Text>:null
+          }
+        
         </View>
         <View style={styles.rawBottomSecondView}>
           <Text style={styles.rawBottomdescription}>
-            {/* {data.item.description} */}
+        
             {eventsDetail?.data?.data?.category}
           </Text>
           <Text style={styles.rawBottomdateandtime}>
             {moment(eventsDetail?.data?.data?.beginAt).locale('fr').format('ddd DD/ MM/YYYY')} de {eventsDetail?.data?.data?.startTime} à {eventsDetail?.data?.data?.endTime}
-            {/* {data.item.Dateandtime} */}
+    
           </Text>
         </View>
         {online == false ? <View style={styles.rawBottomThirdView}>
@@ -557,6 +565,7 @@ const offline=eventsDetail?.data?.data?.participationType[0]?.[0]?.presentielThu
     let a = (item?.item?.subscriptionIds)?.some((i) => i == userId);
     return (
       <TouchableOpacity
+        activeOpacity={0.5}
         onPress={() => {
           setdata(item?.item?._id)
           // event_by_Id();
@@ -564,7 +573,7 @@ const offline=eventsDetail?.data?.data?.participationType[0]?.[0]?.presentielThu
 
         }}>
         <ImageBackground
-          imageStyle={{ borderRadius: width * 0.06 }}
+          imageStyle={{     borderRadius: width * 0.04, }}
           style={styles.LowerRenderimage}
           source={{ uri: `${base_URL_IMAGE + item.item.eventImage}` }}>
           <View style={styles.LowerRenderfirstview}>
@@ -578,7 +587,7 @@ const offline=eventsDetail?.data?.data?.participationType[0]?.[0]?.presentielThu
               source={require("../../assets/images/subcribe.png")} /> : null
           }
           <View style={styles.LowerRendersecondview}>
-            <Text style={styles.flatlistheading}>{item?.item?.eventName}-{item?.item?.city}.. </Text>
+            <Text style={styles.flatlistheading} numberOfLines={1}>{item?.item?.eventName}-{item?.item?.city}.. </Text>
             <View style={{ flexDirection: 'row', justifyContent: "space-between", paddingRight: width * 0.02, alignItems: "center" }}>
               <Text style={styles.flatlistdescription}>
                 {item?.item?.category}
@@ -615,7 +624,7 @@ const offline=eventsDetail?.data?.data?.participationType[0]?.[0]?.presentielThu
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{backgroundColor:'white'}}>
       {Power == false ?
         <>
           <View>
@@ -987,16 +996,17 @@ const styles = StyleSheet.create({
     height: height * 0.34,
     alignSelf: 'center',
     margin: width * 0.05,
-    borderRadius: width * 0.035,
+    borderRadius: width * 0.04,
     resizeMode: 'stretch',
-    elevation: 20,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 12,
-    },
-    shadowOpacity: 0.58,
-    shadowRadius: 16.00,
+    backgroundColor:'#f0f0f0'
+    // elevation: 20,
+    // shadowColor: "#000",
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 12,
+    // },
+    // shadowOpacity: 0.58,
+    // shadowRadius: 16.00,
 
   },
   LowerRenderfirstview: {
@@ -1019,10 +1029,12 @@ const styles = StyleSheet.create({
   },
   LowerRendersecondview: {
     width: width * 0.725,
-    height: height * 0.08,
+    // height: height * 0.08,
+    paddingVertical: 10,
     position: 'absolute',
+    bottom: 10,
     backgroundColor: 'white',
-    marginTop: height * 0.247,
+    // marginTop: height * 0.247,
     alignSelf: 'center',
     borderRadius: width * 0.039,
   },

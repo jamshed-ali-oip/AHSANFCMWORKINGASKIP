@@ -37,7 +37,10 @@ const RoutreStack = () => {
                 marginTop: Platform.OS=="ios" ?-height*0.06:null,
                 marginBottom:Platform.OS=="ios" ?-height*0.04:null,
                 }}>
-                
+                   <StatusBar  
+                        backgroundColor='transparent'  
+                        barStyle="dark-content"   
+                    />  
                 <PersistGate loading={null} persistor={persistor}>
                     <MainNavigation />
                 </PersistGate>
