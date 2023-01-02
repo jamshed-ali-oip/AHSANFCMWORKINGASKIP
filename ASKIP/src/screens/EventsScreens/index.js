@@ -276,7 +276,7 @@ const offline=eventsDetail?.data?.data?.participationType[0]?.[0]?.presentielThu
             {eventsDetail?.data?.data?.category}
           </Text>
           <Text style={styles.rawBottomdateandtime}>
-            {moment(eventsDetail?.data?.data?.beginAt).locale('fr').format('ddd DD/ MM/YYYY')} de {eventsDetail?.data?.data?.startTime} à {eventsDetail?.data?.data?.endTime}
+            {moment(eventsDetail?.data?.data?.beginAt).locale('fr').format(' DD/ MM/YYYY')} de {eventsDetail?.data?.data?.startTime} à {eventsDetail?.data?.data?.endTime}
     
           </Text>
         </View>
@@ -593,7 +593,7 @@ const offline=eventsDetail?.data?.data?.participationType[0]?.[0]?.presentielThu
               <Text style={styles.flatlistdescription}>
                 {item?.item?.category}
               </Text>
-              <Text style={styles.flatlistdate}>{moment(item?.item?.beginAt).locale('fr').format('ddd DD MMMM YYYY')} </Text>
+              <Text style={styles.flatlistdate}>{moment(item?.item?.beginAt).locale('fr').format('ddd DD MMMM ')} </Text>
             </View>
           </View>
         </ImageBackground>

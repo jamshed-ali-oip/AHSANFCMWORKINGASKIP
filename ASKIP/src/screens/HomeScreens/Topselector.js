@@ -185,7 +185,7 @@ const Topselector = ({ }) => {
             {Invitations?.length !== 0 ? <FlatList
               // showsHorizontalScrollIndicator={true}
               style={{ marginTop: height * 0.02 }}
-              scrollEnabled={true}
+              // scrollEnabled={true}
               data={Invitations}
               keyExtractor={item => item._id}
               renderItem={INVITES}
@@ -357,7 +357,7 @@ const Topselector = ({ }) => {
       />
       <RBSheet
         ref={refRBSheet}
-        height={height * 1}
+        height={height * height}
         closeOnDragDown={false}
         closeOnPressMask={false}
         customStyles={{
@@ -583,7 +583,7 @@ const styles = StyleSheet.create({
   },
   background: {
     width: width * 1,
-    height: height * 1.3,
+    height: height
     // borderTopLeftRadius:width*0.08,
     // borderRadius:10
   },
