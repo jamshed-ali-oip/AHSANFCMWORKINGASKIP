@@ -102,7 +102,7 @@ const Topselector = ({ }) => {
           </View>
           <View style={{ flexDirection: 'row' }}>
             <TouchableOpacity
-              onPress={() => { setS_event(item?.item), refRBSheet2.current.open() }}
+              onPress={() => { setS_event(item?.item), refRBSheet2?.current?.open() }}
               style={[styles.yellowViewselected, { width: item?.item?.status == "pending" ? width * 0.31 : width * 0.45, }]}>
               <Text style={styles.yellowText}>Je consulte la fiche </Text>
             </TouchableOpacity>
@@ -241,7 +241,7 @@ const Topselector = ({ }) => {
 
         }
         <TouchableOpacity
-          onPress={() => { item?.item?.id == 1 ? refRBSheet.current.open() : null, MESDATA() }}
+          onPress={() => { item?.item?.id == 1 ? refRBSheet?.current?.open() : null, MESDATA() }}
           style={{
             height: height * 0.05,
             backgroundColor: "white",
@@ -406,8 +406,62 @@ const Topselector = ({ }) => {
           },
         }}>
         <RawBottomSheet />
+      </RBSheet> 
+      {/* <RBSheet
+        ref={refRBSheet}
+        height={height * height}
+        closeOnDragDown={false}
+        closeOnPressMask={false}
+        customStyles={{
+          wrapper: {
+            backgroundColor: 'white',
+            // borderTopLeftRadius:width*0.35,
+            // borderTopRightRadius:width*0.35,
+            // marginBottom: 25,
+          },
+          draggableIcon: {
+            backgroundColor: 'transparent',
+            paddingHorizontal: 25,
+            // marginTop:30
+            // position:'absolute',
+            // marginTop:60,
+          },
+          container: {
+            // borderTopLeftRadius: width * 0.08,
+            // borderTopRightRadius: width * 0.08,
+            position: 'absolute',
+            backgroundColor: 'transparent',
+          },
+        }}>
+        <Inivite />
       </RBSheet>
-      <Modal
+      <RBSheet
+        ref={refRBSheet2}
+        height={height * 0.95}
+        closeOnDragDown={true}
+        closeOnPressMask={false}
+        // dragFromTopOnly={false}
+
+        customStyles={{
+          wrapper: {
+            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+          },
+          draggableIcon: {
+            backgroundColor: 'transparent',
+            paddingHorizontal: 25,
+          },
+          container: {
+            borderTopLeftRadius: width * 0.08,
+            borderTopRightRadius: width * 0.08,
+            // position:'absolute',
+            backgroundColor: 'transparent',
+          },
+        }}>
+        <RawBottomSheet />
+      </RBSheet> */}
+      {
+        modalVisible && 
+<Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
@@ -450,7 +504,11 @@ const Topselector = ({ }) => {
           </View>
         </View>
       </Modal>
-      <Modal
+      }
+      
+      {
+        modalVisible2 && 
+        <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible2}
@@ -493,6 +551,8 @@ const Topselector = ({ }) => {
           </View>
         </View>
       </Modal>
+      }
+    
     </View>
   );
 };
