@@ -175,9 +175,7 @@ const Topselector = ({ }) => {
           </TouchableOpacity>
 
         </View>
-        <ScrollView
-
-        >
+        {/* <ScrollView> */}
 
           <ImageBackground
 
@@ -203,7 +201,8 @@ const Topselector = ({ }) => {
             }
           </ImageBackground>
 
-        </ScrollView></>
+        {/* </ScrollView> */}
+        </>
     );
   };
   const refRBSheet = useRef();

@@ -199,14 +199,4 @@ function TabBar() {
   );
 };
 
-const AppNav = () => {
-
-  return (
-
-
-    TabBar()
-
-
-  )
-}
-export default AppNav;
+export default TabBar;

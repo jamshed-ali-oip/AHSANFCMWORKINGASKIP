@@ -13,7 +13,7 @@ const AuthNav = () => {
         headerShown: false,
       }}
       initialRouteName="Selectscreen">
-        <StatusBar hidden />
+
       <Stack.Screen name="Selectscreen" component={Selectscreen} />
       <Stack.Screen name="Forget" component={Forget} />
 

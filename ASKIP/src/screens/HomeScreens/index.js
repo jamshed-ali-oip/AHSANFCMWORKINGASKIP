@@ -201,6 +201,7 @@ const HomeScreens = ({ navigation }) => {
               <Text style={styles.QRText}>Mon QR Code</Text>
             </TouchableOpacity>
           </ImageBackground>
+          <View style={{flexDirection:'column', justifyContent:'space-around',  width: '98%', alignSelf:'center', height: 50, marginVertical: 10}}>
           <TouchableOpacity
             onPress={() => {
               setgetSub(item)
@@ -215,6 +216,7 @@ const HomeScreens = ({ navigation }) => {
               <Text style={styles.flatlistdate}> {moment(item?.item?.beginAt).locale('fr').format('ddd DD MMMM YYYY')} </Text>
             </View>
           </TouchableOpacity>
+          </View>
         </View>
         <Modal
           animationType="fade"
@@ -256,6 +258,7 @@ const HomeScreens = ({ navigation }) => {
               <Text style={styles.QRText}>Mon QR Code</Text>
             </TouchableOpacity>
           </ImageBackground>
+          <View style={{flexDirection:'column', justifyContent:'space-around',  width: '98%', alignSelf:'center', height: 50, marginVertical: 10}}>
           <TouchableOpacity onPress={() => { refRBSheet2.current.open() }}>
             <Text style={styles.flatlistheading}> {item.item.title} </Text>
           </TouchableOpacity>
@@ -264,6 +267,8 @@ const HomeScreens = ({ navigation }) => {
               {item.item.description}{' '}
             </Text>
             <Text style={styles.flatlistdate}>{item.item.date} </Text>
+          </View>
+
           </View>
         </View>
         <Modal
@@ -337,7 +342,7 @@ const HomeScreens = ({ navigation }) => {
         <Topselector />
         <View style={styles.eventoneView}>
           <View
-            style={{ flexDirection: "row", justifyContent: "space-between", alignItems:'center', height: 70, }}
+            style={{ flexDirection: "row", justifyContent: "space-between", alignItems:'center', height: 40, }}
           >
             <Text style={styles.mainHeading}> Mes billets d'événements</Text>
             <TouchableOpacity
@@ -551,6 +556,7 @@ const styles = StyleSheet.create({
     marginTop: width * 0.04,
   },
   flatlistView: {
+    // height:100
     // backgroundColor:'red',
     // borderBottomLeftRadius:width*0.10
     // paddingHorizontal:width*0.01
