@@ -30,7 +30,7 @@ const { width, height } = Dimensions.get('window');
 const HomeScreens = ({ navigation }) => {
   // const [textInput, setTextInput] = useState('');
 
-  
+
   const refRBSheet = useRef();
   const refRBSheet2 = useRef();
   const [modalVisible, setModalVisible] = useState(false);
@@ -39,7 +39,7 @@ const HomeScreens = ({ navigation }) => {
   const [getSubEv, setgetSubEv] = useState()
   const [getSub, setgetSub] = useState()
   const [EventID, setEventID] = useState()
-    const [ProfilStatus,setProfilStatus]=useState(false)
+  const [ProfilStatus, setProfilStatus] = useState(false)
   const firstName = useSelector(state => state?.auth?.User?.data?.lastName)
   const Revelator = useSelector(state => state?.auth?.User?.relatedRevelateur)
   const RID = useSelector(state => state?.auth?.credential?.User?.relatedRevelateur)
@@ -49,20 +49,20 @@ const HomeScreens = ({ navigation }) => {
   const userId = useSelector((state) => state?.auth?.credential?.User?._id)
   const dispatch = useDispatch()
   const ok = useSelector(state => state?.auth?.progress)
-  useEffect(()=>{
+  useEffect(() => {
 
-    dispatch(Stackprofile(userId,(data) => {
+    dispatch(Stackprofile(userId, (data) => {
       // console.log("my lord ",data.success)
-      if(data.success==false){
+      if (data.success == false) {
         navigation.navigate("ProfileScreens")
       }
     }));
-  },[])
+  }, [])
   useEffect(() => {
     fetchData();
   }, [])
 
- 
+
   const fetchData = async () => {
     const { data } = await getSubscribedEvents(userId)
     setgetSubEv(data)
@@ -111,10 +111,10 @@ const HomeScreens = ({ navigation }) => {
     let b = getSub?.item?.subsIdAdminAndRevelature?.filter((i) => i._id === Revelator || RID);
     let c = b?.[0]?.firstName + " " + b?.[0]?.lastName
     let d = null
-    if(getSub?.item?.subsIdAdminAndRevelature[0]?.firstName && getSub?.item?.subsIdAdminAndRevelature[0]?.lastName){
+    if (getSub?.item?.subsIdAdminAndRevelature[0]?.firstName && getSub?.item?.subsIdAdminAndRevelature[0]?.lastName) {
       d = getSub?.item?.subsIdAdminAndRevelature[0]?.firstName + " " + getSub?.item?.subsIdAdminAndRevelature[0]?.lastName
     }
-    
+
     console.log(c, d)
     return (
       <View
@@ -150,13 +150,13 @@ const HomeScreens = ({ navigation }) => {
           <Text style={styles.rawBottomTitle}>{getSub?.item?.eventName}{' '}</Text>
           {
             d != null ?
-            <Text style={styles.rawBottomshortTitle}>avec {d} </Text>: null
+              <Text style={styles.rawBottomshortTitle}>avec {d} </Text> : null
           }
         </View>
         <View style={styles.rawBottomSecondView}>
           <Text style={styles.rawBottomdescription}>{getSub?.item?.category}</Text>
           <Text style={styles.rawBottomdateandtime}>
-            {moment(getSub?.item?.beginAt).locale('fr').format('llll')} de {getSub?.item?.startTime} à {getSub?.item?.endTime}
+            {moment(getSub?.item?.beginAt).locale('fr').format('DD/MM/yyyy')} de {getSub?.item?.startTime} à {getSub?.item?.endTime}
           </Text>
         </View>
         <View style={styles.rawBottomThirdView}>
@@ -212,7 +212,7 @@ const HomeScreens = ({ navigation }) => {
               <Text style={styles.flatlistdescription}>
                 {item?.item?.category}
               </Text>
-              <Text style={styles.flatlistdate}> {moment(item?.item?.beginAt).locale('fr').format('ddd DD MMMM YYYY')} </Text>
+              <Text style={styles.flatlistdate}> {moment(item?.item?.beginAt).locale('fr').format('ddd DD MMMM ')} </Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -290,147 +290,152 @@ const HomeScreens = ({ navigation }) => {
   };
   return (
     <>
- 
-  
-    <ScrollView>
-        <StatusBar barStyle='default' backgroundColor='transparent' />
-      <ImageBackground
-        source={require('../../assets/images/homebg.png')}
-        style={styles.background}>
-        <View style={styles.viewone}>
-          <Image
-            style={styles.img}
-            source={require('../../assets/images/hifi.png')}
-          />
-          <Text style={styles.mainText}>Bienvenue, {firstName || userdataFname} !</Text>
-        </View>
-        <View style={styles.viewtwo}>
-          {
-            ok==1?<Text
-            style={{
-              color:Colors.theme_color,
-              fontFamily: 'Bebas Neue Pro Bold',
-              fontSize:Platform.OS=="ios"?width*0.045:width*0.035,
-              fontStyle:"italic"
-            }}
-            >
-              {/* Fais entendre ta voie ! */}
-              FAIS ENTENDRE TA VOIE !
-            </Text>:<Text style={styles.simpleText}>
-            N’oublie pas de
-            <Text> </Text>
-            <Text
-              style={{
-                color: '#ffbc15',
-                fontFamily: 'Bebas Neue Pro Bold',
-                letterSpacing: 0.8,
-              }}>
-              compléter ton profil
-            </Text>
-            <Text> </Text>!
-          </Text>
-          }
-        </View>
-        {/* {/ seracher  /} */}
-        <Searcher />
 
-        <Topselector />
-        <View style={styles.eventoneView}>
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-between", alignItems:'center', height: 70, }}
-          >
-            <Text style={styles.mainHeading}> Mes billets d'événements</Text>
-            <TouchableOpacity
-              onPress={() => fetchData()}
-              style={{
-                backgroundColor: "white",
-                justifyContent: "center",
-                alignSelf: "center",
-                marginRight: width * 0.05,
-                // padding:width*0.00,
-                width: width * 0.18,
-                elevation: 5,
-                shadowColor: "#000",
-                shadowOffset: {
-                  width: 0,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-                borderRadius: width * 0.02,
-                height: height * 0.025,
-                alignItems: "center",
-                // marginBottom:-height*0.01
-              }}
-            >
-              <Text
+
+      <ScrollView>
+        <StatusBar barStyle='default' backgroundColor='transparent' />
+        <ImageBackground
+          source={require('../../assets/images/homebg.png')}
+          style={styles.background}>
+          <View style={styles.viewone}>
+            <Image
+              style={styles.img}
+              source={require('../../assets/images/hifi.png')}
+            />
+            <Text style={styles.mainText}>Bienvenue, {firstName || userdataFname} !</Text>
+          </View>
+          <View style={styles.viewtwo}>
+            {
+              ok == 1 ? <Text
                 style={{
                   color: Colors.theme_color,
-                  fontSize: width * 0.03
+                  fontFamily: 'Bebas Neue Pro Bold',
+                  fontSize: Platform.OS == "ios" ? width * 0.045 : width * 0.035,
+                  fontStyle: "italic"
                 }}
-              >Rafraîchir</Text>
-            </TouchableOpacity>
+              >
+                {/* Fais entendre ta voie ! */}
+                FAIS ENTENDRE TA VOIE !
+              </Text> : <Text style={styles.simpleText}>
+                N’oublie pas de
+                <Text> </Text>
+                <Text
+                  style={{
+                    color: '#ffbc15',
+                    fontFamily: 'Bebas Neue Pro Bold',
+                    letterSpacing: 0.8,
+                  }}>
+                  compléter ton profil
+                </Text>
+                <Text> </Text>!
+              </Text>
+            }
           </View>
-          {getSubEv?.data?.length == 0 ?
-            <Text
+          {/* {/ seracher  /} */}
+          <Searcher />
+
+          <Topselector />
+          <View style={styles.eventoneView}>
+            <View
               style={{
-                fontSize: width * 0.055,
-                alignSelf: "center",
-                textAlign: "center",
-                marginTop: height * 0.085,
-                fontFamily: "Bebas Neue Pro Bold",
-                width: width * 0.5,
-                color: "#afafaf"
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: 'center',
+                height: Platform.OS == "ios" ? height * 0.05 : height * 0.04
               }}
             >
-              Inscris-toi à un événement pour le retrouver ici
-            </Text> :
+              <Text style={styles.mainHeading}> Mes billets d'événements</Text>
+              <TouchableOpacity
+                onPress={() => fetchData()}
+                style={{
+                  backgroundColor: "white",
+                  justifyContent: "center",
+                  alignSelf: "center",
+                  marginRight: width * 0.05,
+                  // padding:width*0.00,
+                  width: width * 0.18,
+                  elevation: 5,
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 2,
+                  },
+                  shadowOpacity: 0.25,
+                  shadowRadius: 3.84,
+                  borderRadius: width * 0.02,
+                  height: height * 0.025,
+                  alignItems: "center",
+                  // marginBottom:-height*0.01
+                }}
+              >
+                <Text
+                  style={{
+                    color: Colors.theme_color,
+                    fontSize: width * 0.03
+                  }}
+                >Rafraîchir</Text>
+              </TouchableOpacity>
+            </View>
+            {getSubEv?.data?.length == 0 ?
+              <Text
+                style={{
+                  fontSize: width * 0.055,
+                  alignSelf: "center",
+                  textAlign: "center",
+                  marginTop: height * 0.085,
+                  fontFamily: "Bebas Neue Pro Bold",
+                  width: width * 0.5,
+                  color: "#afafaf"
+                }}
+              >
+                Inscris-toi à un événement pour le retrouver ici
+              </Text> :
+              <FlatList
+                showsHorizontalScrollIndicator={false}
+                horizontal={true}
+                data={getSubEv?.data}
+                keyExtractor={item => item.id}
+                renderItem={eventonefunc}
+              />}
+          </View>
+          <View style={styles.eventoneView}>
+            <Text style={[styles.mainHeading, { paddingTop: 10 }]}>Mon historique d’événements</Text>
             <FlatList
               showsHorizontalScrollIndicator={false}
               horizontal={true}
-              data={getSubEv?.data}
+              data={eventtwo}
               keyExtractor={item => item.id}
-              renderItem={eventonefunc}
-            />}
-        </View>
-        <View style={styles.eventoneView}>
-          <Text style={[styles.mainHeading,{ paddingTop: 10}]}>Mon historique d’événements</Text>
-          <FlatList
-            showsHorizontalScrollIndicator={false}
-            horizontal={true}
-            data={eventtwo}
-            keyExtractor={item => item.id}
-            renderItem={eventtwofunc}
-          />
-        </View>
-      </ImageBackground>
-      <View>
-        <RBSheet
-          ref={refRBSheet2}
-          height={height * 0.95}
-          closeOnDragDown={true}
-          closeOnPressMask={false}
-          // dragFromTopOnly={false}
+              renderItem={eventtwofunc}
+            />
+          </View>
+        </ImageBackground>
+        <View>
+          <RBSheet
+            ref={refRBSheet2}
+            height={height * 0.95}
+            closeOnDragDown={true}
+            closeOnPressMask={false}
+            // dragFromTopOnly={false}
 
-          customStyles={{
-            wrapper: {
-              backgroundColor: 'rgba(0, 0, 0, 0.7)',
-            },
-            draggableIcon: {
-              backgroundColor: 'transparent',
-              paddingHorizontal: 25,
-            },
-            container: {
-              borderTopLeftRadius: width * 0.08,
-              borderTopRightRadius: width * 0.08,
-              // position:'absolute',
-              backgroundColor: 'transparent',
-            },
-          }}>
-          <RawBottomSheet />
-        </RBSheet>
-      </View>
-    </ScrollView>
+            customStyles={{
+              wrapper: {
+                backgroundColor: 'transparent',
+              },
+              draggableIcon: {
+                backgroundColor: 'transparent',
+                paddingHorizontal: 25,
+              },
+              container: {
+                borderTopLeftRadius: width * 0.08,
+                borderTopRightRadius: width * 0.08,
+                // position:'absolute',
+                backgroundColor: 'transparent',
+              },
+            }}>
+            <RawBottomSheet />
+          </RBSheet>
+        </View>
+      </ScrollView>
     </>
   );
 };
@@ -451,7 +456,7 @@ const styles = StyleSheet.create({
     width: width * 0.09,
     height: height * 0.049,
     marginRight: width * 0.02,
-    resizeMode:"contain"
+    resizeMode: "contain"
   },
   mainText: {
     fontSize: width * 0.065,

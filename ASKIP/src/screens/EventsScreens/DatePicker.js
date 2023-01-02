@@ -35,8 +35,8 @@ const D_Apicker = () => {
             'Novembre',
             'Décembre',
           ]}
-          previousTitle="Précédente"
-          nextTitle="Suivante"
+          previousTitle="Précédent"
+          nextTitle="Suivant"
           todayBackgroundColor="#333333"
           selectedDayColor="black"
           selectedDayTextColor="white"
