@@ -575,7 +575,7 @@ export const FCMUPDATE = (data, userId) => async (dispatch) => {
 export const MESINVITES = async (userId) => {
   try {
     const response = await axios.get(`${base_URL}/invitationUser/${userId}`)
-    // console.log("MES INVITATION ACTION CLG",response)
+    console.log("MES INVITATION ACTION CLG",response)
     return response
 
   }
