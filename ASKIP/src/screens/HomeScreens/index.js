@@ -54,7 +54,6 @@ const HomeScreens = ({ navigation }) => {
   const [Count, setCount] = useState();
   const [twister, settwister] = useState(true)
   useEffect(() => {
-
     dispatch(Stackprofile(userId, (data) => {
       // console.log("my lord ",data.success)
       if (data.success == false) {
@@ -67,13 +66,16 @@ const HomeScreens = ({ navigation }) => {
   }, [])
   useEffect(() => {
     MESDATA()
-  }, [])
+  }, [Count])
   const MESDATA = async () => {
+  
     const { data } = await MESINVITES(userId);
-    setInvitations(data?.data?.invitation);
+   
     setCount(data?.data?.invitationCount)
+   
+    
   };
-  //  
+   
 
   const fetchData = async () => {
     const { data } = await getSubscribedEvents(userId)
@@ -324,6 +326,7 @@ const HomeScreens = ({ navigation }) => {
       notification: 0,
     },
   ];
+  console.log(Count,"counts")
   const header = (item, index) => {
     return (
       <>

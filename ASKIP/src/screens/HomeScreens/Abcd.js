@@ -37,9 +37,10 @@ const Abcd = (props) => {
     const { data } = await MESINVITES(userId);
     setInvitations(data?.data?.invitation);
     setCount(data?.data?.invitationCount)
+    
   };
   //  console.log("firstName",firstName)
-
+console.log(Count,"count")
   // console.log(Status,inviteId);
   const RawBottomSheet = () => {
 

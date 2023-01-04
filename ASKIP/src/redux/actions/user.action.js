@@ -8,7 +8,7 @@ export const userLogin = (data, setLoading, setError,refRBSheet) => async (dispa
   try {
     setLoading(true)
     const response = await axios.post(`${base_URL}/user/login`, data)
-    // console.log(response)
+    console.log(response)
     if (response?.data?.data?.success) {
       refRBSheet?refRBSheet.current.close():null
       setTimeout(()=>{
@@ -23,7 +23,7 @@ export const userLogin = (data, setLoading, setError,refRBSheet) => async (dispa
   catch (error) {
     setLoading(false)
     setError(true)
-    // console.log(error)
+    console.log(error)
   }
 };
 
