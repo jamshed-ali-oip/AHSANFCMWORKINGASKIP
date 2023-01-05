@@ -19,7 +19,7 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import QRCode from 'react-native-qrcode-svg';
 import Topselector from './Topselector';
 import { useSelector, useDispatch } from 'react-redux';
-import { getSubscribedEvents, MESINVITES, Stackprofile } from '../../redux/actions/user.action';
+import { getSubscribedEvents, MESINVITES, Stackprofile, UserDetail } from '../../redux/actions/user.action';
 import { base_URL_IMAGE } from '../../config/config';
 // import moment from 'moment';
 import moment from 'moment/min/moment-with-locales'
@@ -51,6 +51,7 @@ const HomeScreens = ({ navigation }) => {
   const userId = useSelector((state) => state?.auth?.credential?.User?._id)
   const dispatch = useDispatch()
   const ok = useSelector(state => state?.auth?.progress)
+  const [detail, setDetail] = useState()
   const [Count, setCount] = useState();
   const [twister, settwister] = useState(true)
   useEffect(() => {
@@ -61,6 +62,16 @@ const HomeScreens = ({ navigation }) => {
       }
     }));
   }, [])
+  useEffect(() => {
+    UserInfo()
+  }, [detail])
+  const UserInfo = async () => {
+    const { data } = await UserDetail(userId)
+    setDetail(data?.User?.progress)
+
+  }
+ console.log("home details",detail)
+ const yes =ok==undefined?detail:ok
   useEffect(() => {
     fetchData();
   }, [])
@@ -413,7 +424,7 @@ const HomeScreens = ({ navigation }) => {
             </View>
             <View style={styles.viewtwo}>
               {
-                ok == 1 ? <Text
+                yes == 1 ? <Text
                   style={{
                     color: Colors.theme_color,
                     fontFamily: 'Bebas Neue Pro Bold',

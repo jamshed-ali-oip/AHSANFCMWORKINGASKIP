@@ -65,6 +65,7 @@ const Page5 = ({ setPage, profile }) => {
     let data = {
       identityCardNumber: IdCardNo,
       identityCard: profileData,
+      progress:1
     };
 
     let allProfileData = {

@@ -99,7 +99,8 @@ const Page2 = ({ setPage, profile }) => {
       gender: Austre1 ? Austre1.name : Select.name,
       email,
       zipCode: Number(postal),
-      postalAddress: Address
+      postalAddress: Address,
+      progress:0.4
     }
 
 
@@ -139,7 +140,7 @@ const Page2 = ({ setPage, profile }) => {
           <Text style={Styles.text}>Ton genre</Text>
           <View>
             <Selector
-              boxheight={height * 0.042}
+              boxheight={height * 0.045}
               boxwidth={width * 0.5}
               dropdownwidth={width * 0.5}
               placeholder={Select.name ? <Text
@@ -151,7 +152,7 @@ const Page2 = ({ setPage, profile }) => {
             {Select.id == 3 ? (
               <View style={{ marginTop: height * 0.005 }}>
                 <Selector
-                  boxheight={height * 0.042}
+                  boxheight={height * 0.045}
                   boxwidth={width * 0.5}
                   dropdownwidth={width * 0.5}
                   placeholder={Austre1.name ? <Text
@@ -201,7 +202,7 @@ const Page2 = ({ setPage, profile }) => {
               {moment(profile?.birthDate).format('DD/MM/YYYY')}
             </Text>
               : */}
-            <Text style={{ fontSize: width * 0.035, color: color ? "black" : '#b0b0b0' }}>
+            <Text style={{ fontSize: width * 0.035, color: color ? "black" : '#b0b0b0',marginLeft:width*0.02 }}>
               {!color ? moment(detail?.birthDate).format('DD/MM/YYYY') : moment(date).format('DD/MM/YYYY')}
             </Text>
           </TouchableOpacity>

@@ -58,6 +58,7 @@ const Page1 = ({ setPage, profile }) => {
       firstName,
       lastName,
       phone: phone?.slice(1),
+      progress:0.2
     }
     if (firstName === undefined || lastName === undefined || phone === undefined) {
        return setReminder(true)

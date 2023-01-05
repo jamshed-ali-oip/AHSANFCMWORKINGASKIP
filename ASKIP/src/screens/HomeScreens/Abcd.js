@@ -223,7 +223,7 @@ console.log(Count,"count")
       <Text style={styles.mainheading}>MES INVITATIONS</Text>
       {Invitations?.length !== 0 ? <FlatList
         // showsHorizontalScrollIndicator={true}
-        style={{ marginTop: height * 0.02 }}
+        style={{ marginTop: height * 0.02,marginBottom:  height * 0.08}}
         // scrollEnabled={true}
         data={Invitations}
         keyExtractor={item => item._id}

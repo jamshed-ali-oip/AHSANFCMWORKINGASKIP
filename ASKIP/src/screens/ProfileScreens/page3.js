@@ -142,6 +142,7 @@ const Page3 = ({ setPage, profile }) => {
     let dataa = {
       discordUserName: code,
       kiffs: myKiffs.filter(it => it.selected == true).map(it => it._id),
+      progress:0.6
     };
     if (myKiffs.filter(it => it.selected == true).length === 0) {
        return setReminder(true)
@@ -412,7 +413,7 @@ const Page3 = ({ setPage, profile }) => {
             PageThreeData()
             // console.log("avail")
           }else{
-            // console.log("llll")
+            // console.log("llll") 
           }
         }}
 //         onPress={() => {
