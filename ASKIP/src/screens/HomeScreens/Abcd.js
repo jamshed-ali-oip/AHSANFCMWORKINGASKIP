@@ -162,7 +162,7 @@ console.log(Count,"count")
                 styles.acceptViewselected,
                 { marginLeft: width * 0.0085 },
               ]}>
-              <Text style={styles.acceptText}>Accepte</Text>
+              <Text style={styles.acceptText}>Accepté</Text>
             </TouchableOpacity> : null
           }
           {
@@ -174,7 +174,7 @@ console.log(Count,"count")
                 { marginLeft: width * 0.0085, borderColor: item?.item?.status == "pending" ? 'white' : 'red', },
               ]}>
               <Text style={[styles.rejectText, { color: item?.item?.status == "pending" ? 'white' : 'red' }]}>
-                Refuse
+                Refusé
               </Text>
             </TouchableOpacity> : null
           }

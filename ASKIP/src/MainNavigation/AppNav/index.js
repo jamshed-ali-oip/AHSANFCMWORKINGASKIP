@@ -61,11 +61,17 @@ function TabBar() {
         activeTintColor: 'white',
         inactiveTintColor: 'white',
         backgroundColor: 'blue',
+
+      // tabStyle:{height:100}
+
+
       }}
+      
       appearance={{
         activeTabBackgrounds: '#b3baca',
         tabBarBackground: Colors.theme_color,
         dotCornerRadius: width * 0.035,
+        
       }}>
 
       <Tab.Screen
