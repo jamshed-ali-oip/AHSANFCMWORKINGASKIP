@@ -711,6 +711,7 @@ const styles = StyleSheet.create({
     marginTop: width * 0.04,
   },
   flatlistView: {
+    marginTop:-height*0.015
     // height:100
     // backgroundColor:'red',
     // borderBottomLeftRadius:width*0.10
