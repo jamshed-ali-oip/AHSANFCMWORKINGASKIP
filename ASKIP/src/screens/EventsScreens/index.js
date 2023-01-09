@@ -11,7 +11,8 @@ import {
   TouchableOpacity,
   Modal,
   ImageBackground,
-  StatusBar
+  StatusBar,
+  Platform
 } from 'react-native';
 import React, { useState, useRef, useEffect } from 'react';
 import RBSheet from 'react-native-raw-bottom-sheet';
@@ -20,7 +21,7 @@ import { it } from 'node:test';
 import D_Apicker from './DatePicker';
 import Inputs from "../../components/Inputs"
 import { useDispatch, useSelector } from 'react-redux';
-import { ageVerification, getEvents, getEventsByID, ProfileChecking, Subscribe_Event, Un_Subscribe_Event } from '../../redux/actions/user.action';
+import { ageVerification, getEvents, getEventsByID, ProfileChecking, Subscribe_Event, Un_Subscribe_Event, UserDetail } from '../../redux/actions/user.action';
 import { base_URL, base_URL_IMAGE } from '../../config/config';
 import moment from 'moment/min/moment-with-locales'
 import Colors from '../../components/Colors';
@@ -45,10 +46,20 @@ const EventsScreens = ({ navigation }) => {
   const [Power, setPower] = useState(false)
   const [BTN, setBTN] = useState(false)
   const [ageVer, setAgeVer] = useState()
-
+  const [detail, setDetail] = useState()
   // console.log("umar ", ageVer)
   const userId = useSelector((state) => state?.auth?.credential?.User?._id)
   const Name = useSelector((state) => state?.auth?.credential?.User?.lastName)
+  
+  useEffect(() => {
+    UserInfo()
+  }, [])
+  const UserInfo = async () => {
+    const { data } = await UserDetail(userId)
+    setDetail(data?.User)
+
+  }
+ console.log("progress details",detail)
   const DOB = useSelector((state) => state?.auth?.credential?.User?.birthDate)
   const dispatch = useDispatch()
   const Revelator = useSelector(state => state?.auth?.User?.relatedRevelateur)
@@ -214,7 +225,8 @@ const EventsScreens = ({ navigation }) => {
 // console.log("eventsDetail?.data?.dataeventsDetail?.data?.dataeventsDetail?.data?.data")
 const online=eventsDetail?.data?.data?.participationType[0]?.[0]?.distancielThumbnail
 const offline=eventsDetail?.data?.data?.participationType[0]?.[0]?.presentielThumbnail
-    return (
+   console.log("detailss of the box",eventsDetail?.data)
+return (
       <View
         style={{
           backgroundColor: 'white',
@@ -280,16 +292,16 @@ const offline=eventsDetail?.data?.data?.participationType[0]?.[0]?.presentielThu
     
           </Text>
         </View>
-        {online == false ? <View style={styles.rawBottomThirdView}>
+         <View style={styles.rawBottomThirdView}>
           <Image
             style={styles.rawBottomtinyImage}
             source={require('../../assets/images/locLogo.png')}
           />
           <Text style={styles.rawBottomlocation}>
 
-            {eventsDetail?.data?.data?.postalAddress},{eventsDetail?.data?.data?.city}{eventsDetail?.data?.data?.zipCode}
+            {online==true?"En ligne ":null}{offline==true? eventsDetail?.data?.data?.postalAddress+","+eventsDetail?.data?.data?.city+eventsDetail?.data?.data?.zipCode:null}
           </Text>
-        </View> : null}
+        </View> 
         <ScrollView showsVerticalScrollIndicator={false} nestedScrollEnabled={true}>
           <TouchableOpacity activeOpacity={1}>
             <Text style={styles.rawBottomMainDescription}>
@@ -306,8 +318,9 @@ const offline=eventsDetail?.data?.data?.participationType[0]?.[0]?.presentielThu
           a == true ?
             <TouchableOpacity
               style={[styles.rawBottomButon, { backgroundColor: Colors.ButtonBorder }]}
-              onPress={() =>
-                setunsubmodal(true)
+              onPress={() =>{
+                setunsubmodal(true),
+                UserInfo()}
               }>
               <Text style={styles.rawBottomButtonText}>Je me désinscris !</Text>
             </TouchableOpacity>
@@ -341,7 +354,7 @@ const offline=eventsDetail?.data?.data?.participationType[0]?.[0]?.presentielThu
                     >
                       <Text style={styles.rawBottomButtonText}>Je participe en présentiel</Text>
                     </TouchableOpacity> : null}
-                  {eventsDetail?.data?.data?.mandatoryRegistrationOnline == true ?
+                  {online== true ?
                     <TouchableOpacity
                       onPress={() => {
                         setmymodal(true)
@@ -382,7 +395,7 @@ const offline=eventsDetail?.data?.data?.participationType[0]?.[0]?.presentielThu
                 {modalsec == false ? (
                   <>
                     <Text style={styles.modalText}>
-                      <Text style={{ fontFamily: 'Bebas Neue Pro Bold', fontSize: width * 0.048 }}> {Name}, </Text>
+                      <Text style={{ fontFamily: 'Bebas Neue Pro Bold', fontSize: width * 0.048 }}> {detail?.lastName}, </Text>
                       veux-tu vraiment t’inscrire a cet événement en présentiel
                       ?
                     </Text>
@@ -424,7 +437,7 @@ const offline=eventsDetail?.data?.data?.participationType[0]?.[0]?.presentielThu
                         <Text> </Text>
                         <Text
                           style={[styles.scndmodaltext2, { fontFamily: 'Bebas Neue Pro Bold' }]}>
-                          {Name} !
+                          {detail?.lastName} !
                         </Text>
                       </Text>
                     </View>
@@ -483,7 +496,7 @@ const offline=eventsDetail?.data?.data?.participationType[0]?.[0]?.presentielThu
 
                 <>
                   <Text style={styles.modalText}>
-                    <Text style={{ fontFamily: 'Bebas Neue Pro Bold', fontSize: width * 0.048 }}> {Name}, </Text>
+                    <Text style={{ fontFamily: 'Bebas Neue Pro Bold', fontSize: width * 0.048 }}> {detail?.lastName}, </Text>
                     veux-tu vraiment
                     t’inscrire a cet événement
                     en LIGNE ?
@@ -529,7 +542,7 @@ const offline=eventsDetail?.data?.data?.participationType[0]?.[0]?.presentielThu
 
                 <>
                   <Text style={styles.modalText}>
-                    <Text style={{ fontFamily: 'Bebas Neue Pro Bold', fontSize: width * 0.048 }}> {Name}, </Text>
+                    <Text style={{ fontFamily: 'Bebas Neue Pro Bold', fontSize: width * 0.048 }}> {detail?.lastName}, </Text>
                     veux-tu vraiment
                     te désinscrire de cet événement ?
                   </Text>
@@ -1148,10 +1161,6 @@ const styles = StyleSheet.create({
   },
   rawBottomlocation: {
     color: '#fdd460',
-    // fontSize: width * 0.045,
-    // fontWeight: 'bold',
-    // fontStyle: 'italic',
-    // paddingHorizontal: 10,
     fontSize: width * 0.05,
     fontFamily: 'Bebas Neue Pro Bold Italic',
     marginLeft: width * 0.015,
@@ -1160,6 +1169,7 @@ const styles = StyleSheet.create({
     width: width * 0.05,
     height: height * 0.03,
     resizeMode: 'contain',
+    marginTop:Platform.OS=="ios"?-height*0.005:null
   },
   rawBottomThirdView: {
     flexDirection: 'row',

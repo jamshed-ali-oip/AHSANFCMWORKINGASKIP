@@ -439,8 +439,8 @@ export const ProfilePictureSet = (userId, body) => async (dispatch) => {
 
 export const getEvents = () => async (dispatch) => {
   try {
-    const response = await axios.get(`${base_URL}/auth/getEvents`)
-    // console.log("revelaothfklasgk ",response)
+    const response = await axios.get(`${base_URL}/auth/getEvents/?status=published`)
+    console.log("revelaothfklasgk ",response)
     return response
     // if (data?.data?.success){
     //   console.log(response)

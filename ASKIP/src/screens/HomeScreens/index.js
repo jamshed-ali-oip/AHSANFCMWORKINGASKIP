@@ -53,7 +53,9 @@ const HomeScreens = ({ navigation }) => {
   const ok = useSelector(state => state?.auth?.progress)
   const [detail, setDetail] = useState()
   const [Count, setCount] = useState();
+  const [lstNa,setlstName]=useState()
   const [twister, settwister] = useState(true)
+  
   useEffect(() => {
     dispatch(Stackprofile(userId, (data) => {
       // console.log("my lord ",data.success)
@@ -64,13 +66,15 @@ const HomeScreens = ({ navigation }) => {
   }, [])
   useEffect(() => {
     UserInfo()
-  }, [detail])
+  }, [detail,ok])
   const UserInfo = async () => {
     const { data } = await UserDetail(userId)
     setDetail(data?.User?.progress)
+    setlstName(data?.User?.lastName)
 
   }
- console.log("home details",detail)
+ console.log("home details",lstNa)
+
  const yes =ok==undefined?detail:ok
   useEffect(() => {
     fetchData();
@@ -139,8 +143,11 @@ const HomeScreens = ({ navigation }) => {
     if (getSub?.item?.subsIdAdminAndRevelature[0]?.firstName && getSub?.item?.subsIdAdminAndRevelature[0]?.lastName) {
       d = getSub?.item?.subsIdAdminAndRevelature[0]?.firstName + " " + getSub?.item?.subsIdAdminAndRevelature[0]?.lastName
     }
-
-    console.log(c, d)
+    const online=getSub?.item?.participationType[0]?.[0]?.distancielThumbnail
+    const offline=getSub?.item?.participationType[0]?.[0]?.presentielThumbnail
+    
+    console.log(online,offline )
+console.log("detailigof ext",getSub?.item)
     return (
       <View
         style={{
@@ -190,7 +197,7 @@ const HomeScreens = ({ navigation }) => {
             source={require('../../assets/images/locLogo.png')}
           />
           <Text style={styles.rawBottomlocation}>
-            {getSub?.item?.postalAddress},{getSub?.item?.city},{getSub?.item?.zipCode}
+          {online==true?"En ligne ":null} {offline==true?getSub?.item?.postalAddress+","+getSub?.item?.city+","+getSub?.item?.zipCode:null}
           </Text>
         </View>
         <ScrollView showsVerticalScrollIndicator={true}>
@@ -337,7 +344,7 @@ const HomeScreens = ({ navigation }) => {
       notification: 0,
     },
   ];
-  console.log(Count,"counts")
+  // console.log(Count,"counts")
   const header = (item, index) => {
     return (
       <>
@@ -420,7 +427,7 @@ const HomeScreens = ({ navigation }) => {
                 style={styles.img}
                 source={require('../../assets/images/hifi.png')}
               />
-              <Text style={styles.mainText}>Bienvenue, {firstName || userdataFname} !</Text>
+              <Text style={styles.mainText}>Bienvenue, {lstNa}!</Text>
             </View>
             <View style={styles.viewtwo}>
               {
@@ -434,7 +441,11 @@ const HomeScreens = ({ navigation }) => {
                 >
                   {/* Fais entendre ta voie ! */}
                   FAIS ENTENDRE TA VOIE !
-                </Text> : <Text style={styles.simpleText}>
+                </Text> : 
+               <TouchableOpacity
+               onPress={()=>{navigation.navigate("ProfileScreens")}}
+               >
+                 <Text style={styles.simpleText}>
                   N’oublie pas de
                   <Text> </Text>
                   <Text
@@ -447,6 +458,7 @@ const HomeScreens = ({ navigation }) => {
                   </Text>
                   <Text> </Text>!
                 </Text>
+               </TouchableOpacity>
               }
             </View>
             {/* {/ seracher  /} */}
@@ -525,13 +537,26 @@ const HomeScreens = ({ navigation }) => {
             </View>
             <View style={styles.eventoneView}>
               <Text style={[styles.mainHeading, { paddingTop: 10 }]}>Mon historique d’événements</Text>
-              <FlatList
+              {/* <FlatList
                 showsHorizontalScrollIndicator={false}
                 horizontal={true}
                 data={eventtwo}
                 keyExtractor={item => item.id}
                 renderItem={eventtwofunc}
-              />
+              /> */}
+              <Text
+                  style={{
+                    fontSize: width * 0.055,
+                    alignSelf: "center",
+                    textAlign: "center",
+                    marginTop: height * 0.085,
+                    fontFamily: "Bebas Neue Pro Bold",
+                    width: width * 0.5,
+                    color: "#afafaf"
+                  }}
+                >
+                  Tu retrouveras ici les événements terminés auxquels tu as participé 
+                </Text>
             </View>
           </ImageBackground>
           <View>
@@ -675,6 +700,7 @@ const styles = StyleSheet.create({
     marginLeft: width * 0.025,
     // marginTop: height * 0.01,
     fontFamily: 'Bebas Neue Pro Bold',
+    
   },
   flatlistimage: {
     width: width * 0.65,

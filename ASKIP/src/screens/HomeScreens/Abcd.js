@@ -39,11 +39,12 @@ const Abcd = (props) => {
     setCount(data?.data?.invitationCount)
     
   };
-  //  console.log("firstName",firstName)
-console.log(Count,"count")
-  // console.log(Status,inviteId);
-  const RawBottomSheet = () => {
 
+  const RawBottomSheet = () => {
+    const online=S_event?.eventId?.participationType[0]?.[0]?.distancielThumbnail
+const offline=S_event?.eventId?.participationType[0]?.[0]?.presentielThumbnail
+console.log("S_eventS_event",S_event?.eventId?.participationType)
+console.log("online=",online,"offline=", offline)
     return (
       <View
         style={{
@@ -92,7 +93,7 @@ console.log(Count,"count")
           />
           <Text style={styles.rawBottomlocation}>
 
-            {S_event?.eventId?.postalAddress},{S_event?.eventId?.city},{S_event?.eventId?.zipCode}
+          {online==true?"En ligne ":null}  {offline==true?S_event?.eventId?.postalAddress+","+S_event?.eventId?.city+","+S_event?.eventId?.zipCode:null}
           </Text>
         </View>
         <ScrollView showsVerticalScrollIndicator={true}>
