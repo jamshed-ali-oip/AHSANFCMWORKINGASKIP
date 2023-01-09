@@ -259,9 +259,9 @@ export default MesScreen;
 const styles = StyleSheet.create({
   check: {
     // backgroundColor: 'red',
-    width: width * 0.075,
+    width: height * 0.04,
     height: height * 0.04,
-    borderRadius: width * 0.038,
+    borderRadius: 100,
     justifyContent: 'center',
     alignItems: 'center',
     // padding:widsth

@@ -69,7 +69,7 @@ const ProfileImage = () => {
                   height: height * 0.11,
                   width: width * 0.21,
                   resizeMode: 'contain',
-                  borderRadius: width * 0.5,
+                  borderRadius: width * 200,
                   alignSelf: 'center',
                 }}
                 source={{ uri:Picture!==undefined?`${base_URL_IMAGE+Picture}`:`${base_URL_IMAGE+detail?.photo}`}}
@@ -82,7 +82,7 @@ const ProfileImage = () => {
           style={{
             flexDirection: 'row',
             justifyContent: 'center',
-            marginTop:Platform.OS=="ios"?height*0.003:null
+            marginTop:Platform.OS=="ios"?height*0.009:null
           }}>
           <Text
             style={{
@@ -117,10 +117,10 @@ export default ProfileImage
 
 const styles = StyleSheet.create({ profile: {
     backgroundColor: Colors.whitetext,
-    height: height * 0.12,
+    height: width * 0.23,
     width: width * 0.23,
     alignSelf: 'center',
-    borderRadius: width * 0.8,
+    borderRadius: 100,
     marginTop: Platform.OS === "ios"?-height * 0.03:-height * 0.05,
     shadowColor: "#000",
     shadowOffset: {

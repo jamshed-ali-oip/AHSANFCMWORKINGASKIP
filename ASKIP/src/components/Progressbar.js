@@ -63,8 +63,10 @@ const Progressbar = (props) => {
           color: 'white',
           fontWeight: 'bold',
           fontSize: width * 0.035,
-          marginTop: -height * 0.012,
-          marginLeft: width * yes / 1.5 || 0
+          top:-8,
+          // marginTop: -height * 0.012,
+          textAlign:'center',textAlignVertical:'center',
+          marginLeft: width * yes / 2 || 0
         }}
       >{yes * 100}%</Text></View>
       

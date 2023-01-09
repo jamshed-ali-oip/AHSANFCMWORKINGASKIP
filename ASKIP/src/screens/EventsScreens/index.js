@@ -580,6 +580,7 @@ return (
     return (
       <TouchableOpacity
         activeOpacity={0.5}
+     
         onPress={() => {
           setdata(item?.item?._id)
           // event_by_Id();
@@ -587,7 +588,7 @@ return (
 
         }}>
         <ImageBackground
-          imageStyle={{     borderRadius: width * 0.04, }}
+          imageStyle={{     borderRadius: width * 0.04, borderWidth: 0.5, borderColor:'#b9b9b9'}}
           style={styles.LowerRenderimage}
           source={{ uri: `${base_URL_IMAGE + item.item.eventImage}` }}>
           <View style={styles.LowerRenderfirstview}>
@@ -729,7 +730,7 @@ return (
 
 
           </View>
-          <ScrollView>
+          <View>
             {events?.data?.length !== 0 ?
               <View style={{ marginBottom: height * 0.25 }}>
                 <FlatList
@@ -737,14 +738,19 @@ return (
                   data={events?.data}
                   keyExtractor={item => item.id}
                   renderItem={LowerRender}
+                  showsVerticalScrollIndicator={false}
+                  ListFooterComponent={
+                    <View style={{height: 300}}></View>
+                  }
                 />
+                {/* <View style={{height: 100}}  /> */}
               </View>
               :
 
               <Image
                 style={{ alignSelf: "center", resizeMode: "contain", marginTop: height * 0.08 }}
                 source={require("../../assets/images/noevent.png")} />}
-          </ScrollView>
+          </View>
           <View>
             <RBSheet
               ref={refRBSheet}
@@ -1273,7 +1279,7 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     width: width * 0.7,
     // letterSpacing: -1,
-    fontFamily: 'Bebas Neue Bold Regular',
+    fontFamily: 'Bebas Neue Pro Regular',
     fontSize: width * 0.045,
   },
   scndmodalbtn: {

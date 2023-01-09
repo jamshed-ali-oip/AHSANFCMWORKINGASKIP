@@ -202,12 +202,14 @@ const Page2 = ({ setPage, profile }) => {
               borderColor: '#e3e6eb',
               borderRadius: width * 0.015,
               padding: width * 0.014,
+              justifyContent:'center',
+              alignItems:'center'
             }}
             onPress={() => {
               setOpen(true);
             }}>
           
-            <Text style={{ fontSize: width * 0.035, color: color ? "black" : '#b0b0b0',marginLeft:width*0.02 }}>
+            <Text style={{ fontSize: width * 0.035, color: color ? "black" : '#b0b0b0' }}>
                {moment(date).format('DD/MM/YYYY')}
             </Text>
             {/* <Text style={{ fontSize: width * 0.035, color: color ? "black" : '#b0b0b0',marginLeft:width*0.02 }}>
@@ -380,7 +382,7 @@ const Styles = StyleSheet.create({
     textTransform: 'uppercase',
     width: width * 0.7,
     // letterSpacing: -1,
-    fontFamily: 'Bebas Neue Bold Regular',
+    fontFamily: 'Bebas Neue Pro Regular',
     fontSize: width * 0.045,
   }, rawBottomButons: {
     width: width * 0.22,

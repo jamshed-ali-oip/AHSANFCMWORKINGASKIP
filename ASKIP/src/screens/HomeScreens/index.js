@@ -221,7 +221,7 @@ console.log("detailigof ext",getSub?.item)
       <>
         <View style={styles.flatlistView}>
           <ImageBackground
-            imageStyle={{ borderRadius: width * 0.03 }}
+            imageStyle={{ borderRadius: width * 0.03, borderWidth:0.4, borderColor:"#b9b9b9" }}
             style={styles.flatlistimage}
             source={{ uri: `${base_URL_IMAGE + item?.item?.eventImage}` }}>
             <TouchableOpacity
@@ -417,7 +417,7 @@ console.log("detailigof ext",getSub?.item)
   return (
     <>
       {
-        twister == true ? <ScrollView>
+        twister == true ? <ScrollView showsVerticalScrollIndicator={false}>
           <StatusBar barStyle='default' backgroundColor='transparent' />
           <ImageBackground
             source={require('../../assets/images/homebg.png')}
@@ -750,11 +750,13 @@ const styles = StyleSheet.create({
     letterSpacing: 0.3,
   },
   QRView: {
-    backgroundColor: 'white',
+    backgroundColor: '#f9f9f9',
     position: 'absolute',
     marginTop: height * 0.01,
     marginLeft: width * 0.015,
     borderRadius: width * 0.031,
+    borderWidth:0.4,
+    borderColor:'#b9b9b9'
   },
   QRText: {
     fontSize: width * 0.042,
