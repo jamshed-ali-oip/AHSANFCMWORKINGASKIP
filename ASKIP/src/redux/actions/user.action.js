@@ -150,7 +150,7 @@ export const imageUpload = (data,setReminder) => async (dispatch) => {
 
   });
 
-  axios.post(`${base_URL}/uploadImage`, bodyFormData, {
+  axios.post(`${base_URL}/uploadImage/?type=user`, bodyFormData, {
     headers: {
       'Content-Type': 'multipart/form-data'
     }
@@ -182,7 +182,7 @@ export const profileImage = (data) => async (dispatch) => {
 
   });
 
-  axios.post(`${base_URL}/uploadImage`, bodyFormData, {
+  axios.post(`${base_URL}/uploadImage/?type=user`, bodyFormData, {
     headers: {
       'Content-Type': 'multipart/form-data'
     }
