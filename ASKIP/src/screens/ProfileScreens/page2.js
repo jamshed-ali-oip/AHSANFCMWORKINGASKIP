@@ -99,7 +99,8 @@ const Page2 = ({ setPage, profile }) => {
       gender: Austre1 ? Austre1.name : Select.name,
       email,
       zipCode: Number(postal),
-      postalAddress: Address
+      postalAddress: Address,
+      progress:0.4
     }
 
 
@@ -112,6 +113,14 @@ const Page2 = ({ setPage, profile }) => {
       // setPage(3)
     }
   }
+  // useEffect(()=>{
+  //   console.log(detail?.birthDate,"detail?.birthDate")
+  //   if(detail?.birthDate==null||undefined){
+  //     setColor(false)
+  //   }else{
+  //     setColor(true)
+  //   }
+  // },[])
 
   function onEmail() {
     if (email) {
@@ -139,7 +148,7 @@ const Page2 = ({ setPage, profile }) => {
           <Text style={Styles.text}>Ton genre</Text>
           <View>
             <Selector
-              boxheight={height * 0.042}
+              boxheight={height * 0.045}
               boxwidth={width * 0.5}
               dropdownwidth={width * 0.5}
               placeholder={Select.name ? <Text
@@ -151,7 +160,7 @@ const Page2 = ({ setPage, profile }) => {
             {Select.id == 3 ? (
               <View style={{ marginTop: height * 0.005 }}>
                 <Selector
-                  boxheight={height * 0.042}
+                  boxheight={height * 0.045}
                   boxwidth={width * 0.5}
                   dropdownwidth={width * 0.5}
                   placeholder={Austre1.name ? <Text
@@ -193,23 +202,26 @@ const Page2 = ({ setPage, profile }) => {
               borderColor: '#e3e6eb',
               borderRadius: width * 0.015,
               padding: width * 0.014,
+              justifyContent:'center',
+              alignItems:'center'
             }}
             onPress={() => {
               setOpen(true);
             }}>
-            {/* { profile?.birthDate? <Text style={{ fontSize: width * 0.035, color: color ? "black" : 'black' }}>
-              {moment(profile?.birthDate).format('DD/MM/YYYY')}
-            </Text>
-              : */}
+          
             <Text style={{ fontSize: width * 0.035, color: color ? "black" : '#b0b0b0' }}>
-              {!color ? moment(detail?.birthDate).format('DD/MM/YYYY') : moment(date).format('DD/MM/YYYY')}
+               {moment(date).format('DD/MM/YYYY')}
             </Text>
+            {/* <Text style={{ fontSize: width * 0.035, color: color ? "black" : '#b0b0b0',marginLeft:width*0.02 }}>
+              {!color ? moment(detail?.birthDate).format('DD/MM/YYYY') : moment(date).format('DD/MM/YYYY')}
+            </Text> */}
           </TouchableOpacity>
           <DatePicker
             modal
             open={open}
             date={date}
             locale={'fr'}
+          
             // minimumDate={new Date(1990, 1, 1)}
             maximumDate={new Date(2006, 12, 1)}
             onConfirm={date => {
@@ -370,7 +382,7 @@ const Styles = StyleSheet.create({
     textTransform: 'uppercase',
     width: width * 0.7,
     // letterSpacing: -1,
-    fontFamily: 'Bebas Neue Bold Regular',
+    fontFamily: 'Bebas Neue Pro Regular',
     fontSize: width * 0.045,
   }, rawBottomButons: {
     width: width * 0.22,

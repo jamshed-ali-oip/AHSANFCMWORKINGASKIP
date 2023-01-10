@@ -218,7 +218,7 @@ console.log("details22",detail)
           />
         </View>
         <View style={styles.mainview}>
-          <Text style={styles.txt}>Tu as besoin d’un acommpagnement?</Text>
+          <Text style={styles.txt}>Tu as besoin d'un accompagnement ?</Text>
           <Selector
             boxheight={height * 0.045}
             boxwidth={width * 0.925}

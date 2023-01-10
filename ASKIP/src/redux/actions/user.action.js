@@ -8,7 +8,7 @@ export const userLogin = (data, setLoading, setError,refRBSheet) => async (dispa
   try {
     setLoading(true)
     const response = await axios.post(`${base_URL}/user/login`, data)
-    // console.log(response)
+    console.log(response)
     if (response?.data?.data?.success) {
       refRBSheet?refRBSheet.current.close():null
       setTimeout(()=>{
@@ -23,7 +23,7 @@ export const userLogin = (data, setLoading, setError,refRBSheet) => async (dispa
   catch (error) {
     setLoading(false)
     setError(true)
-    // console.log(error)
+    console.log(error)
   }
 };
 
@@ -182,7 +182,7 @@ export const profileImage = (data) => async (dispatch) => {
 
   });
 
-  axios.post(`${base_URL}/uploadImage`, bodyFormData, {
+  axios.post(`${base_URL}/uploadImage/?type=user`, bodyFormData, {
     headers: {
       'Content-Type': 'multipart/form-data'
     }
@@ -439,8 +439,8 @@ export const ProfilePictureSet = (userId, body) => async (dispatch) => {
 
 export const getEvents = () => async (dispatch) => {
   try {
-    const response = await axios.get(`${base_URL}/auth/getEvents`)
-    // console.log("revelaothfklasgk ",response)
+    const response = await axios.get(`${base_URL}/auth/getEvents/?status=published`)
+    console.log("revelaothfklasgk ",response)
     return response
     // if (data?.data?.success){
     //   console.log(response)
@@ -575,7 +575,7 @@ export const FCMUPDATE = (data, userId) => async (dispatch) => {
 export const MESINVITES = async (userId) => {
   try {
     const response = await axios.get(`${base_URL}/invitationUser/${userId}`)
-    // console.log("MES INVITATION ACTION CLG",response)
+    console.log("MES INVITATION ACTION CLG",response)
     return response
 
   }

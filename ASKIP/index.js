@@ -11,6 +11,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from "redux-persist/integration/react"
 import messaging from '@react-native-firebase/messaging';
 import PushNotification, { Importance } from 'react-native-push-notification'
+import Colors from './src/components/Colors';
 let {width, height} = Dimensions.get('window');
 PushNotification.createChannel(
     {
@@ -35,7 +36,8 @@ const RoutreStack = () => {
         <Provider store={store}>
             <SafeAreaView style={{flex:1,
                 marginTop: Platform.OS=="ios" ?-height*0.06:null,
-                marginBottom:Platform.OS=="ios" ?-height*0.04:null,
+                marginBottom:Platform.OS=="ios" ?-height*0.036:null,
+                backgroundColor:"#081a4f"
                 }}>
                    <StatusBar  
                         backgroundColor='transparent'  

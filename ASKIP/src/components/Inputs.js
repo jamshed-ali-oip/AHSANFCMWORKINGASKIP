@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     borderRadius: width * 0.01,
   },
   input: {
-    paddingLeft: width * 0.04,
+    paddingLeft: width * 0.02,
     fontSize: width * 0.035,
     color:"black"
   },

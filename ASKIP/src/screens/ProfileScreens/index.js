@@ -10,7 +10,7 @@ import {
   LayoutAnimation,
   Platform,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState,useEffect  } from 'react';
 import TopTab from '../../components/TopTab';
 import Colors from '../../assets/colors/Colors';
 // import SimpleGradientProgressbarView from 'react-native-simple-gradient-progressbar-view';
@@ -20,14 +20,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import { LOG_OUT } from '../../redux/const/const';
 import ProfileImage from './ProfileImage';
 import Cmodal from '../../components/Cmodal';
+import { UserDetail } from '../../redux/actions/user.action';
+
 
 const { height, width } = Dimensions.get('window');
 const ProfileScreens = ({navigation}) => {
   const dispatch = useDispatch()
-  const firstName=useSelector(state => state?.auth?.User?.data?.lastName)
-  const userdataFname=useSelector(state => state?.auth?.credential?.User?.lastName)
-  const kiffs=useSelector(state => state?.auth?.credential?.User?.kiffs)
+  const userId = useSelector((state) => state?.auth?.credential?.User?._id)
+  const [detail, setDetail] = useState()
+  useEffect(() => {
+    UserInfo()
+  }, [])
+  const UserInfo = async () => {
+    const { data } = await UserDetail(userId)
+    setDetail(data?.User)
 
+  }
+ console.log("progress details",detail)
+  const kiffs=useSelector(state => state?.auth?.credential?.User?.kiffs)
   const [modalVisible, setModalVisible] = useState(false);
   console.log("modalVisible",modalVisible)
   const [image, setImage] = useState();
@@ -43,6 +53,7 @@ const ProfileScreens = ({navigation}) => {
   }
   const signOut =async () => {
     console.log('====================================');
+
     await closeModal()
     // console.log(modalVisible);
     console.log('====================================');
@@ -90,6 +101,8 @@ const ProfileScreens = ({navigation}) => {
           style={{marginTop: Platform.OS == 'ios' ? 0 :  20}}
             onPress={() => {
               setModalVisible(true);
+              UserInfo()
+         
             }}>
             <Image
               style={{ alignSelf: 'flex-end',marginTop:Platform.OS=="ios"?height*0.05:null }}
@@ -100,35 +113,6 @@ const ProfileScreens = ({navigation}) => {
         <View style={styles.box}>
           <ProfileImage/>
           
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              marginTop:Platform.OS=="ios"?height*0.003:null
-            }}>
-            <Text
-              style={{
-                color: Colors.theme_color,
-                // fontSize: width * 0.05,
-                fontFamily: 'Bebas Neue Pro Book',
-                fontSize: width * 0.063,
-                letterSpacing: 0.3,
-              }}>
-              SALUT
-            </Text>
-            <Text
-              style={{
-                color: Colors.theme_color,
-                // fontSize: width * 0.05,
-                // fontWeight: '800',\
-                fontFamily: 'Bebas Neue Pro Bold',
-                fontSize: width * 0.065,
-                letterSpacing: 0.3,
-                paddingHorizontal: width * 0.01,
-              }}>
-             {firstName||userdataFname} !
-            </Text>
-          </View>
           <View
             style={{
               flexDirection: 'row',
@@ -192,7 +176,7 @@ const ProfileScreens = ({navigation}) => {
                 source={require('../../assets/images/backgroundImage.png')}>
                 <>
                   <Text style={styles.modalText}>
-                    <Text style={{ fontWeight: 'bold' }}>{firstName||userdataFname}, </Text>
+                    <Text style={{ fontWeight: 'bold' }}>{detail?.lastName}, </Text>
                     veux-tu vraiment te déconnecter ?
                   </Text>
                   <View

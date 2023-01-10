@@ -8,7 +8,8 @@ import {
   ImageBackground,
   Modal,
   ActivityIndicator,
-  Linking
+  Linking,
+  Platform
 } from 'react-native';
 import { React, useRef, useState, useEffect } from 'react';
 import { Loginbtn, SignupBtn, Connnection } from '../../components/BTNS';
@@ -1026,12 +1027,12 @@ const style = StyleSheet.create({
     position: 'absolute',
     // marginBottom:0,
     resizeMode: 'contain',
-    height: height * 0.3,
+    height: Platform.OS=="ios"? height * 0.3: height * 0.4,
     width: width * 1,
     marginTop: height * 0.7,
   },
   box: {
-    marginTop: height * 0.04,
+    marginTop: Platform.OS=="ios"?height * 0.04:height * 0.085,
   },
   head: {
     // fontSize: width * 0.055,
@@ -1201,7 +1202,7 @@ const style = StyleSheet.create({
     textTransform: 'uppercase',
     width: width * 0.7,
     // letterSpacing: -1,
-    fontFamily: 'Bebas Neue Bold Regular',
+    fontFamily: 'Bebas Neue Pro Regular',
     fontSize: width * 0.045,
   }, rawBottomButons: {
     width: width * 0.22,

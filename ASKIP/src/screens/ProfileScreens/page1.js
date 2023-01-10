@@ -58,6 +58,7 @@ const Page1 = ({ setPage, profile }) => {
       firstName,
       lastName,
       phone: phone?.slice(1),
+      progress:0.2
     }
     if (firstName === undefined || lastName === undefined || phone === undefined) {
        return setReminder(true)
@@ -215,7 +216,7 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     width: width * 0.7,
     // letterSpacing: -1,
-    fontFamily: 'Bebas Neue Bold Regular',
+    fontFamily: 'Bebas Neue Pro Regular',
     fontSize: width * 0.045,
   }, rawBottomButons: {
     width: width * 0.22,

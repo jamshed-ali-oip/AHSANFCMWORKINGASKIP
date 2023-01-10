@@ -1,37 +1,35 @@
 import {
+  ImageBackground,
   StyleSheet,
   Text,
   View,
+  Dimensions,
+  Image,
   FlatList,
   TouchableOpacity,
-  Dimensions,
   ScrollView,
-  Image,
-  ImageBackground,
   Modal,
-  Platform,
-} from 'react-native';
-import React, { useEffect, useRef } from 'react';
-import RBSheet from 'react-native-raw-bottom-sheet';
-import { useState } from 'react';
+  Platform
+} from 'react-native'
+import React, { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import RBSheet from 'react-native-raw-bottom-sheet';
 import { MESINVITES, StatusUpdate } from '../../redux/actions/user.action';
 import moment from 'moment/min/moment-with-locales'
 import { base_URL_IMAGE } from '../../config/config';
 const { width, height } = Dimensions.get('window');
-const Topselector = ({ }) => {
+const Abcd = (props) => {
+  const [Invitations, setInvitations] = useState();
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisible2, setModalVisible2] = useState(false);
   const [S_event, setS_event] = useState()
-  const [Invitations, setInvitations] = useState();
   const [Count, setCount] = useState();
   const [Status, setStatus] = useState();
   const [inviteId, setinviteId] = useState();
-  const [ScreenSplit, setScreenSplit] = useState(true);
-
   const firstName = useSelector((state) => state?.auth?.credential?.User?.lastName)
   const dispatch = useDispatch()
   const userId = useSelector((state) => state?.auth?.credential?.User?._id)
+  const refRBSheet2 = useRef();
   useEffect(() => {
     MESDATA()
   }, [])
@@ -39,247 +37,14 @@ const Topselector = ({ }) => {
     const { data } = await MESINVITES(userId);
     setInvitations(data?.data?.invitation);
     setCount(data?.data?.invitationCount)
+    
   };
-  //  console.log("firstName",firstName)
 
-  // console.log(Status,inviteId);
-
-  const update = () => {
-    var data = {
-      status: Status,
-      userId: userId
-
-    }
-    dispatch(StatusUpdate(data, inviteId)).then(() => {
-      MESDATA()
-    })
-  }
-
-  const headerdata = [
-    {
-      id: 1,
-      name: 'Mes invitations',
-      notification: 1,
-    },
-    {
-      id: 2,
-      name: 'Les prochains événements',
-      notification: 2,
-    },
-    {
-
-
-      id: 3,
-      name: 'Mes événements favoris',
-      notification: 0,
-    },
-  ];
-  const Inivite = () => {
-    const INVITES = (item) => {
-      //  console.log(item.item)
-      return (
-        <View style={[styles.selectedView, { backgroundColor: item?.item?.status == "pending" ? '#001d4f' : "#ffffff", }]}>
-          <View style={styles.insideViewheading}>
-            <Text style={[styles.mainheading2, { color: item?.item?.status == "pending" ? "#ffffff" : '#001d4f' }]}>
-              {item?.item?.revelaturId?.firstName + " " + item?.item?.revelaturId?.lastName} t’invite à un événement ! {' '}
-            </Text>
-          </View>
-          <Text style={[styles.flatlistheading2, { color: item?.item?.status == "pending" ? '#ffbc15' : '#001d4f' }]}>
-            {item?.item?.eventId?.eventName + "-" + item?.item?.eventId?.city}
-          </Text>
-          <View
-            style={{ flexDirection: 'row', marginBottom: height * 0.015 }}>
-            <Text style={[styles.flatlistdescription2, { color: item?.item?.status == "pending" ? 'white' : '#ffbc15' }]}>
-              {item?.item?.eventId?.category}
-            </Text>
-            <Text
-              style={[
-                styles.flatlistdate2,
-                { color: item?.item?.status == "pending" ? '#ffbc15' : '#001d4f', fontFamily: 'Bebas Neue Pro Regular' },
-              ]}>
-              {moment(item?.item?.beginAt).locale('fr').format('ddd DD MMMM YYYY')}
-            </Text>
-          </View>
-          <View style={{ flexDirection: 'row' }}>
-            <TouchableOpacity
-              onPress={() => { setS_event(item?.item), refRBSheet2.current.open() }}
-              style={[styles.yellowViewselected, { width: item?.item?.status == "pending" ? width * 0.31 : width * 0.45, }]}>
-              <Text style={styles.yellowText}>Je consulte la fiche </Text>
-            </TouchableOpacity>
-            {item?.item?.status == "accepted" ?
-              <TouchableOpacity
-              activeOpacity={100}
-              // onPress={() => { setStatus("accepted"), setinviteId(item?.item?._id), setModalVisible(true) }}
-                style={[
-                  styles.acceptViewselected,
-                  { marginLeft: width * 0.0085 },
-                ]}>
-                <Text style={styles.acceptText}>Accepte</Text>
-              </TouchableOpacity> : null
-            }
-            {
-              item?.item?.status == "declined" ? <TouchableOpacity
-              activeOpacity={100}
-                // onPress={() => { setStatus("declined"), setinviteId(item?.item?._id), setModalVisible2(true) }}
-                style={[
-                  styles.rejectViewselected,
-                  { marginLeft: width * 0.0085, borderColor: item?.item?.status == "pending" ? 'white' : 'red', },
-                ]}>
-                <Text style={[styles.rejectText, { color: item?.item?.status == "pending" ? 'white' : 'red' }]}>
-                 Refuse
-                </Text>
-              </TouchableOpacity> : null
-            }
-
-            {item?.item?.status == "pending" ? <>
-
-              <TouchableOpacity
-                onPress={() => { setStatus("accepted"), setinviteId(item?.item?._id), setModalVisible(true) }}
-                style={[
-                  styles.acceptViewselected,
-                  { marginLeft: width * 0.0085 },
-                ]}>
-                <Text style={styles.acceptText}>J’accepte</Text>
-              </TouchableOpacity>
-
-
-              <TouchableOpacity
-                onPress={() => { setStatus("declined"), setinviteId(item?.item?._id), setModalVisible2(true) }}
-                style={[
-                  styles.rejectViewselected,
-                  { marginLeft: width * 0.0085, borderColor: item?.item?.status == "pending" ? 'white' : 'red', },
-                ]}>
-                <Text style={[styles.rejectText, { color: item?.item?.status == "pending" ? 'white' : 'red' }]}>
-                  Je refuse
-                </Text>
-              </TouchableOpacity></> : null}
-
-          </View>
-        </View>
-      )
-    }
-    return (
-      <>
-        <View
-          style={{ position: "absolute", zIndex: 9999 }}
-        >
-          <TouchableOpacity
-
-            onPress={() => {
-              refRBSheet.current.close();
-            }}>
-            <Image
-              style={styles.circle}
-              source={require('../../assets/images/prev.png')}
-            />
-          </TouchableOpacity>
-
-        </View>
-        <ScrollView
-
-        >
-
-          <ImageBackground
-
-            style={styles.background}
-            source={require('../../assets/images/rbbg.png')}>
-            <Text style={styles.mainheading}>MES INVITATIONS</Text>
-            {Invitations?.length !== 0 ? <FlatList
-              // showsHorizontalScrollIndicator={true}
-              style={{ marginTop: height * 0.02 }}
-              scrollEnabled={true}
-              data={Invitations}
-              keyExtractor={item => item._id}
-              renderItem={INVITES}
-            /> :
-              <Image
-                style={{
-                  resizeMode: "contain",
-                  alignSelf: "center",
-                  marginTop: height * 0.06
-                }}
-                source={require("../../assets/images/noinvites.png")} />
-
-            }
-          </ImageBackground>
-
-        </ScrollView></>
-    );
-  };
-  const refRBSheet = useRef();
-  const refRBSheet2 = useRef();
-
-  const header = (item, index) => {
-    return (
-      <>
-        {
-          item?.item?.id == 1 && Count >0 ? (
-            <View
-            style={{
-              position: "absolute",
-              backgroundColor: "#ffbc15",
-              borderRadius: width * 0.05/2,
-              height: width * 0.05,
-              width: width * 0.05,
-              // alignSelf:"flex-end",
-              // marginBottom:height*0.1,
-              // padding:width*0.01,
-              marginLeft: width * 0.29,
-              marginBottom: -height * 0.05,
-              zIndex: 9999,
-              marginTop: height * 0.01,
-            }}
-            >
-              <Text
-                style={{
-                  textAlign: "center",
-                  fontSize: width * 0.035,
-                  fontWeight: "bold"
-                }}
-              >{Count}</Text>
-            </View>
-          ) : null
-
-        }
-        <TouchableOpacity
-          onPress={() => { item?.item?.id == 1 ? refRBSheet.current.open() : null, MESDATA() }}
-          style={{
-            height: height * 0.05,
-            backgroundColor: "white",
-            marginHorizontal: width * 0.02,
-            justifyContent: "center",
-            borderRadius: width * 0.05,
-            paddingHorizontal: width * 0.04,
-            elevation: 10,
-            marginTop: height * 0.02,
-            marginBottom: height * 0.01,
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 5,
-            },
-            shadowOpacity: 0.34,
-            shadowRadius: 6.27,
-
-          }}
-        >
-
-          <Text
-            style={{
-              fontSize: width * 0.049,
-              color: '#001d4f',
-              fontFamily: 'Bebas Neue Pro Bold',
-            }}
-          >
-            {item.item.name}
-          </Text>
-
-
-        </TouchableOpacity></>
-    );
-  };
   const RawBottomSheet = () => {
-
+    const online=S_event?.eventId?.participationType[0]?.[0]?.distancielThumbnail
+const offline=S_event?.eventId?.participationType[0]?.[0]?.presentielThumbnail
+console.log("S_eventS_event",S_event?.eventId?.participationType)
+console.log("online=",online,"offline=", offline)
     return (
       <View
         style={{
@@ -327,63 +92,153 @@ const Topselector = ({ }) => {
             source={require('../../assets/images/locLogo.png')}
           />
           <Text style={styles.rawBottomlocation}>
-            
-            {S_event?.eventId?.postalAddress},{S_event?.eventId?.city},{S_event?.eventId?.zipCode}
+
+          {online==true?"En ligne ":null}  {offline==true?S_event?.eventId?.postalAddress+","+S_event?.eventId?.city+","+S_event?.eventId?.zipCode:null}
           </Text>
         </View>
         <ScrollView showsVerticalScrollIndicator={true}>
           <TouchableOpacity activeOpacity={1}>
             <Text style={styles.rawBottomMainDescription}>
-              
+
               {S_event?.eventId?.description}
             </Text>
           </TouchableOpacity>
         </ScrollView>
         {/* <TouchableOpacity
-          style={styles.rawBottomButon}
-          >
-          <Text style={styles.rawBottomButtonText}>Je m’inscris !</Text>
-        </TouchableOpacity> */}
+              style={styles.rawBottomButon}
+              >
+              <Text style={styles.rawBottomButtonText}>Je m’inscris !</Text>
+            </TouchableOpacity> */}
       </View>
     );
   };
+  const update = () => {
+    var data = {
+      status: Status,
+      userId: userId
+
+    }
+    console.log(data.status, data.userId, inviteId);
+    dispatch(StatusUpdate(data, inviteId)).then(() => {
+      MESDATA()
+    })
+  }
+
+  const INVITES = (item) => {
+    //  console.log(item.item)
+    return (
+      <View style={[styles.selectedView, { backgroundColor: item?.item?.status == "pending" ? '#001d4f' : "#ffffff", }]}>
+        <View style={styles.insideViewheading}>
+          <Text style={[styles.mainheading2, { color: item?.item?.status == "pending" ? "#ffffff" : '#001d4f' }]}>
+            {item?.item?.revelaturId?.firstName + " " + item?.item?.revelaturId?.lastName} t’invite à un événement ! {' '}
+          </Text>
+        </View>
+        <Text style={[styles.flatlistheading2, { color: item?.item?.status == "pending" ? '#ffbc15' : '#001d4f' }]}>
+          {item?.item?.eventId?.eventName + "-" + item?.item?.eventId?.city}
+        </Text>
+        <View
+          style={{ flexDirection: 'row', marginBottom: height * 0.015 }}>
+          <Text style={[styles.flatlistdescription2, { color: item?.item?.status == "pending" ? 'white' : '#ffbc15' }]}>
+            {item?.item?.eventId?.category}
+          </Text>
+          <Text
+            style={[
+              styles.flatlistdate2,
+              { color: item?.item?.status == "pending" ? '#ffbc15' : '#001d4f', fontFamily: 'Bebas Neue Pro Regular' },
+            ]}>
+            {moment(item?.item?.beginAt).locale('fr').format('ddd DD MMMM YYYY')}
+          </Text>
+        </View>
+        <View style={{ flexDirection: 'row' }}>
+          <TouchableOpacity
+            onPress={() => { setS_event(item?.item), refRBSheet2?.current?.open() }}
+            style={[styles.yellowViewselected, { width: item?.item?.status == "pending" ? width * 0.31 : width * 0.45, }]}>
+            <Text style={styles.yellowText}>Je consulte la fiche </Text>
+          </TouchableOpacity>
+          {item?.item?.status == "accepted" ?
+            <TouchableOpacity
+              activeOpacity={100}
+              // onPress={() => { setStatus("accepted"), setinviteId(item?.item?._id), setModalVisible(true) }}
+              style={[
+                styles.acceptViewselected,
+                { marginLeft: width * 0.0085 },
+              ]}>
+              <Text style={styles.acceptText}>Accepté</Text>
+            </TouchableOpacity> : null
+          }
+          {
+            item?.item?.status == "declined" ? <TouchableOpacity
+              activeOpacity={100}
+              // onPress={() => { setStatus("declined"), setinviteId(item?.item?._id), setModalVisible2(true) }}
+              style={[
+                styles.rejectViewselected,
+                { marginLeft: width * 0.0085, borderColor: item?.item?.status == "pending" ? 'white' : 'red', },
+              ]}>
+              <Text style={[styles.rejectText, { color: item?.item?.status == "pending" ? 'white' : 'red' }]}>
+                Refusé
+              </Text>
+            </TouchableOpacity> : null
+          }
+
+          {item?.item?.status == "pending" ? <>
+
+            <TouchableOpacity
+              onPress={() => { setStatus("accepted"), setinviteId(item?.item?._id), setModalVisible(true) }}
+              style={[
+                styles.acceptViewselected,
+                { marginLeft: width * 0.0085 },
+              ]}>
+              <Text style={styles.acceptText}>J’accepte</Text>
+            </TouchableOpacity>
+
+
+            <TouchableOpacity
+              onPress={() => { setStatus("declined"), setinviteId(item?.item?._id), setModalVisible2(true) }}
+              style={[
+                styles.rejectViewselected,
+                { marginLeft: width * 0.0085, borderColor: item?.item?.status == "pending" ? 'white' : 'red', },
+              ]}>
+              <Text style={[styles.rejectText, { color: item?.item?.status == "pending" ? 'white' : 'red' }]}>
+                Je refuse
+              </Text>
+            </TouchableOpacity></> : null}
+
+        </View>
+      </View>
+    )
+  }
   return (
-    <View>
-      <FlatList
-        showsHorizontalScrollIndicator={false}
-        horizontal={true}
-        data={headerdata}
-        keyExtractor={item => item.id}
-        renderItem={header}
-      />
-      <RBSheet
-        ref={refRBSheet}
-        height={height * 1}
-        closeOnDragDown={false}
-        closeOnPressMask={false}
-        customStyles={{
-          wrapper: {
-            backgroundColor: 'white',
-            // borderTopLeftRadius:width*0.35,
-            // borderTopRightRadius:width*0.35,
-            // marginBottom: 25,
-          },
-          draggableIcon: {
-            backgroundColor: 'transparent',
-            paddingHorizontal: 25,
-            // marginTop:30
-            // position:'absolute',
-            // marginTop:60,
-          },
-          container: {
-            // borderTopLeftRadius: width * 0.08,
-            // borderTopRightRadius: width * 0.08,
-            position: 'absolute',
-            backgroundColor: 'transparent',
-          },
-        }}>
-        <Inivite />
-      </RBSheet>
+
+    <ImageBackground
+
+      style={styles.background}
+      source={require('../../assets/images/rbbg.png')}>
+      <TouchableOpacity
+        onPress={props.onPress}
+      >
+        <Image
+          style={styles.circle}
+          source={require('../../assets/images/prev.png')}
+        />
+      </TouchableOpacity>
+      <Text style={styles.mainheading}>MES INVITATIONS</Text>
+      {Invitations?.length !== 0 ? <FlatList
+        // showsHorizontalScrollIndicator={true}
+        style={{ marginTop: height * 0.02,marginBottom:  height * 0.08}}
+        // scrollEnabled={true}
+        data={Invitations}
+        keyExtractor={item => item._id}
+        renderItem={INVITES}
+      /> :
+        <Image
+          style={{
+            resizeMode: "contain",
+            alignSelf: "center",
+            marginTop: height * 0.06
+          }}
+          source={require("../../assets/images/noinvites.png")} />
+
+      }
       <RBSheet
         ref={refRBSheet2}
         height={height * 0.95}
@@ -494,13 +349,38 @@ const Topselector = ({ }) => {
           </View>
         </View>
       </Modal>
-    </View>
-  );
-};
+    </ImageBackground>
+  )
+}
 
-export default Topselector;
+export default Abcd
 
 const styles = StyleSheet.create({
+  background: {
+    // width: width,
+    // height: height * 1.04,
+    flex: 1,
+    resizeMode: 'contain',
+  }, mainheading: {
+    fontSize: width * 0.072,
+    color: '#001d4f',
+    // alignSelf:'center',
+    marginLeft: width * 0.161,
+    // fontWeight: 'bold',
+    marginBottom: height * 0.045,
+    // marginTop: height * 0.1,
+    fontFamily: 'Bebas Neue Pro Bold',
+  },
+
+  circle: {
+    width: Platform.OS == "ios" ? width * 0.089 : width * 0.11,
+    height: height * 0.055,
+    // backgroundColor: '#ffbc15',
+    // borderRadius: width * 0.1,
+    marginTop: Platform.OS == "ios" ? width * 0.11 : width * 0.13,
+    marginLeft: width * 0.027,
+    resizeMode: 'contain',
+  },
   centeredView: {
     flex: 1,
     justifyContent: 'center',
@@ -584,7 +464,7 @@ const styles = StyleSheet.create({
   },
   background: {
     width: width * 1,
-    height: height * 1.3,
+    height: height
     // borderTopLeftRadius:width*0.08,
     // borderRadius:10
   },
@@ -667,13 +547,7 @@ const styles = StyleSheet.create({
     marginTop: height * 0.03,
     elevation: 10,
   },
-  mainHeading: {
-    fontSize: width * 0.056,
-    color: '#001d4f',
-    marginLeft: width * 0.067,
-    marginTop: height * 0.01,
-    fontFamily: 'Bebas Neue Pro Bold',
-  },
+
   flatlistimage: {
     width: width * 0.65,
     height: height * 0.18,
@@ -732,31 +606,22 @@ const styles = StyleSheet.create({
     borderRadius: width * 0.1,
     paddingVertical: height * 0.0057,
   },
-  circle: {
-    width: Platform.OS =="ios" ? width * 0.089:width * 0.11,
-    height: height * 0.055,
-    // backgroundColor: '#ffbc15',
-    // borderRadius: width * 0.1,
-    marginTop: Platform.OS =="ios" ? width * 0.1:width * 0.037,
-    marginLeft: width * 0.027,
-    resizeMode: 'contain',
-  },
-  mainheading: {
-    fontSize: width * 0.072,
-    color: '#001d4f',
-    // alignSelf:'center',
-    marginLeft: width * 0.161,
-    // fontWeight: 'bold',
-    marginBottom: height * 0.045,
-    marginTop: height * 0.1,
-    fontFamily: 'Bebas Neue Pro Bold',
-  },
+
+
   selectedView: {
     width: width * 0.8,
-    height: height * 0.24,
+    height: Platform.OS == "ios" ? height * 0.21 : height * 0.24,
     borderRadius: width * 0.06,
     alignSelf: 'center',
-    elevation: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
     marginVertical: height * 0.01,
     paddingBottom: height * 0.015
   },
@@ -984,4 +849,4 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'Bebas Neue Pro Bold',
   },
-});
+})

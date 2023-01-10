@@ -1,13 +1,26 @@
 import { StyleSheet, Text, View, Dimensions, Platform } from 'react-native'
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import SimpleGradientProgressbarView from "react-native-simple-gradient-progressbar-view";
 import Colors from './Colors';
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { UserDetail } from '../redux/actions/user.action';
 const { height, width } = Dimensions.get('window');
 const Progressbar = (props) => {
+  const userId = useSelector((state) => state?.auth?.credential?.User?._id)
+  const [detail, setDetail] = useState()
+  useEffect(() => {
+    UserInfo()
+  }, [detail])
+  const UserInfo = async () => {
+    const { data } = await UserDetail(userId)
+    setDetail(data?.User?.progress)
+
+  }
+ console.log("progress details",detail)
   const ok = useSelector(state => state?.auth?.progress)
   const percent = useSelector(state => state?.auth?.percent)
+  console.log("ok",ok)
+  const yes =ok==undefined?detail:ok
 
 
   return (
@@ -22,7 +35,7 @@ const Progressbar = (props) => {
           fontFamily: 'Bebas Neue Pro Regular',
           fontSize: width * 0.046,
           letterSpacing: 0.3,
-        }}>{ok == 1 ? "TON PROFIL EST COMPLET !" : "TON PROFIL EST INCOMPLET !"}
+        }}>{yes == 1 ? "TON PROFIL EST COMPLET !" : "TON PROFIL EST INCOMPLET !"}
 
       </Text>
       <View style={{ marginTop: height * 0.03 }}></View>
@@ -35,7 +48,7 @@ const Progressbar = (props) => {
           style={styles.box}
           toColor="#FFBC15"
           fromColor="#001D4F"
-          progress={ok}
+          progress={yes}
           maskedCorners={[1, 1, 1, 1]}
           cornerRadius={Platform.OS == 'ios' ? width * 0.03 : width * 0.045}
 
@@ -50,10 +63,13 @@ const Progressbar = (props) => {
           color: 'white',
           fontWeight: 'bold',
           fontSize: width * 0.035,
-          marginTop: -height * 0.012,
-          marginLeft: width * ok / 1.5 || 0
+          top:-8,
+          // marginTop: -height * 0.012,
+          textAlign:'center',textAlignVertical:'center',
+          marginLeft: width * yes / 1.5 || 0
         }}
-      >{ok * 100}%</Text></View>
+      >{yes * 100}%</Text></View>
+      
 </>
   )
 }
