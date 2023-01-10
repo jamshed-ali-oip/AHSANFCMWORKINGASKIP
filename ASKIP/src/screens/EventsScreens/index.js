@@ -319,7 +319,10 @@ return (
             <TouchableOpacity
               style={[styles.rawBottomButon, { backgroundColor: Colors.ButtonBorder }]}
               onPress={() =>{
-                setunsubmodal(true),
+                setTimeout(() => {
+                  setunsubmodal(true)
+                }, 200)
+               
                 UserInfo()}
               }>
               <Text style={styles.rawBottomButtonText}>Je me désinscris !</Text>
