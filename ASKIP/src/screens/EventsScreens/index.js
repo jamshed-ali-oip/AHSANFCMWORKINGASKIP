@@ -98,9 +98,14 @@ const EventsScreens = ({ navigation }) => {
   const EKIFFCHECK=()=>{
     if(ECHECK==true){
       SubscribeEvent();
-      refRBSheet.current.close()
+      refRBSheet.current.close(),
+      setmymodal(false)
     }else{
-      setkiffver(true)
+      setTimeout(() => {
+        setkiffver(true)
+      }, 200)
+    
+      setmymodal(false)
     }
  }
   const event_by_Id = async () => {
@@ -537,7 +542,7 @@ const EventsScreens = ({ navigation }) => {
                       paddingHorizontal: width * 0.045,
                     }}>
                     <TouchableOpacity
-                    onPress={()=>{EKIFFCHECK(),setmymodal(false)}}
+                    onPress={()=>{EKIFFCHECK()}}
                       // onPress={() => { SubscribeEvent(), setmymodal(false), refRBSheet.current.close() }}
                       style={styles.rawBottomButons}>
                       <Text style={styles.btn}>Oui</Text>
