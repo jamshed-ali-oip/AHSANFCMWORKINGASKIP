@@ -490,7 +490,7 @@ export const Subscribe_Event = (data,userId,setRefetch,) => async (dispatch) => 
     }
   }
   catch (error) {
-    console.log("subcribe eerrrr", error)
+    console.log("error for kifff==================", error)
   }
 };
 export const ProfileChecking = (userId,setPower,setBTN) => async (dispatch) => {
@@ -528,6 +528,18 @@ export const Un_Subscribe_Event = (data,userId) => async (dispatch) => {
   }
 };    
 
+export const ESPORTCHECK = async (userId)  => {
+
+  try {
+    const response = await axios.get(`${base_URL}/user/kiff/${userId}`)
+    console.log("esport response ",response?.data?.data?.isKiff)
+    return response?.data?.data?.isKiff
+   
+  }
+  catch (error) {
+    console.log("ESPORTS ERROR", error)
+  }
+};
 // home screen /////////
 
 export const getSubscribedEvents = async (userId)  => {
