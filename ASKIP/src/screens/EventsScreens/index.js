@@ -21,7 +21,7 @@ import { it } from 'node:test';
 import D_Apicker from './DatePicker';
 import Inputs from "../../components/Inputs"
 import { useDispatch, useSelector } from 'react-redux';
-import { ageVerification, getEvents, getEventsByID, ProfileChecking, Subscribe_Event, Un_Subscribe_Event, UserDetail } from '../../redux/actions/user.action';
+import { ageVerification, ESPORTCHECK, getEvents, getEventsByID, ProfileChecking, Subscribe_Event, Un_Subscribe_Event, UserDetail } from '../../redux/actions/user.action';
 import { base_URL, base_URL_IMAGE } from '../../config/config';
 import moment from 'moment/min/moment-with-locales'
 import Colors from '../../components/Colors';
@@ -48,6 +48,8 @@ const EventsScreens = ({ navigation }) => {
   const [BTN, setBTN] = useState(false)
   const [ageVer, setAgeVer] = useState()
   const [detail, setDetail] = useState()
+  const [ECHECK, setECHECK] = useState()
+  
   // console.log("umar ", ageVer)
   const userId = useSelector((state) => state?.auth?.credential?.User?._id)
   const Name = useSelector((state) => state?.auth?.credential?.User?.lastName)
@@ -84,7 +86,23 @@ const EventsScreens = ({ navigation }) => {
     const { data } = await dispatch(ProfileChecking(userId, setPower, setBTN));
 
   }
-
+  const Esport=async()=>{
+   
+    const  Mydata  = await ESPORTCHECK(userId) 
+    console.log("bhai yahan bhi aja ",Mydata)
+    setECHECK(Mydata)
+    
+  }
+  console.log("Poyon OIl",ECHECK)
+ 
+  const EKIFFCHECK=()=>{
+    if(ECHECK==true){
+      SubscribeEvent();
+      refRBSheet.current.close()
+    }else{
+      setkiffver(true)
+    }
+ }
   const event_by_Id = async () => {
 
     const EventByID = await getEventsByID(data)
@@ -364,7 +382,12 @@ const EventsScreens = ({ navigation }) => {
                   {online == true ?
                     <TouchableOpacity
                       onPress={() => {
-                        setmymodal(true)
+                        Esport();
+                        setTimeout(()=>{
+                          setmymodal(true)
+                         
+                        },200)
+                        
                       }}
                       style={{
                         backgroundColor: "#081a4f",
@@ -514,7 +537,8 @@ const EventsScreens = ({ navigation }) => {
                       paddingHorizontal: width * 0.045,
                     }}>
                     <TouchableOpacity
-                      onPress={() => { SubscribeEvent(), setmymodal(false), refRBSheet.current.close() }}
+                    onPress={()=>{EKIFFCHECK(),setmymodal(false)}}
+                      // onPress={() => { SubscribeEvent(), setmymodal(false), refRBSheet.current.close() }}
                       style={styles.rawBottomButons}>
                       <Text style={styles.btn}>Oui</Text>
                     </TouchableOpacity>
