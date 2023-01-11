@@ -38,6 +38,7 @@ const EventsScreens = ({ navigation }) => {
   const [input, SetInput] = useState('');
   const [ShowModal, SetShowModal] = useState(false);
   const [mymodal, setmymodal] = useState(false);
+  const [kiffver, setkiffver] = useState(false);
   const [unsubmodal, setunsubmodal] = useState(false);
   const [modalsec, Setmodalsec] = useState(false);
   const [selectedDate, setSelectedDate] = useState('');
@@ -50,7 +51,7 @@ const EventsScreens = ({ navigation }) => {
   // console.log("umar ", ageVer)
   const userId = useSelector((state) => state?.auth?.credential?.User?._id)
   const Name = useSelector((state) => state?.auth?.credential?.User?.lastName)
-  
+
   useEffect(() => {
     UserInfo()
   }, [])
@@ -59,7 +60,7 @@ const EventsScreens = ({ navigation }) => {
     setDetail(data?.User)
 
   }
- console.log("progress details",detail)
+  console.log("progress details", detail)
   const DOB = useSelector((state) => state?.auth?.credential?.User?.birthDate)
   const dispatch = useDispatch()
   const Revelator = useSelector(state => state?.auth?.User?.relatedRevelateur)
@@ -111,8 +112,8 @@ const EventsScreens = ({ navigation }) => {
 
   const AgeHandle = () => {
     SubscribeEvent();
-      SetShowModal(false);
-      refRBSheet.current.close()
+    SetShowModal(false);
+    refRBSheet.current.close()
     // if (ageVer === false) {
     //   Setmodalsec(true)
     // } else {
@@ -216,17 +217,17 @@ const EventsScreens = ({ navigation }) => {
     let b = eventsDetail?.data?.data?.subsIdAdminAndRevelature?.filter((i) => i._id === Revelator || RID);
     let c = b?.[0]?.firstName + " " + b?.[0]?.lastName
     let d = null
-    if(eventsDetail?.data?.data?.subsIdAdminAndRevelature[0]?.firstName && eventsDetail?.data?.data?.subsIdAdminAndRevelature[0]?.lastName){
+    if (eventsDetail?.data?.data?.subsIdAdminAndRevelature[0]?.firstName && eventsDetail?.data?.data?.subsIdAdminAndRevelature[0]?.lastName) {
       d = eventsDetail?.data?.data?.subsIdAdminAndRevelature[0]?.firstName + " " + eventsDetail?.data?.data?.subsIdAdminAndRevelature[0]?.lastName
     }
- 
-// console.log("eventsDetail?.data?.dataeventsDetail?.data?.dataeventsDetail?.data?.data")
-// console.log(eventsDetail?.data?.data?.participationType[0]?.[0])
-// console.log("eventsDetail?.data?.dataeventsDetail?.data?.dataeventsDetail?.data?.data")
-const online=eventsDetail?.data?.data?.participationType[0]?.[0]?.distancielThumbnail
-const offline=eventsDetail?.data?.data?.participationType[0]?.[0]?.presentielThumbnail
-   console.log("detailss of the box",eventsDetail?.data)
-return (
+
+    // console.log("eventsDetail?.data?.dataeventsDetail?.data?.dataeventsDetail?.data?.data")
+    // console.log(eventsDetail?.data?.data?.participationType[0]?.[0])
+    // console.log("eventsDetail?.data?.dataeventsDetail?.data?.dataeventsDetail?.data?.data")
+    const online = eventsDetail?.data?.data?.participationType[0]?.[0]?.distancielThumbnail
+    const offline = eventsDetail?.data?.data?.participationType[0]?.[0]?.presentielThumbnail
+    console.log("detailss of the box", eventsDetail?.data)
+    return (
       <View
         style={{
           backgroundColor: 'white',
@@ -274,36 +275,38 @@ return (
 
           </Text>
           {
-            d != null ? 
-            <Text style={styles.rawBottomshortTitle}>
-   
-            avec {d}
-          </Text>:null
+            d != null ?
+              <Text style={styles.rawBottomshortTitle}>
+
+                avec {d}
+              </Text> : null
           }
-        
+
         </View>
         <View style={styles.rawBottomSecondView}>
           <Text style={styles.rawBottomdescription}>
-        
+
             {eventsDetail?.data?.data?.category}
           </Text>
           <Text style={styles.rawBottomdateandtime}>
             {moment(eventsDetail?.data?.data?.beginAt).locale('fr').format('DD/MM/YYYY')} de {eventsDetail?.data?.data?.startTime} à {eventsDetail?.data?.data?.endTime}
-    
+
           </Text>
         </View>
-         <View style={styles.rawBottomThirdView}>
+        <View style={styles.rawBottomThirdView}>
           <Image
             style={styles.rawBottomtinyImage}
             source={require('../../assets/images/locLogo.png')}
           />
           <Text style={styles.rawBottomlocation}>
 
-            {online==true?"En ligne ":null}{offline==true? eventsDetail?.data?.data?.postalAddress+","+eventsDetail?.data?.data?.city+eventsDetail?.data?.data?.zipCode:null}
+            {online == true ? "En ligne " : null}{offline == true ? eventsDetail?.data?.data?.postalAddress + "," + eventsDetail?.data?.data?.city + eventsDetail?.data?.data?.zipCode : null}
           </Text>
-        </View> 
+        </View>
         <ScrollView showsVerticalScrollIndicator={false} nestedScrollEnabled={true}>
-          <TouchableOpacity activeOpacity={1}>
+          <TouchableOpacity
+            onPress={() => setkiffver(true)}
+          >
             <Text style={styles.rawBottomMainDescription}>
               {eventsDetail?.data?.data?.description}
             </Text>
@@ -318,12 +321,13 @@ return (
           a == true ?
             <TouchableOpacity
               style={[styles.rawBottomButon, { backgroundColor: Colors.ButtonBorder }]}
-              onPress={() =>{
+              onPress={() => {
                 setTimeout(() => {
                   setunsubmodal(true)
                 }, 200)
-               
-                UserInfo()}
+
+                UserInfo()
+              }
               }>
               <Text style={styles.rawBottomButtonText}>Je me désinscris !</Text>
             </TouchableOpacity>
@@ -340,11 +344,11 @@ return (
                 <View
                   style={{ marginBottom: height * 0.1111, flexDirection: "row", justifyContent: "space-around" }}
                 >
-                  {offline== true ?
+                  {offline == true ?
                     <TouchableOpacity
                       onPress={() => {
                         // Age(),
-                         SetShowModal(true)
+                        SetShowModal(true)
                       }
                       }
                       style={{
@@ -357,7 +361,7 @@ return (
                     >
                       <Text style={styles.rawBottomButtonText}>Je participe en présentiel</Text>
                     </TouchableOpacity> : null}
-                  {online== true ?
+                  {online == true ?
                     <TouchableOpacity
                       onPress={() => {
                         setmymodal(true)
@@ -573,6 +577,57 @@ return (
             </View>
           </View>
         </Modal>
+        {/* kiff errors  */}
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={kiffver}
+          onRequestClose={() => {
+            setkiffver(!kiffver)
+          }}>
+          <View style={styles.centeredView}>
+            <View style={styles.rawBottomModalView}>
+              <ImageBackground
+                imageStyle={{ borderRadius: width * 0.08 }}
+                style={styles.rawBottomModalImage}
+                source={require('../../assets/images/backgroundImage.png')}>
+
+                <>
+                  <Text style={styles.modalText}>
+                    {/* <Text style={{ fontFamily: 'Bebas Neue Pro Bold', fontSize: width * 0.048 }}> {detail?.lastName}, </Text> */}
+                    Pour t'inscrire à cet événement "E-sport",
+                    ajoute le kiff "E-sport" et renseigne ton pseudo discord.
+                  </Text>
+                  <View
+                    style={{
+                      // flexDirection: 'row',
+                      // paddingHorizontal: width * 0.045,
+                    }}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        setkiffver(false)
+                        //  refRBSheet.current.close() 
+                      }}
+                      style={{
+                        width: width * 0.25,
+                        height: height * 0.065,
+                        backgroundColor: '#081a4f',
+                        marginTop: height * 0.02,
+                        // marginLeft: width * 0.1,
+                        borderRadius: width * 0.018,
+                        alignSelf: 'center',
+                        justifyContent: 'center'
+                      }}>
+                      <Text style={styles.btn}>Je fonce !</Text>
+                    </TouchableOpacity>
+
+                  </View>
+                </>
+
+              </ImageBackground>
+            </View>
+          </View>
+        </Modal>
       </View>
     );
   };
@@ -583,7 +638,7 @@ return (
     return (
       <TouchableOpacity
         activeOpacity={0.5}
-     
+
         onPress={() => {
           setdata(item?.item?._id)
           // event_by_Id();
@@ -591,7 +646,7 @@ return (
 
         }}>
         <ImageBackground
-          imageStyle={{     borderRadius: width * 0.04, borderWidth: 0.5, borderColor:'#b9b9b9'}}
+          imageStyle={{ borderRadius: width * 0.04, borderWidth: 0.5, borderColor: '#b9b9b9' }}
           style={styles.LowerRenderimage}
           source={{ uri: `${base_URL_IMAGE + item.item.eventImage}` }}>
           <View style={styles.LowerRenderfirstview}>
@@ -642,8 +697,8 @@ return (
   };
 
   return (
-    <View style={{backgroundColor:'white'}}>
-       <StatusBar barStyle='default' backgroundColor='transparent' />
+    <View style={{ backgroundColor: 'white' }}>
+      <StatusBar barStyle='default' backgroundColor='transparent' />
       {Power == false ?
         <>
           <View>
@@ -743,7 +798,7 @@ return (
                   renderItem={LowerRender}
                   showsVerticalScrollIndicator={false}
                   ListFooterComponent={
-                    <View style={{height: 300}}></View>
+                    <View style={{ height: 300 }}></View>
                   }
                 />
                 {/* <View style={{height: 100}}  /> */}
@@ -1022,7 +1077,7 @@ const styles = StyleSheet.create({
     margin: width * 0.05,
     borderRadius: width * 0.04,
     resizeMode: 'stretch',
-    backgroundColor:'#f0f0f0'
+    backgroundColor: '#f0f0f0'
     // elevation: 20,
     // shadowColor: "#000",
     // shadowOffset: {
@@ -1178,7 +1233,7 @@ const styles = StyleSheet.create({
     width: width * 0.05,
     height: height * 0.03,
     resizeMode: 'contain',
-    marginTop:Platform.OS=="ios"?-height*0.005:null
+    marginTop: Platform.OS == "ios" ? -height * 0.005 : null
   },
   rawBottomThirdView: {
     flexDirection: 'row',
@@ -1223,7 +1278,7 @@ const styles = StyleSheet.create({
   },
   rawBottomButtonText: {
     color: 'white',
-    paddingHorizontal: width*0.025,
+    paddingHorizontal: width * 0.025,
     fontSize: width * 0.045,
     letterSpacing: 0.15,
     textAlign: 'center',
