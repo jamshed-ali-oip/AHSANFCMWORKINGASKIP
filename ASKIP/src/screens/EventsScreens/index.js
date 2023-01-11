@@ -605,7 +605,13 @@ const EventsScreens = ({ navigation }) => {
                     }}>
                     <TouchableOpacity
                       onPress={() => {
-                        setkiffver(false)
+                       
+                        navigation.navigate("ProfileScreens"),
+                       
+                        setTimeout(()=>{
+                          setkiffver(false),
+                          refRBSheet.current.close() 
+                        },200)
                         //  refRBSheet.current.close() 
                       }}
                       style={{

@@ -486,7 +486,7 @@ export const Subscribe_Event = (data,userId,setRefetch,) => async (dispatch) => 
     }
   }
   catch (error) {
-    console.log("subcribe eerrrr", error)
+    console.log("error for kifff==================", error)
   }
 };
 export const ProfileChecking = (userId,setPower,setBTN) => async (dispatch) => {
