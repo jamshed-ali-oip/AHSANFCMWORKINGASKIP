@@ -328,7 +328,8 @@ const EventsScreens = ({ navigation }) => {
         </View>
         <ScrollView showsVerticalScrollIndicator={false} nestedScrollEnabled={true}>
           <TouchableOpacity
-            onPress={() => setkiffver(true)}
+          activeOpacity={100}
+            // onPress={() => setkiffver(true)}
           >
             <Text style={styles.rawBottomMainDescription}>
               {eventsDetail?.data?.data?.description}
@@ -823,7 +824,7 @@ const EventsScreens = ({ navigation }) => {
 
 
           </View>
-          <View>
+          <View style={{backgroundColor:"#ffffff",height:height}}>
             {events?.data?.length !== 0 ?
               <View style={{ marginBottom: height * 0.25 }}>
                 <FlatList

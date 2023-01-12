@@ -70,7 +70,7 @@ const HomeScreens = ({ navigation }) => {
   const UserInfo = async () => {
     const { data } = await UserDetail(userId)
     setDetail(data?.User?.progress)
-    setlstName(data?.User?.lastName)
+    setlstName(data?.User?.firstName)
 
   }
  console.log("home details",lstNa)

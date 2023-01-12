@@ -104,7 +104,7 @@ const ProfileImage = () => {
               letterSpacing: 0.3,
               paddingHorizontal: width * 0.01,
             }}>
-           {detail?.lastName} !
+           {detail?.firstName} !
           </Text>
         </View>
 </>

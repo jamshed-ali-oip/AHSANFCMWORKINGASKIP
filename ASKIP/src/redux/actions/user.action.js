@@ -181,11 +181,7 @@ export const profileImage = (data) => async (dispatch) => {
     name: data.fileName
 
   });
-  console.log({
-    uri: data.uri,
-    type: data.type,
-    name: data.fileName
-  })
+
   axios.post(`${base_URL}/uploadImage/?type=user`, bodyFormData, {
     headers: {
       'Content-Type': 'multipart/form-data'
@@ -412,7 +408,7 @@ export const ChangesPassword = (data, userId, setError,setmymodal) => async (dis
 export const UserDetail = async (userId)  => {
   try {
     const {data} = await axios.get(`${base_URL}/user/${userId}`)
-    // console.log("detaiilsss ",data)
+    console.log("detaiilsss ",data)
     return data
     // if (data?.data?.success){
     //   console.log(response)
@@ -576,7 +572,7 @@ export const ageVerification = async (userId)  => {
 export const FCMUPDATE = (data, userId) => async (dispatch) => {
   try {
     const response = await axios.put(`${base_URL}/fcmTokenUpdate/${userId}`, data)
-    // console.log("FCM DATA USER ACTION",response)
+    console.log("FCM DATA USER ACTION",response)
     
     if (response?.data?.data) {
 
