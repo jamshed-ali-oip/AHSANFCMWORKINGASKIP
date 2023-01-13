@@ -16,6 +16,8 @@ import Connexion from '../../screens/ProfileScreens/Connexion';
 import { Svg, Path } from 'react-native-svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { Stackprofile } from '../../redux/actions/user.action';
+import deviceInfo from 'react-native-device-info'
+const tablet = deviceInfo.isTablet()
 let { width, height } = Dimensions.get('window');
 
 const Stack = createNativeStackNavigator();
@@ -62,7 +64,7 @@ function TabBar() {
         inactiveTintColor: 'white',
         backgroundColor: 'blue',
 
-      // tabStyle:{height:100}
+      tabStyle: tablet ? {height: 120, paddingBottom: 30} :{}
 
 
       }}
