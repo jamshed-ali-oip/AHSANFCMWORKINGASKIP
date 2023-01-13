@@ -113,7 +113,7 @@ const Selectscreen = ({ navigation }) => {
       setError(true)
     } else {
       // console.log("hhda", data)
-      dispatch(userLogin(data, setLoading, setError,refRBSheet));
+      dispatch(userLogin(data, setLoading, setError, refRBSheet));
     }
 
   };
@@ -541,15 +541,16 @@ const Selectscreen = ({ navigation }) => {
             </Text> : null
           }
           <Forminput
-            value={firstName}
-            setvalue={setFirstName}
+            value={lastName}
+            setvalue={setlastName}
             title="Nom*"
             placeholder="Durant"
           />
           <View>
             <Forminput
-              value={lastName}
-              setvalue={setlastName}
+             
+              value={firstName}
+            setvalue={setFirstName}
               title="Prénom*"
               placeholder="Laurent"
             />
@@ -923,9 +924,9 @@ const Selectscreen = ({ navigation }) => {
                       setM2(false),
                       setM3(false),
                       setForget(false),
-                      setTimeout(()=>{
+                      setTimeout(() => {
                         refRBSheet3.current.open()
-                      },200)
+                      }, 200)
                     )}
                     style={[
                       style.Connnection,
@@ -1027,12 +1028,12 @@ const style = StyleSheet.create({
     position: 'absolute',
     // marginBottom:0,
     resizeMode: 'contain',
-    height: Platform.OS=="ios"? height * 0.3: height * 0.4,
+    height: Platform.OS == "ios" ? height * 0.3 : height * 0.4,
     width: width * 1,
     marginTop: height * 0.7,
   },
   box: {
-    marginTop: Platform.OS=="ios"?height * 0.04:height * 0.085,
+    marginTop: Platform.OS == "ios" ? height * 0.04 : height * 0.085,
   },
   head: {
     // fontSize: width * 0.055,
