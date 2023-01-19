@@ -13,6 +13,7 @@ import com.askip.newarchitecture.MainApplicationReactNativeHost;
 import java.lang.reflect.InvocationTargetException;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import java.util.List;
+
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost =
