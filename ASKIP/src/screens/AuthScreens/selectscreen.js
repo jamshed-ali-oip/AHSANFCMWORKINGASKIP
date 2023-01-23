@@ -9,7 +9,8 @@ import {
   Modal,
   ActivityIndicator,
   Linking,
-  Platform
+  Platform,
+  FlatList
 } from 'react-native';
 import { React, useRef, useState, useEffect } from 'react';
 import { Loginbtn, SignupBtn, Connnection } from '../../components/BTNS';
@@ -27,6 +28,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import MaskInput from 'react-native-mask-input';
 import Inputs from '../../components/Inputs';
+import axios from 'axios';
 const { height, width } = Dimensions.get('window');
 
 const Selectscreen = ({ navigation }) => {
@@ -58,6 +60,10 @@ const Selectscreen = ({ navigation }) => {
   const [color, setcolor] = useState(false)
   const [color2, setcolor2] = useState(false)
   const [Reminder, setReminder] = useState(false);
+  const [location, setlocation] = useState();
+  const [loc, setloc] = useState();
+  const [myloc, setmyloc] = useState();
+  
 
   useEffect(() => {
     if (phoneNumber) {
@@ -76,7 +82,7 @@ const Selectscreen = ({ navigation }) => {
       id: 2,
     },
   ];
-
+  console.log("location", location)
   const data = [
     {
       name: 'Lyon',
@@ -123,7 +129,8 @@ const Selectscreen = ({ navigation }) => {
     let data = {
       firstName: firstName,
       lastName: lastName,
-      phone: phoneNumber?.replace(/ /g, '').slice(1)
+      phone: phoneNumber?.replace(/ /g, '').slice(1),
+      location:location
     };
     // console.log(data)
     if (data.firstName === undefined || data.lastName === undefined || data.phone === undefined) {
@@ -167,9 +174,60 @@ const Selectscreen = ({ navigation }) => {
     // console.log('------------------------', data);
     dispatch(password_Reset(data, refRBSheet3));
   };
+  const MYdata = (item) => {
+    const handle=()=>{
+      setmyloc(item?.item?.properties?.city);
+      setlocation(item?.item?.properties?.city)
+    }
+    return (
+     <TouchableOpacity
+     onPress={()=>handle()}
+     >
+       <Text
+        style={{
+          // backgroundColor:"red",
+          color: "#a3a3a3",
+          width: width * 0.78,
+          alignSelf: "center",
+          borderWidth: 1,
+          height: height * 0.038,
+          paddingLeft: width * 0.03,
+          textAlignVertical: "center",
+          borderColor: "#a3a3a3"
+
+        }}
+      >
+        
+        {item?.item?.properties?.city}
+      </Text>
+     </TouchableOpacity>
+    )
+  }
+  console.log(myloc,"locatiomn")
+ useEffect(()=>{
+ fetchhData()
+// setmyloc()
+ },[location])
+
+ const fetchhData = async () => {
 
 
-
+  try {
+    const  data  = await axios.get(`https://api-adresse.data.gouv.fr/search/?q=${location}&type=housenumber&autocomplete=1`, {
+      headers: {
+        "accept": "application/json, text/plain"
+      }
+    })
+  console.log("dsakjgk",data)
+  
+  setloc(data?.data?.features)
+     
+  }
+  catch (error) {
+    console.log("", error)
+  }
+ }
+console.log("loc",loc)
   return (
     <View style={style.container}>
       <ImageBackground
@@ -548,9 +606,9 @@ const Selectscreen = ({ navigation }) => {
           />
           <View>
             <Forminput
-             
+
               value={firstName}
-            setvalue={setFirstName}
+              setvalue={setFirstName}
               title="Prénom*"
               placeholder="Laurent"
             />
@@ -609,7 +667,21 @@ const Selectscreen = ({ navigation }) => {
             placeholder="00.00.06.06.06"
             maxletter={10}
           /> */}
-
+          <Forminput
+            value={location}
+            setvalue={setlocation}
+            title="Localisation*"
+            placeholder="Localisation"
+          // maxletter={10}
+          />
+          <View>
+            <FlatList
+              showsHorizontalScrollIndicator={false}
+              data={loc}
+              keyExtractor={item => item.id}
+              renderItem={MYdata}
+            />
+          </View>
           <View
             style={{
               // flexDirection: 'row',
@@ -617,54 +689,15 @@ const Selectscreen = ({ navigation }) => {
               marginTop: height * 0.02,
               // alignItems: 'center',
             }}>
-            <Text
+            {/* <Text
               style={{
                 fontFamily: 'Bebas Neue Pro Bold',
                 fontSize: width * 0.045,
                 color: 'black',
               }}>
               Localisation*
-            </Text>
-            {data.map(item => {
-              return (
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    marginVertical: height * 0.005,
-                  }}>
-                  <TouchableOpacity
-                    onPress={() => {
-                      setRP(item);
-                    }}>
-                    <Image
-                      style={{
-                        resizeMode: 'contain',
-                      }}
-                      source={
-                        RP.id == item.id
-                          ? require('../../assets/images/tick.png')
-                          : require('../../assets/images/round.png')
-                      }
-                    />
-                  </TouchableOpacity>
-                  <Text
-                    style={{
-                      marginLeft: width * 0.02,
-                      // fontSize: width * 0.037,
-                      // fontWeight: 'bold',
-                      color: 'black',
-                      fontFamily:
-                        RP.id == item.id
-                          ? 'Bebas Neue Pro Bold'
-                          : 'Bebas Neue Pro Regular',
-                      fontSize: width * 0.043,
-                      letterSpacing: 0.25,
-                    }}>
-                    {item.name}
-                  </Text>
-                </View>
-              );
-            })}
+            </Text> */}
+
             <View
               style={{
                 flexDirection: 'row',
