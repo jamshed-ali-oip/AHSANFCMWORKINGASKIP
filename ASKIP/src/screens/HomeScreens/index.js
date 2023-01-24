@@ -197,7 +197,7 @@ console.log("detailigof ext",getSub?.item)
             source={require('../../assets/images/locLogo.png')}
           />
           <Text style={styles.rawBottomlocation}>
-          {online==true?"En ligne ":null} {offline==true?getSub?.item?.postalAddress+","+getSub?.item?.city+","+getSub?.item?.zipCode:null}
+          {online==true?"En ligne ":null} {offline==true?getSub?.item?.postalAddress+","+" "+getSub?.item?.city+" "+getSub?.item?.zipCode:null}
           </Text>
         </View>
         <ScrollView showsVerticalScrollIndicator={true}>

@@ -323,7 +323,7 @@ const EventsScreens = ({ navigation }) => {
           />
           <Text style={styles.rawBottomlocation}>
 
-            {online == true ? "En ligne " : null}{offline == true ? eventsDetail?.data?.data?.postalAddress + "," + eventsDetail?.data?.data?.city + eventsDetail?.data?.data?.zipCode : null}
+            {online == true ? "En ligne " : null}{offline == true ? eventsDetail?.data?.data?.postalAddress + "," +" "+ eventsDetail?.data?.data?.city +" "+eventsDetail?.data?.data?.zipCode : null}
           </Text>
         </View>
         <ScrollView showsVerticalScrollIndicator={false} nestedScrollEnabled={true}>

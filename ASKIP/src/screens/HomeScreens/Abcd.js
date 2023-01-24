@@ -93,7 +93,7 @@ console.log("online=",online,"offline=", offline)
           />
           <Text style={styles.rawBottomlocation}>
 
-          {online==true?"En ligne ":null}  {offline==true?S_event?.eventId?.postalAddress+","+S_event?.eventId?.city+","+S_event?.eventId?.zipCode:null}
+          {online==true?"En ligne ":null}  {offline==true?S_event?.eventId?.postalAddress+","+" "+S_event?.eventId?.city+" "+S_event?.eventId?.zipCode:null}
           </Text>
         </View>
         <ScrollView showsVerticalScrollIndicator={true}>

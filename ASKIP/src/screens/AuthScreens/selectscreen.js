@@ -63,7 +63,7 @@ const Selectscreen = ({ navigation }) => {
   const [location, setlocation] = useState();
   const [loc, setloc] = useState();
   const [myloc, setmyloc] = useState();
-  
+
 
   useEffect(() => {
     if (phoneNumber) {
@@ -130,9 +130,11 @@ const Selectscreen = ({ navigation }) => {
       firstName: firstName,
       lastName: lastName,
       phone: phoneNumber?.replace(/ /g, '').slice(1),
-      location:location
+      location: location,
+      region: myloc?.context,
+      zipCode: myloc?.postcode
     };
-    // console.log(data)
+    // console.log("================================",data)
     if (data.firstName === undefined || data.lastName === undefined || data.phone === undefined) {
       setError2(true)
 
@@ -175,59 +177,59 @@ const Selectscreen = ({ navigation }) => {
     dispatch(password_Reset(data, refRBSheet3));
   };
   const MYdata = (item) => {
-    const handle=()=>{
-      setmyloc(item?.item?.properties?.city);
+    const handle = () => {
+      setmyloc(item?.item?.properties);
       setlocation(item?.item?.properties?.city)
     }
     return (
-     <TouchableOpacity
-     onPress={()=>handle()}
-     >
-       <Text
-        style={{
-          // backgroundColor:"red",
-          color: "#a3a3a3",
-          width: width * 0.78,
-          alignSelf: "center",
-          borderWidth: 1,
-          height: height * 0.038,
-          paddingLeft: width * 0.03,
-          textAlignVertical: "center",
-          borderColor: "#a3a3a3"
-
-        }}
+      <TouchableOpacity
+        onPress={() => handle()}
       >
-        
-        {item?.item?.properties?.city}
-      </Text>
-     </TouchableOpacity>
+        <Text
+          style={{
+            // backgroundColor:"red",
+            color: "#a3a3a3",
+            width: width * 0.78,
+            alignSelf: "center",
+            borderWidth: 1,
+            height: height * 0.038,
+            paddingLeft: width * 0.03,
+            textAlignVertical: "center",
+            borderColor: "#a3a3a3"
+
+          }}
+        >
+
+          {item?.item?.properties?.city}
+        </Text>
+      </TouchableOpacity>
     )
   }
-  console.log(myloc,"locatiomn")
- useEffect(()=>{
- fetchhData()
-// setmyloc()
- },[location])
+  console.log("locatiomn", myloc)
+  useEffect(() => {
+    fetchhData()
+    // setmyloc()
+  }, [location])
 
- const fetchhData = async () => {
+  const fetchhData = async () => {
 
 
-  try {
-    const  data  = await axios.get(`https://api-adresse.data.gouv.fr/search/?q=${location}&type=housenumber&autocomplete=1`, {
-      headers: {
-        "accept": "application/json, text/plain"
-      }
-    })
-  console.log("dsakjgk",data)
-  
-  setloc(data?.data?.features)
-     
+    try {
+      const data = await axios.get(`https://api-adresse.data.gouv.fr/search/?q=${location}&type=housenumber&autocomplete=1`, {
+        headers: {
+          "accept": "application/json, text/plain"
+        }
+      })
+      console.log("dsakjgk", data)
+
+      setloc(data?.data?.features)
+
+    }
+    catch (error) {
+      console.log("", error)
+    }
   }
-  catch (error) {
-    console.log("", error)
-  }
- }
-console.log("loc",loc)
+  console.log("loc", loc)
   return (
     <View style={style.container}>
       <ImageBackground
@@ -265,6 +267,7 @@ console.log("loc",loc)
             }}
             title="Se créer un compte"
           />
+
         </View>
       </ImageBackground>
 
@@ -455,6 +458,26 @@ console.log("loc",loc)
             }}
             title="Se créer un compte"
           />
+          <TouchableOpacity
+            onPress={() => { Linking.openURL('https://askip-app.fr/mentions-legales') }}
+            style={{
+              // backgroundColor:"red",
+              width: width * 0.5,
+              alignSelf: "center",
+              alignItems: "center",
+              marginTop: height * 0.025
+            }}
+          >
+            <Text
+              style={{
+                textDecorationLine: "underline",
+                textDecorationColor: "black",
+                fontFamily: 'Bebas Neue Pro Regular',
+                color: "black",
+                fontSize: width * 0.038
+              }}
+            >Mentions légales</Text>
+          </TouchableOpacity>
         </View>
       </RBSheet>
 
@@ -567,7 +590,7 @@ console.log("loc",loc)
           container: {
             borderTopEndRadius: width * 0.055,
             borderTopStartRadius: width * 0.055,
-            height: height * 0.8,
+            height: height * 0.86,
             backgroundColor: 'transparent',
           },
           wrapper: {
@@ -671,7 +694,7 @@ console.log("loc",loc)
             value={location}
             setvalue={setlocation}
             title="Localisation*"
-            placeholder="Localisation"
+            placeholder="Renseigne ta ville"
           // maxletter={10}
           />
           <View>
@@ -718,19 +741,25 @@ console.log("loc",loc)
                   }
                 />
               </TouchableOpacity>
-              <Text
-                style={{
-                  marginLeft: width * 0.02,
-                  // fontSize: width * 0.037,
-                  // fontWeight: 'bold',
-                  color: 'black',
-                  fontFamily: 'Bebas Neue Pro Regular',
-                  fontSize: width * 0.043,
-                  letterSpacing: 0.25,
-                }}>
-                {/* {item.name} */}
-                En cliquant ici, tu acceptes les{' '}
+              <View>
+                <Text
+                  style={{
+                    marginLeft: width * 0.02,
+
+                    color: 'black',
+                    fontFamily: 'Bebas Neue Pro Regular',
+                    fontSize: width * 0.043,
+                    letterSpacing: 0.25,
+
+                  }}>
+                  {/* {item.name} */}
+                  En cliquant ici, tu acceptes les{' '}
+
+
+
+                </Text>
                 <TouchableOpacity
+
                   onPress={() => { Linking.openURL('https://askip-app.fr/conditions-generales-utilisations') }}
                 >
                   <Text style={{
@@ -739,23 +768,30 @@ console.log("loc",loc)
                     fontFamily: 'Bebas Neue Pro Regular',
                     fontSize: width * 0.043,
                     letterSpacing: 0.25,
+                    marginLeft:width*0.02
                   }}>
-                    Conditions d’utilisation
+                    d'utilisation
                   </Text></TouchableOpacity>
+              </View>
+              <TouchableOpacity
 
-                , la
-                <Text style={{ textDecorationLine: 'underline' }}>
-                  {' '}
-                  Politique de confidentialité
-                </Text>{' '}
-                et la{' '}
-                <Text style={{ textDecorationLine: 'underline' }}>
-                  Politique relative aux cookies.*
+                onPress={() => { Linking.openURL('https://askip-app.fr/conditions-generales-utilisations') }}
+              >
+                <Text style={{
+                  textDecorationLine: 'underline',
+                  color: "black",
+                  fontFamily: 'Bebas Neue Pro Regular',
+                  fontSize: width * 0.043,
+                  letterSpacing: 0.25,
+                  // marginTop:height*0.025
+                }}>
+                  Conditions générales
+                  {/* d'utilisation */}
                 </Text>
-              </Text>
+              </TouchableOpacity>
             </View>
             <Image
-              style={{ resizeMode: 'contain', marginTop: -height * 0.05 }}
+              style={{ resizeMode: 'contain', marginTop: -height * 0.036, height: height * 0.032 }}
               source={require('../../assets/images/twist.png')}
             />
           </View>
@@ -779,6 +815,26 @@ console.log("loc",loc)
             }}
             title="Se connecter"
           />
+          <TouchableOpacity
+            onPress={() => { Linking.openURL('https://askip-app.fr/mentions-legales') }}
+            style={{
+              // backgroundColor:"red",
+              width: width * 0.5,
+              alignSelf: "center",
+              alignItems: "center",
+              marginTop: height * 0.025
+            }}
+          >
+            <Text
+              style={{
+                textDecorationLine: "underline",
+                textDecorationColor: "black",
+                fontFamily: 'Bebas Neue Pro Regular',
+                color: "black",
+                fontSize: width * 0.038
+              }}
+            >Mentions légales</Text>
+          </TouchableOpacity>
         </View>
       </RBSheet>
       <>
