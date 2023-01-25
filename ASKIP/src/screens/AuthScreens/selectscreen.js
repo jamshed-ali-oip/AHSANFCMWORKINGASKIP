@@ -215,7 +215,7 @@ const Selectscreen = ({ navigation }) => {
 
 
     try {
-      const data = await axios.get(`https://api-adresse.data.gouv.fr/search/?q=${location}&type=housenumber&autocomplete=1`, {
+      const data = await axios.get(`https://api-adresse.data.gouv.fr/search/?q=${location}&type=municipality&autocomplete=1`, {
         headers: {
           "accept": "application/json, text/plain"
         }
@@ -654,7 +654,7 @@ const Selectscreen = ({ navigation }) => {
               value={phoneNumber}
               placeholder="06.06.06.06.06"
               placeholderTextColor="#afafaf"
-              style={{ color: "black", height: height * 0.065 }}
+              style={{ color: "black", height: height * 0.065,width:width*0.734 }}
               onChangeText={(masked, unmasked) => {
                 setphoneNumber(masked);
               }}
@@ -790,10 +790,10 @@ const Selectscreen = ({ navigation }) => {
                 </Text>
               </TouchableOpacity>
             </View>
-            <Image
+            {/* <Image
               style={{ resizeMode: 'contain', marginTop: -height * 0.036, height: height * 0.032 }}
               source={require('../../assets/images/twist.png')}
-            />
+            /> */}
           </View>
           <Connnection color={color2 == false ? Colors.grey : Colors.ButtonBorder} link={() => registerUser_hit()}
 
