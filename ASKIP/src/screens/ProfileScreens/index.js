@@ -176,7 +176,7 @@ const ProfileScreens = ({navigation}) => {
                 source={require('../../assets/images/backgroundImage.png')}>
                 <>
                   <Text style={styles.modalText}>
-                    <Text style={{ fontWeight: 'bold' }}>{detail?.lastName}, </Text>
+                    <Text style={{ fontWeight: 'bold' }}>{detail?.firstName}, </Text>
                     veux-tu vraiment te déconnecter ?
                   </Text>
                   <View

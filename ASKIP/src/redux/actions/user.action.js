@@ -35,12 +35,15 @@ export const registerUser = (data, setLoading2, setError2, refRBSheet, refRBShee
     const response = await axios.post(`${base_URL}/user/register`, data)
     // console.log("register", response.data)
     if (response?.data?.data?.success) {
-      refRBSheet.current.open()
+      setTimeout(()=>{
+        refRBSheet.current.open()
+      },200)
+      
       refRBSheet2.current.close()
       setLoading2(false)
       setTimeout(()=>{
         setReminder(true)
-      },200)
+      },300)
     }
   }
   catch (error) {
