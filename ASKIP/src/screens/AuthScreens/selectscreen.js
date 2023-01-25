@@ -340,7 +340,7 @@ const Selectscreen = ({ navigation }) => {
               value={phone}
               placeholder="06.06.06.06.06"
               placeholderTextColor="#afafaf"
-              style={{ color: "black", height: height * 0.065 }}
+              style={{ color: "black", height: height * 0.065,width:width*0.73 }}
               onChangeText={(masked, unmasked) => {
                 setPhone(masked);
               }}
