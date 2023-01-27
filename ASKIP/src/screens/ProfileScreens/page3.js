@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
   View,
   ScrollView,
-  Modal
+  Modal,
+  KeyboardAvoidingView
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
 
@@ -319,6 +320,10 @@ const Page3 = ({ setPage, profile }) => {
   return (
     <>
       <Text style={styles.firsttext}>Séléctionne tes kiffs</Text>
+      <KeyboardAvoidingView 
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{flex: 1}}        >
+     
       {/* <ScrollView
         horizontal={true}
         // scrollIndicatorInsets={false}
@@ -456,7 +461,14 @@ const Page3 = ({ setPage, profile }) => {
           }}>
           <Sheet />
         </RBSheet>
+        
       </View>
+      <View style={{
+        height: 200
+      }} />
+      
+      
+      </KeyboardAvoidingView>
       <Modal
         animationType="slide"
         transparent={true}

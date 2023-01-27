@@ -203,7 +203,7 @@ const Page2 = ({ setPage, profile }) => {
               borderRadius: width * 0.015,
               padding: width * 0.014,
               justifyContent:'center',
-              alignItems:'center'
+              alignItems:'flex-start'
             }}
             onPress={() => {
               setOpen(true);
