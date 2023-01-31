@@ -62,7 +62,7 @@ const EventsScreens = ({ navigation }) => {
     setDetail(data?.User)
 
   }
-  console.log("progress details", detail)
+  // console.log("progress details", detail)
   const DOB = useSelector((state) => state?.auth?.credential?.User?.birthDate)
   const dispatch = useDispatch()
   const Revelator = useSelector(state => state?.auth?.User?.relatedRevelateur)
@@ -89,11 +89,11 @@ const EventsScreens = ({ navigation }) => {
   const Esport=async()=>{
    
     const  Mydata  = await ESPORTCHECK(userId) 
-    console.log("bhai yahan bhi aja ",Mydata)
+    // console.log("bhai yahan bhi aja ",Mydata)
     setECHECK(Mydata)
     
   }
-  console.log("Poyon OIl",ECHECK)
+  // console.log("Poyon OIl",ECHECK)
  
   const EKIFFCHECK=()=>{
     if(ECHECK==true){
@@ -249,7 +249,7 @@ const EventsScreens = ({ navigation }) => {
     // console.log("eventsDetail?.data?.dataeventsDetail?.data?.dataeventsDetail?.data?.data")
     const online = eventsDetail?.data?.data?.participationType[0]?.[0]?.distancielThumbnail
     const offline = eventsDetail?.data?.data?.participationType[0]?.[0]?.presentielThumbnail
-    console.log("detailss of the box", eventsDetail?.data)
+    // console.log("detailss of the box", eventsDetail?.data)
     return (
       <View
         style={{

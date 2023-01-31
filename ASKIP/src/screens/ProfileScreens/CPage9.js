@@ -24,7 +24,7 @@ const CPage9 = ({setPage}) => {
   const userData=useSelector(state => state?.auth?.User) 
   const USER_DATA = useSelector((state) => state?.auth?.User)
   // const all_Data=useSelector(state => state?.user?.data)
-  console.log("TOU dekhle bhai",USER_DATA)
+  // console.log("TOU dekhle bhai",USER_DATA)
   const sendData=()=>{
     let data={
       email:detail?.email,

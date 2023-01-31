@@ -37,14 +37,14 @@ const Abcd = (props) => {
     const { data } = await MESINVITES(userId);
     setInvitations(data?.data?.invitation);
     setCount(data?.data?.invitationCount)
-    
+
   };
 
   const RawBottomSheet = () => {
-    const online=S_event?.eventId?.participationType[0]?.[0]?.distancielThumbnail
-const offline=S_event?.eventId?.participationType[0]?.[0]?.presentielThumbnail
-console.log("S_eventS_event",S_event?.eventId?.participationType)
-console.log("online=",online,"offline=", offline)
+    const online = S_event?.eventId?.participationType[0]?.[0]?.distancielThumbnail
+    const offline = S_event?.eventId?.participationType[0]?.[0]?.presentielThumbnail
+    // console.log("S_eventS_event",S_event?.eventId?.participationType)
+    // console.log("online=",online,"offline=", offline)
     return (
       <View
         style={{
@@ -93,7 +93,7 @@ console.log("online=",online,"offline=", offline)
           />
           <Text style={styles.rawBottomlocation}>
 
-          {online==true?"En ligne ":null}  {offline==true?S_event?.eventId?.postalAddress+","+" "+S_event?.eventId?.city+" "+S_event?.eventId?.zipCode:null}
+            {online == true ? "En ligne " : null}  {offline == true ? S_event?.eventId?.postalAddress + "," + " " + S_event?.eventId?.city + " " + S_event?.eventId?.zipCode : null}
           </Text>
         </View>
         <ScrollView showsVerticalScrollIndicator={true}>
@@ -224,7 +224,7 @@ console.log("online=",online,"offline=", offline)
       <Text style={styles.mainheading}>MES INVITATIONS</Text>
       {Invitations?.length !== 0 ? <FlatList
         // showsHorizontalScrollIndicator={true}
-        style={{ marginTop: height * 0.02,marginBottom:  height * 0.08}}
+        style={{ marginTop: height * 0.02, marginBottom: height * 0.08 }}
         // scrollEnabled={true}
         data={Invitations}
         keyExtractor={item => item._id}

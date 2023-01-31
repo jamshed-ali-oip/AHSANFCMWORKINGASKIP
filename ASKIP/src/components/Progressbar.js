@@ -16,10 +16,10 @@ const Progressbar = (props) => {
     setDetail(data?.User?.progress)
 
   }
- console.log("progress details",detail)
+//  console.log("progress details",detail)
   const ok = useSelector(state => state?.auth?.progress)
   const percent = useSelector(state => state?.auth?.percent)
-  console.log("ok",ok)
+  // console.log("ok",ok)
   const yes =ok==undefined?detail:ok
 
 

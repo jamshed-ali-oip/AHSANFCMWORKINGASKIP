@@ -36,10 +36,10 @@ const ProfileScreens = ({navigation}) => {
     setDetail(data?.User)
 
   }
- console.log("progress details",detail)
+//  console.log("progress details",detail)
   const kiffs=useSelector(state => state?.auth?.credential?.User?.kiffs)
   const [modalVisible, setModalVisible] = useState(false);
-  console.log("modalVisible",modalVisible)
+  // console.log("modalVisible",modalVisible)
   const [image, setImage] = useState();
   // console.log("tasweer",image)
   const test = async () =>{
@@ -52,11 +52,11 @@ const ProfileScreens = ({navigation}) => {
     test()
   }
   const signOut =async () => {
-    console.log('====================================');
+    // console.log('====================================');
 
     await closeModal()
     // console.log(modalVisible);
-    console.log('====================================');
+    // console.log('====================================');
     // LayoutAnimation.easeInEaseOut();
     // dispatch({
     //   type: LOG_OUT

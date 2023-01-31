@@ -8,7 +8,7 @@ export const userLogin = (data, setLoading, setError,refRBSheet) => async (dispa
   try {
     setLoading(true)
     const response = await axios.post(`${base_URL}/user/login`, data)
-    console.log(response)
+    // console.log(response)
     if (response?.data?.data?.success) {
       refRBSheet?refRBSheet.current.close():null
       setTimeout(()=>{
@@ -23,7 +23,7 @@ export const userLogin = (data, setLoading, setError,refRBSheet) => async (dispa
   catch (error) {
     setLoading(false)
     setError(true)
-    console.log(error)
+    // console.log(error)
   }
 };
 
@@ -117,11 +117,11 @@ export const Inner_userVerifyInfo = (data, setPage) => async () => {
   }
 };
 export const password_Reset = (data, refRBSheet3) => async () => {
-  console.log("passwerd change", data)
+  // console.log("passwerd change", data)
 
   try {
     const response = await axios.post(`${base_URL}/user/confirmpass`, data)
-    console.log("messsg yahan dikha bhai chitooooo", response)
+    // console.log("messsg yahan dikha bhai chitooooo", response)
     if (response) {
       // console.log("SUCCESSS")
       // (response?.data?.data?.success)
@@ -159,7 +159,7 @@ export const imageUpload = (data,setReminder) => async (dispatch) => {
     }
   })
     .then((response) => {
-      console.log(response)
+      // console.log(response)
       // setReminder(true)
       dispatch(
         {
@@ -169,7 +169,7 @@ export const imageUpload = (data,setReminder) => async (dispatch) => {
       )
     })
     .catch(err => {
-      console.log("image error")
+      // console.log("image error")
    
       setReminder(true)
     })
@@ -191,7 +191,7 @@ export const profileImage = (data) => async (dispatch) => {
     }
   })
     .then((response) => {
-      console.log(response)
+      // console.log(response)
       dispatch(
         {
           type: PROFILE_IMAGE,
@@ -200,7 +200,7 @@ export const profileImage = (data) => async (dispatch) => {
       )
     })
     .catch(err => {
-      console.log("errr profile image", err.response)
+      // console.log("errr profile image", err.response)
     })
 
 };
@@ -220,7 +220,7 @@ export const Delete_User = (id, token) => async (dispatch) => {
     }
   }
   catch (error) {
-    console.log("deleting", error)
+    // console.log("deleting", error)
   }
 };
 
@@ -236,14 +236,14 @@ export const getKiffsData = () => async (dispatch) => {
     }
   }
   catch (error) {
-    console.log("", error)
+    // console.log("", error)
   }
 };
 
 export const profileUpdate = (data, userId, setPage) => async (dispatch) => {
   try {
     const response = await axios.put(`${base_URL}/user/${userId}`, data)
-    console.log("5data",response?.data?.data)
+    // console.log("5data",response?.data?.data)
     // console.log(response)
     if (response?.data?.data) {
       setPage(1)
@@ -255,7 +255,7 @@ export const profileUpdate = (data, userId, setPage) => async (dispatch) => {
     }
   }
   catch (error) {
-    console.log(error)
+    // console.log(error)
 
   }
 };
@@ -264,7 +264,7 @@ export const profileUpdate = (data, userId, setPage) => async (dispatch) => {
 export const update_First_Page = (userId, body, setPage) => async (dispatch) => {
   try {
     const { data } = await axios.put(`${base_URL}/user/${userId}`, body)
-    console.log(data.data.data)
+    // console.log(data.data.data)
     if (data?.data?.success) {
       setPage(2)
       dispatch({
@@ -273,15 +273,15 @@ export const update_First_Page = (userId, body, setPage) => async (dispatch) => 
       })
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 }
 
 export const update_Second_Page = (userId, body, setPage) => async (dispatch) => {
-  console.log(body)
+  // console.log(body)
   try {
     const { data } = await axios.put(`${base_URL}/user/${userId}`, body)
-    console.log(data)
+    // console.log(data)
     if (data?.data?.success) {
       setPage(3)
       dispatch({
@@ -290,14 +290,14 @@ export const update_Second_Page = (userId, body, setPage) => async (dispatch) =>
       })
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 }
 
 export const update_Third_Page = (userId, body, setPage) => async (dispatch) => {
   try {
     const { data } = await axios.put(`${base_URL}/user/${userId}`, body)
-    console.log(data)
+    // console.log(data)
     if (data?.data?.success) {
       setPage(4)
       dispatch({
@@ -306,14 +306,14 @@ export const update_Third_Page = (userId, body, setPage) => async (dispatch) => 
       })
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 }
 
 export const update_Fourth_Page = (userId, body, setPage) => async (dispatch) => {
   try {
     const { data } = await axios.put(`${base_URL}/user/${userId}`, body)
-    console.log(data)
+    // console.log(data)
     if (data?.data?.success) {
       setPage(5)
       dispatch({
@@ -322,7 +322,7 @@ export const update_Fourth_Page = (userId, body, setPage) => async (dispatch) =>
       })
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 }
 
@@ -341,7 +341,7 @@ export const relevant = () => async (dispatch) => {
     // }
   }
   catch (error) {
-    console.log("", error)
+    // console.log("", error)
   }
 };
 
@@ -352,13 +352,13 @@ export const Download_verify = (data, setPage, set_Inco_Password) => async (disp
     const response = await axios.post(`${base_URL}/user/consult`, data)
     // console.log(response)
     if (response?.data) {
-      console.log(response)
+      // console.log(response)
       setPage(9)
 
     }
   }
   catch (error) {
-    console.log("erorrrrrrrrrrr", error)
+    // console.log("erorrrrrrrrrrr", error)
     set_Inco_Password(true)
   }
 };
@@ -369,7 +369,7 @@ export const Send_link = (data, setPage) => async (dispatch) => {
     const response = await axios.post(`${base_URL}/user/emaillink`, data)
     // console.log(response)
     if (response?.data) {
-      console.log("yahan aja andr", response)
+      // console.log("yahan aja andr", response)
       // setPage(1)
       Alert.alert(
         "Toutes nos félicitations",
@@ -387,23 +387,23 @@ export const Send_link = (data, setPage) => async (dispatch) => {
     }
   }
   catch (error) {
-    console.log("erorrrrrrrrrrr", error)
+    // console.log("erorrrrrrrrrrr", error)
   }
 };
 export const ChangesPassword = (data, userId, setError,setmymodal) => async (dispatch) => {
-  console.log("change passweord datat on useraction",data,userId)
+  // console.log("change passweord datat on useraction",data,userId)
   try {
     const response = await axios.put(`${base_URL}/user/changepass/${userId}`, data)
-    console.log(response?.data?.success)
+    // console.log(response?.data?.success)
 
     if (response?.data?.success) {
-      console.log("ok hogya")
+      // console.log("ok hogya")
       setmymodal(true)
     }
   }
   catch (error) {
-    console.log(error)
-    console.log(error?.response?.data?.message)
+    // console.log(error)
+    // console.log(error?.response?.data?.message)
     setError(error?.response?.data?.message)
 
   }
@@ -411,7 +411,7 @@ export const ChangesPassword = (data, userId, setError,setmymodal) => async (dis
 export const UserDetail = async (userId)  => {
   try {
     const {data} = await axios.get(`${base_URL}/user/${userId}`)
-    console.log("detaiilsss ",data)
+    // console.log("detaiilsss ",data)
     return data
     // if (data?.data?.success){
     //   console.log(response)
@@ -422,19 +422,19 @@ export const UserDetail = async (userId)  => {
     // }
   }
   catch (error) {
-    console.log("detailss", error)
+    // console.log("detailss", error)
   }
 };
 export const ProfilePictureSet = (userId, body) => async (dispatch) => {
   try {
     const { data } = await axios.put(`${base_URL}/user/${userId}`, body)
-    console.log(data)
+    // console.log(data)
     if (data?.data?.success) {
    
    
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 }
 
@@ -443,7 +443,7 @@ export const ProfilePictureSet = (userId, body) => async (dispatch) => {
 export const getEvents = () => async (dispatch) => {
   try {
     const response = await axios.get(`${base_URL}/auth/getEvents/?status=published`)
-    console.log("revelaothfklasgk ",response)
+    // console.log("revelaothfklasgk ",response)
     return response
     // if (data?.data?.success){
     //   console.log(response)
@@ -454,7 +454,7 @@ export const getEvents = () => async (dispatch) => {
     // }
   }
   catch (error) {
-    console.log("hdfhh", error)
+    // console.log("hdfhh", error)
   }
 };
 export const getEventsByID = async (data) => {
@@ -471,51 +471,51 @@ export const getEventsByID = async (data) => {
     // }
   }
   catch (error) {
-    console.log("nhi aya", error)
+    // console.log("nhi aya", error)
   }
 };
 export const Subscribe_Event = (data,userId,setRefetch,) => async (dispatch) => {
   
-  console.log("subscribe data", userId)
+  // console.log("subscribe data", userId)
  
   try {
     const response = await axios.put(`${base_URL}/auth/subsribeEvent/${data}`,{userId})
-    console.log("subcribe okkk ",response)
+    // console.log("subcribe okkk ",response)
     
     if (response?.data) {
-      console.log("yahan aja andr", response)
+      // console.log("yahan aja andr", response)
       
       
     }
   }
   catch (error) {
-    console.log("error for kifff==================", error)
+    // console.log("error for kifff==================", error)
   }
 };
 export const ProfileChecking = (userId,setPower,setBTN) => async (dispatch) => {
-  console.log(userId)
+  // console.log(userId)
   try {
     const response = await axios.get(`${base_URL}/user/checkingSteps/${userId}`)
     // console.log("revelaothfklasgk ",response?.data?.success)
    
     if (response?.data?.success){
       setBTN(true)
-      console.log(response)
+      // console.log(response)
       
     }
   }
   catch (error) {
     setPower(true)
-    console.log("hdfhh", error)
+    // console.log("hdfhh", error)
   }
 };
 export const Un_Subscribe_Event = (data,userId) => async (dispatch) => {
   
-  console.log("subscribe data", userId)
+  // console.log("subscribe data", userId)
  
   try {
     const response = await axios.put(`${base_URL}/auth/unSubscribeEvent/${data}`,{userId})
-    console.log("subcribe okkk ",response)
+    // console.log("subcribe okkk ",response)
     // if (response?.data) {
     //   console.log("yahan aja andr", response)
       
@@ -523,7 +523,7 @@ export const Un_Subscribe_Event = (data,userId) => async (dispatch) => {
     // }
   }
   catch (error) {
-    console.log("subcribe eerrrr", error)
+    // console.log("subcribe eerrrr", error)
   }
 };    
 
@@ -531,12 +531,12 @@ export const ESPORTCHECK = async (userId)  => {
 
   try {
     const response = await axios.get(`${base_URL}/user/kiff/${userId}`)
-    console.log("esport response ",response?.data?.data?.isKiff)
+    // console.log("esport response ",response?.data?.data?.isKiff)
     return response?.data?.data?.isKiff
    
   }
   catch (error) {
-    console.log("ESPORTS ERROR", error)
+    // console.log("ESPORTS ERROR", error)
   }
 };
 // home screen /////////
@@ -555,18 +555,18 @@ export const getSubscribedEvents = async (userId)  => {
     // }
   }
   catch (error) {
-    console.log("hdfhh", error)
+    // console.log("hdfhh", error)
   }
 };
 export const ageVerification = async (userId)  => {
   try {
     const response = await axios.get(`${base_URL}/user/age/${userId}`)
-    console.log("age verification res ",response)
+    // console.log("age verification res ",response)
     return response
 
   }
   catch (error) {
-    console.log("age verification eror ", error)
+    // console.log("age verification eror ", error)
   }
 };
 
@@ -575,14 +575,14 @@ export const ageVerification = async (userId)  => {
 export const FCMUPDATE = (data, userId) => async (dispatch) => {
   try {
     const response = await axios.put(`${base_URL}/fcmTokenUpdate/${userId}`, data)
-    console.log("FCM DATA USER ACTION",response)
+    // console.log("FCM DATA USER ACTION",response)
     
     if (response?.data?.data) {
 
     }
   }
   catch (error) {
-    console.log("FCM ERROR",error)
+    // console.log("FCM ERROR",error)
 
   }
 }; 
@@ -590,30 +590,30 @@ export const FCMUPDATE = (data, userId) => async (dispatch) => {
 export const MESINVITES = async (userId) => {
   try {
     const response = await axios.get(`${base_URL}/invitationUser/${userId}`)
-    console.log("MES INVITATION ACTION CLG",response)
+    // console.log("MES INVITATION ACTION CLG",response)
     return response
 
   }
   catch (error) {
-    console.log("Error", error)
+    // console.log("Error", error)
   }
 };
 export const StatusUpdate = (data, inviteId) => async (dispatch) => {
   try {
     const response = await axios.put(`${base_URL}/updateStatus/${inviteId}`, data)
-    console.log("updtae successss",response)
+    // console.log("updtae successss",response)
     
     if (response?.data?.data) {
 
     }
   }
   catch (error) {
-    console.log("uppdate fail",error)
+    // console.log("uppdate fail",error)
 
   }
 };
 export const Stackprofile = (userId,setProfilStatus) => async (dispatch) => {
-  console.log(userId)
+  // console.log(userId)
   try {
     const response = await axios.get(`${base_URL}/user/checkingSteps/${userId}`)
     // console.log("Stackprofile yahan aja ",response?.data?.success)
@@ -629,7 +629,7 @@ export const Stackprofile = (userId,setProfilStatus) => async (dispatch) => {
   }
   catch (error) {
     // setPower(true)
-    console.log("Stackprofile", error)
+    // console.log("Stackprofile", error)
     setProfilStatus(false)
   }
 };

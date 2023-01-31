@@ -139,7 +139,7 @@ function TabBar() {
         name="WalletScreens"
         component={WalletScreens}
         options={{
-          tabBarLabel: 'RDV',
+          tabBarLabel: 'Rendez-vous',
           tabBarActiveTintColor: '#e73d34',
           tabBarInactiveTintColor: 'black',
           headerShown: false,

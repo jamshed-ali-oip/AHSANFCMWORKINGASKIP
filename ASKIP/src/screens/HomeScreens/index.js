@@ -73,7 +73,7 @@ const HomeScreens = ({ navigation }) => {
     setlstName(data?.User?.firstName)
 
   }
- console.log("home details",lstNa)
+//  console.log("home details",lstNa)
 
  const yes =ok==undefined?detail:ok
   useEffect(() => {
@@ -146,8 +146,8 @@ const HomeScreens = ({ navigation }) => {
     const online=getSub?.item?.participationType[0]?.[0]?.distancielThumbnail
     const offline=getSub?.item?.participationType[0]?.[0]?.presentielThumbnail
     
-    console.log(online,offline )
-console.log("detailigof ext",getSub?.item)
+//     console.log(online,offline )
+// console.log("detailigof ext",getSub?.item)
     return (
       <View
         style={{

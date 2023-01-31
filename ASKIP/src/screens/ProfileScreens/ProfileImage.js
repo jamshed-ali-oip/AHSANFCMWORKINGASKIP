@@ -36,8 +36,8 @@ const ProfileImage = () => {
    },[Picture,pic])
 
   //  const Picture =useSelector((state)=>state?.auth?.Tasweer?.data)
-  console.log("sjkldguksgkj")
-   console.log("tasweer  dpp ",Picture)
+  // console.log("sjkldguksgkj")
+  //  console.log("tasweer  dpp ",Picture)
     const onFromPickerImage = () => {
         var options = {
           title: 'Select Avatar',

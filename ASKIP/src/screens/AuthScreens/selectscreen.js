@@ -82,7 +82,7 @@ const Selectscreen = ({ navigation }) => {
       id: 2,
     },
   ];
-  console.log("location", location)
+  // console.log("location", location)
   const data = [
     {
       name: 'Lyon',
@@ -205,7 +205,7 @@ const Selectscreen = ({ navigation }) => {
       </TouchableOpacity>
     )
   }
-  console.log("locatiomn", myloc)
+  // console.log("locatiomn", myloc)
   useEffect(() => {
     fetchhData()
     // setmyloc()
@@ -220,16 +220,16 @@ const Selectscreen = ({ navigation }) => {
           "accept": "application/json, text/plain"
         }
       })
-      console.log("dsakjgk", data)
+      // console.log("dsakjgk", data)
 
       setloc(data?.data?.features)
 
     }
     catch (error) {
-      console.log("", error)
+      // console.log("", error)
     }
   }
-  console.log("loc", loc)
+  // console.log("loc", loc)
   return (
     <View style={style.container}>
       <ImageBackground

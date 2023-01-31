@@ -50,7 +50,7 @@ const CPage1 = ({ page, setPage, navigationState }) => {
     setDetail(data?.User)
 
   }
-  console.log("page1 email",detail?.email)
+  // console.log("page1 email",detail?.email)
   // console.log(page)
   const consultdata = () => {
     if (detail?.email) {

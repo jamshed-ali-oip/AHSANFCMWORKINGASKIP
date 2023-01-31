@@ -67,7 +67,7 @@ const MainNavigation = () => {
       });
       return unsubscribe;
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   }, []);
 
