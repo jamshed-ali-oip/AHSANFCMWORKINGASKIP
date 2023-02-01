@@ -12,9 +12,11 @@ import {
   TouchableOpacity,
   Modal,
   Pressable,
-  Touchable
+  Touchable,
+  ScrollView
 } from 'react-native'
-import React,{useState} from 'react'
+import RBSheet from 'react-native-raw-bottom-sheet';
+import React, { useState, useRef } from 'react'
 const { height, width } = Dimensions.get('window');
 const Rejected = ({ setscreen }) => {
   const [test, settest] = useState(true)
@@ -123,6 +125,7 @@ const Rejected = ({ setscreen }) => {
           }}
         >
           <TouchableOpacity
+          onPress={()=>refRBSheet2.current.open()}
             style={styles.consult}
           >
             <Text
@@ -157,7 +160,154 @@ const Rejected = ({ setscreen }) => {
       </View>
     )
   }
-
+  const RawBottomSheet = () => {
+    return (
+      <>
+        <Text
+          style={{
+            color: "#ffffff",
+            marginLeft:width*0.05,
+            // textAlign: "center",
+            fontFamily: "Bebas Neue Pro Bold",
+            fontSize: width * 0.055,
+          }}
+        >Révélateur te propose un rendez-vous !</Text>
+        <View
+          style={{ flexDirection: 'row', alignSelf: "center", marginTop: height * 0.02 }}
+        >
+          <View style={{ width: width * 0.65 }} >
+            <View style={{ flexDirection: "row" }}>
+              <Text
+                style={{
+                  fontFamily: "Bebas Neue Pro Bold",
+                  color: "#ffa913",
+                  fontSize: width * 0.045
+                }}
+              >Objet du rendez-vous</Text>
+              <Image
+                style={{ resizeMode: "contain", marginLeft: width * 0.01 }}
+                source={require("../../assets/images/oflinepoint.png")} />
+            </View>
+            <Text
+              style={{
+                fontFamily: "bebas-neue-pro-regular",
+                color: "#ffffff",
+                fontSize: width * 0.042,
+              }}
+            >Enligne</Text>
+          </View >
+          <View  >
+            <Text
+              style={{
+                fontFamily: "bebas-neue-pro-regular",
+                color: "#bf9423",
+                fontSize: width * 0.042,
+              }}
+            >Lun 23 September</Text>
+            <Text
+              style={{
+                fontFamily: "bebas-neue-pro-regular",
+                color: "#bf9423",
+                fontSize: width * 0.042,
+              }}
+            >a 14h00</Text>
+          </View >
+        </View>
+        <ScrollView
+          style={{ height: height * 0.25 }}
+        >
+          <Text
+            style={{
+              fontFamily: "bebas-neue-pro-regular",
+              color: "#ffffff",
+              fontSize: width * 0.04,
+              textAlign: "justify",
+              width: width * 0.9,
+              alignSelf: "center",
+              marginTop: height * 0.015
+            }}
+          >
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Cras vel facilisis nunc. Nulla quis eros aliquet, condimentum erat quis, tincidunt ante.
+            Vivamus faucibus vitae urna ut pellentesque. Pellentesque habitant morbi tristique
+            senectus et netus et malesuada fames ac turpis egestas. Ut convallis eleifend nibh.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Cras vel facilisis nunc. Nulla quis eros aliquet, condimentum erat quis, tincidunt ante.
+            Vivamus faucibus vitae urna ut pellentesque. Pellentesque habitant morbi tristique
+            senectus et netus et malesuada fames ac turpis egestas. Ut convallis eleifend nibh.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Cras vel facilisis nunc. Nulla quis eros aliquet, condimentum erat quis, tincidunt ante.
+            Vivamus faucibus vitae urna ut pellentesque. Pellentesque habitant morbi tristique
+            senectus et netus et malesuada fames ac turpis egestas. Ut convallis eleifend nibh.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Cras vel facilisis nunc. Nulla quis eros aliquet, condimentum erat quis, tincidunt ante.
+            Vivamus faucibus vitae urna ut pellentesque. Pellentesque habitant morbi tristique
+            senectus et netus et malesuada fames ac turpis egestas. Ut convallis eleifend nibh.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Cras vel facilisis nunc. Nulla quis eros aliquet, condimentum erat quis, tincidunt ante.
+            Vivamus faucibus vitae urna ut pellentesque. Pellentesque habitant morbi tristique
+            senectus et netus et malesuada fames ac turpis egestas. Ut convallis eleifend nibh.
+            senectus et netus et malesuada fames ac turpis egestas. Ut convallis eleifend nibh.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Cras vel facilisis nunc. Nulla quis eros aliquet, condimentum erat quis, tincidunt ante.
+            Vivamus faucibus vitae urna ut pellentesque. Pellentesque habitant morbi tristique
+            senectus et netus et malesuada fames ac turpis egestas. Ut convallis eleifend nibh.
+          </Text>
+        </ScrollView>
+        <View style={{
+          flexDirection: "row",
+          height: height * 0.065,
+          // backgroundColor: "yellow",
+          justifyContent: "space-around",
+          paddingHorizontal: width * 0.095
+        }}>
+          {/* <TouchableOpacity
+            style={{
+              backgroundColor: "#00b453",
+              height: height * 0.038,
+              width: width * 0.23,
+              borderRadius: width * 0.035,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Text
+              style={{
+                color: "#ffffff",
+                fontFamily: "Bebas Neue Pro Bold",
+                fontSize: width * 0.034
+              }}
+            >
+              J’accepte
+            </Text>
+          </TouchableOpacity> */}
+          <TouchableOpacity
+            style={{
+              borderWidth: 1,
+              height: height * 0.039,
+              width: width * 0.45,
+              borderRadius: width * 0.035,
+              justifyContent: "center",
+              alignItems: "center",
+              borderColor: "#ffffff",
+              marginTop:height * 0.01
+            }}
+          >
+            <Text
+              style={{
+                color: "#ffffff",
+                fontFamily: "Bebas Neue Pro Bold",
+                fontSize: width * 0.034
+              }}
+            >
+             J’accepte finalement ce RDV
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </>
+    )
+  }
+  const refRBSheet2 = useRef();
   return (
     <SafeAreaView>
       <ImageBackground
@@ -194,6 +344,33 @@ const Rejected = ({ setscreen }) => {
                 // showsVerticalScrollIndicator={true}
                 style={{ marginBottom: height * 0.0754 }}
               />
+               <View>
+          <RBSheet
+            ref={refRBSheet2}
+            height={height * 0.65}
+            closeOnDragDown={true}
+            closeOnPressMask={false}
+            // dragFromTopOnly={false}
+
+            customStyles={{
+              wrapper: {
+                backgroundColor: 'transparent',
+              },
+              draggableIcon: {
+                backgroundColor: 'transparent',
+                paddingHorizontal: 25,
+              },
+              container: {
+                borderTopLeftRadius: width * 0.08,
+                borderTopRightRadius: width * 0.08,
+                // position:'absolute',
+                backgroundColor: '#081a4f',
+              },
+            }}>
+            <RawBottomSheet />
+            {/* <View><Text>home</Text></View> */}
+          </RBSheet>
+        </View>
       </ImageBackground>
     </SafeAreaView>
   )

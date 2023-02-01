@@ -13,16 +13,18 @@ import {
   TouchableOpacity,
   Modal,
   Pressable,
-  Touchable
+  Touchable,
+  ScrollView
 } from 'react-native'
-import React,{useState} from 'react'
+import RBSheet from 'react-native-raw-bottom-sheet';
+import React, { useState, useRef } from 'react'
 const { height, width } = Dimensions.get('window');
 const History = ({ setscreen }) => {
   const [test, settest] = useState(true)
   const [locat, setlocat] = useState(true)
   const [modalVisible, setModalVisible] = useState(false);
   const [submit, setsubmit] = useState(false);
-
+  const refRBSheet2 = useRef();
   const Array2 = [
     {
       _id: 1,
@@ -59,15 +61,15 @@ const History = ({ setscreen }) => {
           <View
             style={styles.doccont}
           >
-          <View
+            <View
               style={{ flexDirection: "row" }}
             >
-            <Text
-              style={styles.eventname}
-            >
-              Objet du rendez-vous
-            </Text>
-            <Image
+              <Text
+                style={styles.eventname}
+              >
+                Objet du rendez-vous
+              </Text>
+              <Image
                 style={{
                   resizeMode: "contain",
                   marginLeft: width * 0.012,
@@ -81,13 +83,13 @@ const History = ({ setscreen }) => {
 
                 } />
             </View>
-         
-              <Text
-                style={styles.location}
-              >
-                34 Rue Decomberousse, 69000 LYON
-              </Text>
-              {/* <Image
+
+            <Text
+              style={styles.location}
+            >
+              34 Rue Decomberousse, 69000 LYON
+            </Text>
+            {/* <Image
                 style={{
                   resizeMode: "contain",
                   marginLeft: width * 0.012,
@@ -100,7 +102,7 @@ const History = ({ setscreen }) => {
                     require("../../assets/images/onlinepoint.png")
 
                 } /> */}
-  
+
           </View>
           <View
             style={styles.dateCOntainer}
@@ -126,6 +128,7 @@ const History = ({ setscreen }) => {
           }}
         >
           <TouchableOpacity
+            onPress={() => refRBSheet2.current.open()}
             style={styles.consult}
           >
             <Text
@@ -160,6 +163,104 @@ const History = ({ setscreen }) => {
       </View>
     )
   }
+  const RawBottomSheet = () => {
+    return (
+      <>
+        <Text
+          style={{
+            color: "#ffffff",
+            marginLeft:width*0.05,
+            // textAlign: "center",
+            fontFamily: "Bebas Neue Pro Bold",
+            fontSize: width * 0.055,
+          }}
+        >Révélateur te propose un rendez-vous !</Text>
+        <View
+          style={{ flexDirection: 'row', alignSelf: "center", marginTop: height * 0.02 }}
+        >
+          <View style={{ width: width * 0.65 }} >
+            <View style={{ flexDirection: "row" }}>
+              <Text
+                style={{
+                  fontFamily: "Bebas Neue Pro Bold",
+                  color: "#ffa913",
+                  fontSize: width * 0.045
+                }}
+              >Objet du rendez-vous</Text>
+              <Image
+                style={{ resizeMode: "contain", marginLeft: width * 0.01 }}
+                source={require("../../assets/images/oflinepoint.png")} />
+            </View>
+            <Text
+              style={{
+                fontFamily: "bebas-neue-pro-regular",
+                color: "#ffffff",
+                fontSize: width * 0.042,
+              }}
+            >Enligne</Text>
+          </View >
+          <View  >
+            <Text
+              style={{
+                fontFamily: "bebas-neue-pro-regular",
+                color: "#bf9423",
+                fontSize: width * 0.042,
+              }}
+            >Lun 23 September</Text>
+            <Text
+              style={{
+                fontFamily: "bebas-neue-pro-regular",
+                color: "#bf9423",
+                fontSize: width * 0.042,
+              }}
+            >a 14h00</Text>
+          </View >
+        </View>
+        <ScrollView
+          style={{ height: height * 0.25 }}
+        >
+          <Text
+            style={{
+              fontFamily: "bebas-neue-pro-regular",
+              color: "#ffffff",
+              fontSize: width * 0.04,
+              textAlign: "justify",
+              width: width * 0.9,
+              alignSelf: "center",
+              marginTop: height * 0.015
+            }}
+          >
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Cras vel facilisis nunc. Nulla quis eros aliquet, condimentum erat quis, tincidunt ante.
+            Vivamus faucibus vitae urna ut pellentesque. Pellentesque habitant morbi tristique
+            senectus et netus et malesuada fames ac turpis egestas. Ut convallis eleifend nibh.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Cras vel facilisis nunc. Nulla quis eros aliquet, condimentum erat quis, tincidunt ante.
+            Vivamus faucibus vitae urna ut pellentesque. Pellentesque habitant morbi tristique
+            senectus et netus et malesuada fames ac turpis egestas. Ut convallis eleifend nibh.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Cras vel facilisis nunc. Nulla quis eros aliquet, condimentum erat quis, tincidunt ante.
+            Vivamus faucibus vitae urna ut pellentesque. Pellentesque habitant morbi tristique
+            senectus et netus et malesuada fames ac turpis egestas. Ut convallis eleifend nibh.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Cras vel facilisis nunc. Nulla quis eros aliquet, condimentum erat quis, tincidunt ante.
+            Vivamus faucibus vitae urna ut pellentesque. Pellentesque habitant morbi tristique
+            senectus et netus et malesuada fames ac turpis egestas. Ut convallis eleifend nibh.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Cras vel facilisis nunc. Nulla quis eros aliquet, condimentum erat quis, tincidunt ante.
+            Vivamus faucibus vitae urna ut pellentesque. Pellentesque habitant morbi tristique
+            senectus et netus et malesuada fames ac turpis egestas. Ut convallis eleifend nibh.
+            senectus et netus et malesuada fames ac turpis egestas. Ut convallis eleifend nibh.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Cras vel facilisis nunc. Nulla quis eros aliquet, condimentum erat quis, tincidunt ante.
+            Vivamus faucibus vitae urna ut pellentesque. Pellentesque habitant morbi tristique
+            senectus et netus et malesuada fames ac turpis egestas. Ut convallis eleifend nibh.
+          </Text>
+        </ScrollView>
+       
+      </>
+    )
+  }
 
   return (
     <SafeAreaView>
@@ -189,14 +290,41 @@ const History = ({ setscreen }) => {
           }}
           source={require("../../assets/images/past.png")}
         />
-          <FlatList
-                data={Array2}
-                renderItem={Appointments}
-                keyExtractor={item => item.id}
-                scrollEnabled={true}
-                // showsVerticalScrollIndicator={true}
-                style={{ marginBottom: height * 0.0754 }}
-              />
+        <FlatList
+          data={Array2}
+          renderItem={Appointments}
+          keyExtractor={item => item.id}
+          scrollEnabled={true}
+          // showsVerticalScrollIndicator={true}
+          style={{ marginBottom: height * 0.0754 }}
+        />
+        <View>
+          <RBSheet
+            ref={refRBSheet2}
+            height={height * 0.65}
+            closeOnDragDown={true}
+            closeOnPressMask={false}
+            // dragFromTopOnly={false}
+
+            customStyles={{
+              wrapper: {
+                backgroundColor: 'transparent',
+              },
+              draggableIcon: {
+                backgroundColor: 'transparent',
+                paddingHorizontal: 25,
+              },
+              container: {
+                borderTopLeftRadius: width * 0.08,
+                borderTopRightRadius: width * 0.08,
+                // position:'absolute',
+                backgroundColor: '#081a4f',
+              },
+            }}>
+            <RawBottomSheet />
+            {/* <View><Text>home</Text></View> */}
+          </RBSheet>
+        </View>
       </ImageBackground>
     </SafeAreaView>
   )
@@ -219,7 +347,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.57,
     shadowRadius: 15.19,
-    
+
     elevation: 23,
   },
   appointmentHeader: {
