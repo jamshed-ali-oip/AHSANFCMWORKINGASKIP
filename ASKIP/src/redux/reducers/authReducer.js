@@ -19,29 +19,29 @@ const authReducer = (state = InitialState, action) => {
   // console.log("here",action.type)
   switch (action.type) {
     case LOG_IN:
-      // console.log(action.payload);
+      console.log(action.payload);
       return {
         ...state,
         credential: action.payload,
       };
     case LOG_OUT:
-      // console.log(action.payload);
+      console.log(action.payload);
       return {
         credential: {},
       };
     case REGISTER:
-      // console.log(action.payload);
+      console.log(action.payload);
       return {
         credential: action.payload
       };
     case SEND_OTP:
-      // console.log(action.payload)
+      console.log(action.payload)
       return {
         ...state,
         credential: action.payload
       }
     case ID_CARD_IMAGE:
-      // console.log(action.payload)
+      console.log(action.payload)
       return {
         ...state,
         profileData: action.payload
@@ -53,7 +53,7 @@ const authReducer = (state = InitialState, action) => {
         forgetInnerPassData: action.payload
       }
     case SET_PAGE_ONE:
-      // console.log(action.payload);
+      console.log(action.payload);
       return {
         ...state,
         // data: action.payload,

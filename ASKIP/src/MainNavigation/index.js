@@ -33,7 +33,7 @@ const MainNavigation = () => {
       messaging()
         .getToken()
         .then(token => {
-          // setFCMToken(token);
+          setFCMToken(token);
           console.log(token, "FCM")
         });
       messaging().onNotificationOpenedApp(remoteMessage => {
@@ -67,7 +67,7 @@ const MainNavigation = () => {
       });
       return unsubscribe;
     } catch (e) {
-      // console.log(e);
+      console.log(e);
     }
   }, []);
 
@@ -77,7 +77,7 @@ const MainNavigation = () => {
       authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
       authStatus === messaging.AuthorizationStatus.PROVISIONAL;
     if (enabled) {
-      // console.log('Authorization status:', authStatus);
+      console.log('Authorization status:', authStatus);
       SplashScreen.hide();
     }
   }

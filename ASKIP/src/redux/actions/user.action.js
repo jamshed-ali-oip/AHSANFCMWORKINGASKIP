@@ -3,7 +3,7 @@ import { Alert } from "react-native";
 import { base_URL, base_URL_Muhib } from "../../config/config";
 import { LOG_IN, REGISTER, FORGET_PASSWORD, SEND_OTP, LOG_OUT, ID_CARD_IMAGE, FORGET_INNER_PASSWORD, GET_KIFFS_DATA, CONSULT_DATA, RELEVENT, DATA_EMPTY, SET_PAGE_ONE, SET_PAGE_TWO, SET_PAGE_THREE, SET_PAGE_FOUR, PROFILE_IMAGE, GET_EVENTS } from "../const/const";
 
-
+// ***************************Auth Screen ************************************
 export const userLogin = (data, setLoading, setError,refRBSheet) => async (dispatch) => {
   try {
     setLoading(true)
@@ -71,7 +71,6 @@ export const forget_Password = (data, setM2, setM3) => async (dispatch) => {
   }
 };
 
-
 export const forget_Inner_Password = (data, setPage) => async (dispatch) => {
   try {
     const response = await axios.post(`${base_URL}/user/sendotp`, data)
@@ -88,8 +87,6 @@ export const forget_Inner_Password = (data, setPage) => async (dispatch) => {
     console.log(error)
   }
 };
-
-
 
 export const userVerifyInfo = (data, setpasswordSet) => async () => {
   // console.log("canhbdkjbs csbkj xm ckjs sck b", data)
@@ -143,6 +140,8 @@ export const Inner_password_Reset = (data, setPage) => async () => {
     // console.log("erorrrrrrrrrrr", error)
   }
 };
+
+// ************************Profile Side screen ****************************************
 export const imageUpload = (data,setReminder) => async (dispatch) => {
 
   var bodyFormData = new FormData();
@@ -204,7 +203,6 @@ export const profileImage = (data) => async (dispatch) => {
     })
 
 };
-
 
 export const Delete_User = (id, token) => async (dispatch) => {
 
@@ -438,7 +436,7 @@ export const ProfilePictureSet = (userId, body) => async (dispatch) => {
   }
 }
 
-// events section 
+// ******************************events section********************************* 
 
 export const getEvents = () => async (dispatch) => {
   try {
@@ -539,11 +537,11 @@ export const ESPORTCHECK = async (userId)  => {
     // console.log("ESPORTS ERROR", error)
   }
 };
-// home screen /////////
+// ****************************Home screen***************************** /////////
 
 export const getSubscribedEvents = async (userId)  => {
   try {
-    const response = await axios.get(`${base_URL}/auth/getSubscribeEvents/${userId}`)
+    const response = await axios.get(`${base_URL}/auth/getSubscribeEvents/${userId}?status=published`)
     // console.log("revelaothfklasgk ",response)
     return response
     // if (data?.data?.success){
@@ -558,6 +556,20 @@ export const getSubscribedEvents = async (userId)  => {
     // console.log("hdfhh", error)
   }
 };
+export const getHistoryofevent = async (userId)  => {
+  try {
+    const response = await axios.get(`${base_URL}/auth/getSubscribeEvents/${userId}?status=finished`)
+    console.log("history  ",response)
+    return response
+    // if (data?.data?.success){
+    //   console.log(response)
+    //    
+    // }
+  }
+  catch (error) {
+    console.log("hdfhh", error)
+  }
+};
 export const ageVerification = async (userId)  => {
   try {
     const response = await axios.get(`${base_URL}/user/age/${userId}`)
@@ -570,7 +582,7 @@ export const ageVerification = async (userId)  => {
   }
 };
 
-// PUSH NOTIFICATION API && INVITES
+// **********************PUSH NOTIFICATION API && INVITES*****************************
 
 export const FCMUPDATE = (data, userId) => async (dispatch) => {
   try {
@@ -634,27 +646,75 @@ export const Stackprofile = (userId,setProfilStatus) => async (dispatch) => {
   }
 };
 
+// ***********************RDV SCREENS*********************************************** 
+export const PendingAppointment = async (userId)  => {
+  try {
+    const response = await axios.get(`${base_URL}/appointmentByUser/${userId}?status=pending`)
+    console.log("PEndingAppointments",response)
+    return response
+    // if (data?.data?.success){
+    //   console.log(response)
+    //    
+    // }
+  }
+  catch (error) {
+    console.log("err", error)
+  }
+};
+export const AcceptedAppointments = async (userId)  => {
+  try {
+    const response = await axios.get(`${base_URL}/appointmentByUser/${userId}?status=accepted`)
+    console.log("acceptedAppointments",response)
+    return response
+    // if (data?.data?.success){
+    //   console.log(response)
+    //    
+    // }
+  }
+  catch (error) {
+    console.log("err", error)
+  }
+};
+export const FinishedAppointments = async (userId)  => {
+  try {
+    const response = await axios.get(`${base_URL}/appointmentByUser/${userId}?status=finished`)
+    console.log("finished",response)
+    return response
+    // if (data?.data?.success){
+    //   console.log(response)
+    //    
+    // }
+  }
+  catch (error) {
+    console.log("err", error)
+  }
+};
+export const DeclineAppointments = async (userId)  => {
+  try {
+    const response = await axios.get(`${base_URL}/appointmentByUser/${userId}?status=declined`)
+    console.log("declined",response)
+    return response
+    // if (data?.data?.success){
+    //   console.log(response)
+    //    
+    // }
+  }
+  catch (error) {
+    console.log("err", error)
+  }
+};
+export const appointmentStatus = (AppID,data) => async (dispatch) => {
+  console.log("AppID", AppID,"status",data)
+  try {
+    const response = await axios.put(`${base_URL}/appointment/${AppID}`,data)
+    console.log("updtae successss",response)
+    
+    if (response?.data?.data) {
 
+    }
+  }
+  catch (error) {
+    console.log("uppdate fail",error)
 
-
-
-// export const getData = (token) => async (dispatch) => {
-//     try{
-//       const response = await axios.get(`https://www.zeltatech.com/api/v1/bucket/blogs/62e8cc206ce2141f5510d1ff`,{},{
-//         headers: {
-//           Authorization: 'Bearer ' + token //the token is a variable which holds the token
-//         }
-//       })
-//       if (response.data){
-//         dispatch({
-//           type:"GET_DATA",
-//           payload:response.data.data
-//         })
-//       }
-//     }
-//     catch(error){
-//       console.log(error)
-//     }
-//   };
-
-
+  }
+};

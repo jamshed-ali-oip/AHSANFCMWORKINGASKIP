@@ -16,34 +16,30 @@ import {
   ScrollView
 } from 'react-native'
 import RBSheet from 'react-native-raw-bottom-sheet';
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
+import { useSelector } from 'react-redux';
+import { DeclineAppointments } from '../../redux/actions/user.action';
+import moment from 'moment/min/moment-with-locales'
 const { height, width } = Dimensions.get('window');
 const Rejected = ({ setscreen }) => {
   const [test, settest] = useState(true)
   const [locat, setlocat] = useState(true)
   const [modalVisible, setModalVisible] = useState(false);
   const [submit, setsubmit] = useState(false);
-
-  const Array2 = [
-    {
-      _id: 1,
-      name: "Mes RDV à venir"
-    },
-    {
-      _id: 2,
-      name: "Mes RDV passés"
-    },
-    {
-      _id: 3,
-      name: "Mes RDV annulés"
-    },
-    {
-      _id: 4,
-      name: "Mes RDV annulés"
-    },
-
-  ]
-  const Appointments = () => {
+  const [canceled, setcanceled] = useState("")
+  const [Value, setValue] = useState()
+  const [Status, setStatus] = useState()
+ 
+  const userId = useSelector((state) => state?.auth?.credential?.User?._id)
+  useEffect(() => {
+    fetch_canceled_Appointment()
+  }, [])
+  const fetch_canceled_Appointment = async () => {
+    const { data } = await DeclineAppointments(userId)
+    setcanceled(data)
+    console.log(" canceled apoitment data on page", data)
+  }
+  const Appointments = (item) => {
     return (
       <View
         style={styles.appointments}
@@ -52,7 +48,7 @@ const Rejected = ({ setscreen }) => {
           style={styles.appointmentHeader}
         >
           {/* uppercase main karna hai jab api lagaonga  */}
-          Révélateur te propose un rendez-vous !
+          {item?.item?.createdBy?.firstName?.toUpperCase()}  {item?.item?.createdBy?.lastName?.toUpperCase()} TE PROPOSE UN RENDEZ-VOUS !
         </Text>
         <View
           style={{ flexDirection: "row" }}
@@ -60,13 +56,13 @@ const Rejected = ({ setscreen }) => {
           <View
             style={styles.doccont}
           >
-            <View  style={{ flexDirection: "row" }}>
-            <Text
-              style={styles.eventname}
-            >
-              Objet du rendez-vous
-            </Text>
-            <Image
+            <View style={{ flexDirection: "row" }}>
+              <Text
+                style={styles.eventname}
+              >
+              {item?.item?.subject}
+              </Text>
+              <Image
                 style={{
                   resizeMode: "contain",
                   marginLeft: width * 0.012,
@@ -74,19 +70,25 @@ const Rejected = ({ setscreen }) => {
                   width: width * 0.05
                 }}
                 source={
-                  locat == false ?
-                    require("../../assets/images/oflinepoint.png") :
-                    require("../../assets/images/onlinepoint.png")
+                  item?.item?.type?.toUpperCase()=="ONSITE"?
+                  require("../../assets/images/oflinepoint.png") :
+                  require("../../assets/images/onlinepoint.png")
 
-                } />
+
+                }  />
             </View>
-         
-              <Text
-                style={styles.location}
-              >
-                34 Rue Decomberousse, 69000 LYON
-              </Text>
-              {/* <Image
+
+            {item?.item?.type.toUpperCase()=="ONSITE"? <Text
+              style={styles.location}
+            >
+              {item?.item?.postalAddress}, {item?.item?.zipCode} {item?.item?.city}
+            </Text>:
+            <Text
+              style={styles.location}
+            >
+             En ligne
+            </Text>}
+            {/* <Image
                 style={{
                   resizeMode: "contain",
                   marginLeft: width * 0.012,
@@ -99,7 +101,7 @@ const Rejected = ({ setscreen }) => {
                     require("../../assets/images/onlinepoint.png")
 
                 } /> */}
-        
+
           </View>
           <View
             style={styles.dateCOntainer}
@@ -107,12 +109,12 @@ const Rejected = ({ setscreen }) => {
             <Text
               style={styles.date}
             >
-              Lun September
+                {moment(item?.item?.time).locale('fr').format('ddd DD MMMM ')}
             </Text>
             <Text
               style={styles.date}
             >
-              à 14h00
+           à {moment(item?.item?.time).locale('fr').format('LT')}
             </Text>
           </View>
         </View>
@@ -125,7 +127,7 @@ const Rejected = ({ setscreen }) => {
           }}
         >
           <TouchableOpacity
-          onPress={()=>refRBSheet2.current.open()}
+              onPress={() => {refRBSheet2.current.open(),setValue(item)}}
             style={styles.consult}
           >
             <Text
@@ -166,12 +168,12 @@ const Rejected = ({ setscreen }) => {
         <Text
           style={{
             color: "#ffffff",
-            marginLeft:width*0.05,
+            marginLeft: width * 0.05,
             // textAlign: "center",
             fontFamily: "Bebas Neue Pro Bold",
             fontSize: width * 0.055,
           }}
-        >Révélateur te propose un rendez-vous !</Text>
+        >{Value?.item?.createdBy?.firstName?.toUpperCase()} {Value.item.createdBy.lastName.toUpperCase()} TE PROPOSE UN RENDEZ-VOUS !</Text>
         <View
           style={{ flexDirection: 'row', alignSelf: "center", marginTop: height * 0.02 }}
         >
@@ -183,18 +185,31 @@ const Rejected = ({ setscreen }) => {
                   color: "#ffa913",
                   fontSize: width * 0.045
                 }}
-              >Objet du rendez-vous</Text>
+              >{Value.item?.subject}</Text>
               <Image
                 style={{ resizeMode: "contain", marginLeft: width * 0.01 }}
-                source={require("../../assets/images/oflinepoint.png")} />
+                source={ Value?.item?.type.toUpperCase()=="ONSITE"?
+                require("../../assets/images/oflinepoint.png") :
+                require("../../assets/images/onlinepoint.png")} />
             </View>
+            {Value?.item?.type.toUpperCase()=="ONSITE"? <Text
+            style={{
+              fontFamily: "bebas-neue-pro-regular",
+              color: "#ffffff",
+              fontSize: width * 0.042,
+            }}
+            >
+              {Value?.item?.postalAddress}, {Value?.item?.zipCode} {Value?.item?.city}
+            </Text>:
             <Text
-              style={{
-                fontFamily: "bebas-neue-pro-regular",
-                color: "#ffffff",
-                fontSize: width * 0.042,
-              }}
-            >Enligne</Text>
+            style={{
+              fontFamily: "bebas-neue-pro-regular",
+              color: "#ffffff",
+              fontSize: width * 0.042,
+            }}
+            >
+             En ligne
+            </Text>}
           </View >
           <View  >
             <Text
@@ -203,14 +218,14 @@ const Rejected = ({ setscreen }) => {
                 color: "#bf9423",
                 fontSize: width * 0.042,
               }}
-            >Lun 23 September</Text>
+            >{moment(Value?.item?.time).locale('fr').format('ddd DD MMMM ')}</Text>
             <Text
               style={{
                 fontFamily: "bebas-neue-pro-regular",
                 color: "#bf9423",
                 fontSize: width * 0.042,
               }}
-            >a 14h00</Text>
+            >à {moment(Value?.item?.time).locale('fr').format('LT')}</Text>
           </View >
         </View>
         <ScrollView
@@ -227,31 +242,7 @@ const Rejected = ({ setscreen }) => {
               marginTop: height * 0.015
             }}
           >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Cras vel facilisis nunc. Nulla quis eros aliquet, condimentum erat quis, tincidunt ante.
-            Vivamus faucibus vitae urna ut pellentesque. Pellentesque habitant morbi tristique
-            senectus et netus et malesuada fames ac turpis egestas. Ut convallis eleifend nibh.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Cras vel facilisis nunc. Nulla quis eros aliquet, condimentum erat quis, tincidunt ante.
-            Vivamus faucibus vitae urna ut pellentesque. Pellentesque habitant morbi tristique
-            senectus et netus et malesuada fames ac turpis egestas. Ut convallis eleifend nibh.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Cras vel facilisis nunc. Nulla quis eros aliquet, condimentum erat quis, tincidunt ante.
-            Vivamus faucibus vitae urna ut pellentesque. Pellentesque habitant morbi tristique
-            senectus et netus et malesuada fames ac turpis egestas. Ut convallis eleifend nibh.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Cras vel facilisis nunc. Nulla quis eros aliquet, condimentum erat quis, tincidunt ante.
-            Vivamus faucibus vitae urna ut pellentesque. Pellentesque habitant morbi tristique
-            senectus et netus et malesuada fames ac turpis egestas. Ut convallis eleifend nibh.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Cras vel facilisis nunc. Nulla quis eros aliquet, condimentum erat quis, tincidunt ante.
-            Vivamus faucibus vitae urna ut pellentesque. Pellentesque habitant morbi tristique
-            senectus et netus et malesuada fames ac turpis egestas. Ut convallis eleifend nibh.
-            senectus et netus et malesuada fames ac turpis egestas. Ut convallis eleifend nibh.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Cras vel facilisis nunc. Nulla quis eros aliquet, condimentum erat quis, tincidunt ante.
-            Vivamus faucibus vitae urna ut pellentesque. Pellentesque habitant morbi tristique
-            senectus et netus et malesuada fames ac turpis egestas. Ut convallis eleifend nibh.
+             {Value?.item?.additionallnfos}
           </Text>
         </ScrollView>
         <View style={{
@@ -290,7 +281,7 @@ const Rejected = ({ setscreen }) => {
               justifyContent: "center",
               alignItems: "center",
               borderColor: "#ffffff",
-              marginTop:height * 0.01
+              marginTop: height * 0.01
             }}
           >
             <Text
@@ -300,7 +291,7 @@ const Rejected = ({ setscreen }) => {
                 fontSize: width * 0.034
               }}
             >
-             J’accepte finalement ce RDV
+              J’accepte finalement ce RDV
             </Text>
           </TouchableOpacity>
         </View>
@@ -336,15 +327,15 @@ const Rejected = ({ setscreen }) => {
           }}
           source={require("../../assets/images/rejected.png")}
         />
-          <FlatList
-                data={Array2}
-                renderItem={Appointments}
-                keyExtractor={item => item.id}
-                scrollEnabled={true}
-                // showsVerticalScrollIndicator={true}
-                style={{ marginBottom: height * 0.0754 }}
-              />
-               <View>
+        <FlatList
+          data={canceled?.data}
+          renderItem={Appointments}
+          keyExtractor={item => item.id}
+          scrollEnabled={true}
+          // showsVerticalScrollIndicator={true}
+          style={{ marginBottom: height * 0.0754 }}
+        />
+        <View>
           <RBSheet
             ref={refRBSheet2}
             height={height * 0.65}
@@ -393,7 +384,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.57,
     shadowRadius: 15.19,
-    
+
     elevation: 23,
   },
   appointmentHeader: {

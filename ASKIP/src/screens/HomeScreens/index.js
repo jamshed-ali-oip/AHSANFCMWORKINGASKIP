@@ -19,7 +19,7 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import QRCode from 'react-native-qrcode-svg';
 import Topselector from './Topselector';
 import { useSelector, useDispatch } from 'react-redux';
-import { getSubscribedEvents, MESINVITES, Stackprofile, UserDetail } from '../../redux/actions/user.action';
+import { getHistoryofevent, getSubscribedEvents, MESINVITES, Stackprofile, UserDetail } from '../../redux/actions/user.action';
 import { base_URL_IMAGE } from '../../config/config';
 // import moment from 'moment';
 import moment from 'moment/min/moment-with-locales'
@@ -39,6 +39,7 @@ const HomeScreens = ({ navigation }) => {
   const [modalVisible2, setModalVisible2] = useState(false);
   const dekhnaData = useSelector((state) => state)
   const [getSubEv, setgetSubEv] = useState()
+  const [eventhistory, seteventhistory] = useState()
   const [getSub, setgetSub] = useState()
   const [EventID, setEventID] = useState()
   const [ProfilStatus, setProfilStatus] = useState(false)
@@ -78,6 +79,7 @@ const HomeScreens = ({ navigation }) => {
  const yes =ok==undefined?detail:ok
   useEffect(() => {
     fetchData();
+    fetchhisory();
   }, [])
   useEffect(() => {
     MESDATA()
@@ -95,6 +97,12 @@ const HomeScreens = ({ navigation }) => {
   const fetchData = async () => {
     const { data } = await getSubscribedEvents(userId)
     setgetSubEv(data)
+    console.log("jlksahdflkhaslkfhsah",data)
+  };
+  const fetchhisory = async () => {
+    const { data } = await getHistoryofevent(userId)
+    seteventhistory(data)
+    console.log("histuiy  hdsakjdb",data)
   };
 
   const eventtwo = [
@@ -274,33 +282,41 @@ const HomeScreens = ({ navigation }) => {
       </>
     );
   };
-  const eventtwofunc = item => {
+  const eventtwofunc = (item) => {
+    console.log("itemssssss",item)
+    console.table(item?.item)
+    
     return (
       <>
         <View style={styles.flatlistView}>
           <ImageBackground
-            imageStyle={{ borderRadius: width * 0.03 }}
+            imageStyle={{ borderRadius: width * 0.03, borderWidth:0.4, borderColor:"#b9b9b9" }}
             style={styles.flatlistimage}
-            source={item.item.image}>
+            source={{ uri: `${base_URL_IMAGE + item?.item?.eventImage}` }}>
             <TouchableOpacity
               style={styles.QRView}
               onPress={() => {
-                setModalVisible2(true);
+                setEventID(item?.item?._id)
+                setModalVisible(true);
               }}>
               <Text style={styles.QRText}>Mon QR Code</Text>
             </TouchableOpacity>
           </ImageBackground>
           <View style={{ flexDirection: 'column', justifyContent: 'space-around', width: '98%', alignSelf: 'center', height: 50, marginVertical: 10 }}>
-            <TouchableOpacity onPress={() => { refRBSheet2.current.open() }}>
-              <Text style={styles.flatlistheading}> {item.item.title} </Text>
-            </TouchableOpacity>
-            <View style={{ flexDirection: 'row' }}>
-              <Text style={styles.flatlistdescription}>
-                {item.item.description}{' '}
-              </Text>
-              <Text style={styles.flatlistdate}>{item.item.date} </Text>
-            </View>
+            <TouchableOpacity
+              onPress={() => {
+                setgetSub(item)
+                refRBSheet2.current.open();
+              }}>
+              <Text style={styles.flatlistheading}> {item.item.eventName}-{item?.item?.city} </Text>
 
+              <View style={{ flexDirection: 'row', justifyContent: "space-between", paddingRight: width * 0.02, alignItems: "center" }}>
+                <Text style={styles.flatlistdescription}>
+                  {item?.item?.category}
+                </Text>
+                <Text style={styles.flatlistdate}> {moment(item?.item?.beginAt).locale('fr').format('ddd DD MMMM ')} </Text>
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
         <Modal
@@ -309,18 +325,20 @@ const HomeScreens = ({ navigation }) => {
           visible={modalVisible2}
           onRequestClose={() => {
             // Alert.alert("Modal has been closed.");
-            setModalVisible(!modalVisible);
+            setModalVisible(false);
           }}>
-          <View style={styles.QRModalView}>
+          <TouchableOpacity
+            onPress={() => { setModalVisible2(false); }}
+            style={styles.QRModalView}>
             <View style={styles.QRModalInnerView}>
               <TouchableOpacity
                 onPress={() => {
-                  setModalVisible2(false);
+                  // setModalVisible(false);
                 }}>
-                <QRCode size={170} value="https://outsourceinpakistan.com/" />
+                <QRCode size={170} value={JSON.stringify({ userId: userId, eventId: EventID, lastName: firstName || userdataFname, firstName: Fname || UserFirstName })} />
               </TouchableOpacity>
             </View>
-          </View>
+          </TouchableOpacity>
         </Modal>
       </>
     );
@@ -535,16 +553,11 @@ const HomeScreens = ({ navigation }) => {
                   renderItem={eventonefunc}
                 />}
             </View>
-            <View style={styles.eventoneView}>
+            <View style={styles.EVENtTwo}>
               <Text style={[styles.mainHeading, { paddingTop: 10 }]}>Mon historique d’événements</Text>
-              {/* <FlatList
-                showsHorizontalScrollIndicator={false}
-                horizontal={true}
-                data={eventtwo}
-                keyExtractor={item => item.id}
-                renderItem={eventtwofunc}
-              /> */}
-              <Text
+              {eventhistory?.data?.length==0?
+                
+                <Text
                   style={{
                     fontSize: width * 0.055,
                     alignSelf: "center",
@@ -556,7 +569,15 @@ const HomeScreens = ({ navigation }) => {
                   }}
                 >
                   Tu retrouveras ici les événements terminés auxquels tu as participé 
-                </Text>
+                </Text> :
+                <FlatList
+                showsHorizontalScrollIndicator={false}
+                horizontal={true}
+                data={eventhistory?.data}
+                keyExtractor={item => item.id}
+                renderItem={eventtwofunc}
+              />}
+             
             </View>
           </ImageBackground>
           <View>
@@ -683,7 +704,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: width * 0.1,
     alignSelf: 'center',
-    marginTop: height * 0.03,
+    marginTop: height * 0.02,
     elevation: 10,
     shadowColor: "#000",
     shadowOffset: {
@@ -693,6 +714,24 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.34,
     shadowRadius: 6.27,
     paddingHorizontal: width * 0.035,
+  },
+  EVENtTwo: {
+    width: width * 0.85,
+    height: height * 0.325,
+    backgroundColor: 'white',
+    borderRadius: width * 0.1,
+    alignSelf: 'center',
+    marginTop: height * 0.02,
+    elevation: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
+    paddingHorizontal: width * 0.035,
+    marginBottom:height*0.035
   },
   mainHeading: {
     fontSize: width * 0.056,

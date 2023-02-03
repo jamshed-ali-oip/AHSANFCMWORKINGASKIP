@@ -16,12 +16,15 @@ import {
   ScrollView
 } from 'react-native'
 import React, { useState, useRef } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Colors from '../../components/Colors';
 import Accepted from './Accepted';
 import Rejected from './Rejected';
 import History from './History';
 import RBSheet from 'react-native-raw-bottom-sheet';
+import { useEffect } from 'react';
+import { appointmentStatus, PendingAppointment } from '../../redux/actions/user.action';
+import moment from 'moment/min/moment-with-locales'
 const { height, width } = Dimensions.get('window');
 
 const WalletScreens = () => {
@@ -32,6 +35,10 @@ const WalletScreens = () => {
   const [submit, setsubmit] = useState(false);
   const [oui, setoui] = useState(false)
   const [Non, setNon] = useState(false)
+  const [PendingApp, setPendingApp] = useState()
+  const [Value, setValue] = useState()
+  const [Status, setStatus] = useState()
+  const [AppID, setAppID] = useState()
 
   const Array = [
     {
@@ -49,27 +56,24 @@ const WalletScreens = () => {
 
 
   ]
-  const Array2 = [
-    {
-      _id: 1,
-      name: "Mes RDV à venir"
-    },
-    {
-      _id: 2,
-      name: "Mes RDV passés"
-    },
-    {
-      _id: 3,
-      name: "Mes RDV annulés"
-    },
-    {
-      _id: 4,
-      name: "Mes RDV annulés"
-    },
+ const dispatch=useDispatch()
+const userId = useSelector((state) => state?.auth?.credential?.User?._id)
+useEffect(()=>{
+  fetchappointment()
+},[Value])
+const fetchappointment=async()=>{
+  const { data } = await PendingAppointment(userId)
+  setPendingApp(data)
+  // console.log("apoitment data on page",data)
+}
 
-  ]
-  const userId = useSelector((state) => state?.auth?.credential?.User?._id)
-  // console.log("real oid", userId)
+const hit=()=>{
+ let data={
+    status:Status
+  }
+ dispatch(appointmentStatus(AppID,data)).then(fetchappointment()),
+ setoui(false)
+}
   const Capsules = (item) => {
     return (
       <TouchableOpacity
@@ -84,7 +88,7 @@ const WalletScreens = () => {
       </TouchableOpacity>
     )
   }
-  const Appointments = () => {
+  const Appointments = (item) => {
     return (
       <View
         style={styles.appointments}
@@ -93,7 +97,8 @@ const WalletScreens = () => {
           style={styles.appointmentHeader}
         >
           {/* uppercase main karna hai jab api lagaonga  */}
-          Révélateur te propose un rendez-vous !
+
+          {item?.item?.createdBy?.firstName?.toUpperCase()}  {item?.item?.createdBy?.lastName?.toUpperCase()} TE PROPOSE UN RENDEZ-VOUS !
         </Text>
         <View
           style={{ flexDirection: "row" }}
@@ -107,7 +112,7 @@ const WalletScreens = () => {
               <Text
                 style={styles.eventname}
               >
-                Objet du rendez-vous
+                {item?.item?.subject}
               </Text>
               <Image
                 style={{
@@ -117,18 +122,23 @@ const WalletScreens = () => {
                   width: width * 0.05
                 }}
                 source={
-                  locat == false ?
+                 item?.item?.type.toUpperCase()=="ONSITE"?
                     require("../../assets/images/oflinepoint.png") :
                     require("../../assets/images/onlinepoint.png")
 
                 } />
             </View>
 
+           {item?.item?.type.toUpperCase()=="ONSITE"? <Text
+              style={styles.location}
+            >
+              {item?.item?.postalAddress}, {item?.item?.zipCode} {item?.item?.city}
+            </Text>:
             <Text
               style={styles.location}
             >
-              34 Rue Decomberousse, 69000 LYON
-            </Text>
+             En ligne
+            </Text>}
             {/* <Image
                 style={{
                   resizeMode: "contain",
@@ -150,12 +160,12 @@ const WalletScreens = () => {
             <Text
               style={styles.date}
             >
-              Lun September
+             {moment(item?.item?.time).locale('fr').format('ddd DD MMMM ')}
             </Text>
             <Text
               style={styles.date}
             >
-              à 14h00
+              à {moment(item?.item?.time).locale('fr').format('LT')}
             </Text>
           </View>
         </View>
@@ -168,7 +178,7 @@ const WalletScreens = () => {
           }}
         >
           <TouchableOpacity
-            onPress={() => refRBSheet2.current.open()}
+            onPress={() => {refRBSheet2.current.open(),setValue(item)}}
             style={styles.consult}
           >
             <Text
@@ -179,7 +189,7 @@ const WalletScreens = () => {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.accept}
-            onPress={()=>setoui(true)}
+            onPress={()=>{setoui(true),setStatus("accepted"),setAppID(item?.item?._id)}}
           >
 
             <Text
@@ -189,7 +199,7 @@ const WalletScreens = () => {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-          onPress={()=>setNon(true)}
+          onPress={()=>{setNon(true),setStatus("declined"),setAppID(item?.item?._id)}}
             style={styles.reject}
           >
             <Text
@@ -215,7 +225,7 @@ const WalletScreens = () => {
             fontSize: width * 0.055,
             marginLeft:width*0.05
           }}
-        >Révélateur te propose un rendez-vous !</Text>
+        >{Value?.item?.createdBy?.firstName?.toUpperCase()} {Value.item.createdBy.lastName.toUpperCase()} TE PROPOSE UN RENDEZ-VOUS !</Text>
         <View
           style={{ flexDirection: 'row', alignSelf: "center", marginTop: height * 0.02 }}
         >
@@ -227,18 +237,38 @@ const WalletScreens = () => {
                   color: "#ffa913",
                   fontSize: width * 0.045
                 }}
-              >Objet du rendez-vous</Text>
+              >{Value.item?.subject}</Text>
               <Image
                 style={{ resizeMode: "contain", marginLeft: width * 0.01 }}
-                source={require("../../assets/images/oflinepoint.png")} />
+                source={ Value?.item?.type.toUpperCase()=="ONSITE"?
+                require("../../assets/images/oflinepoint.png") :
+                require("../../assets/images/onlinepoint.png")} />
             </View>
-            <Text
+            {/* <Text
               style={{
                 fontFamily: "bebas-neue-pro-regular",
                 color: "#ffffff",
                 fontSize: width * 0.042,
               }}
-            >Enligne</Text>
+            >Enligne</Text> */}
+              {Value?.item?.type.toUpperCase()=="ONSITE"? <Text
+            style={{
+              fontFamily: "bebas-neue-pro-regular",
+              color: "#ffffff",
+              fontSize: width * 0.042,
+            }}
+            >
+              {Value?.item?.postalAddress}, {Value?.item?.zipCode} {Value?.item?.city}
+            </Text>:
+            <Text
+            style={{
+              fontFamily: "bebas-neue-pro-regular",
+              color: "#ffffff",
+              fontSize: width * 0.042,
+            }}
+            >
+             En ligne
+            </Text>}
           </View >
           <View  >
             <Text
@@ -247,14 +277,14 @@ const WalletScreens = () => {
                 color: "#bf9423",
                 fontSize: width * 0.042,
               }}
-            >Lun 23 September</Text>
+            >{moment(Value?.item?.time).locale('fr').format('ddd DD MMMM ')}</Text>
             <Text
               style={{
                 fontFamily: "bebas-neue-pro-regular",
                 color: "#bf9423",
                 fontSize: width * 0.042,
               }}
-            >a 14h00</Text>
+            >à {moment(Value?.item?.time).locale('fr').format('LT')}</Text>
           </View >
         </View>
         <ScrollView
@@ -271,31 +301,7 @@ const WalletScreens = () => {
               marginTop: height * 0.015
             }}
           >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Cras vel facilisis nunc. Nulla quis eros aliquet, condimentum erat quis, tincidunt ante.
-            Vivamus faucibus vitae urna ut pellentesque. Pellentesque habitant morbi tristique
-            senectus et netus et malesuada fames ac turpis egestas. Ut convallis eleifend nibh.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Cras vel facilisis nunc. Nulla quis eros aliquet, condimentum erat quis, tincidunt ante.
-            Vivamus faucibus vitae urna ut pellentesque. Pellentesque habitant morbi tristique
-            senectus et netus et malesuada fames ac turpis egestas. Ut convallis eleifend nibh.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Cras vel facilisis nunc. Nulla quis eros aliquet, condimentum erat quis, tincidunt ante.
-            Vivamus faucibus vitae urna ut pellentesque. Pellentesque habitant morbi tristique
-            senectus et netus et malesuada fames ac turpis egestas. Ut convallis eleifend nibh.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Cras vel facilisis nunc. Nulla quis eros aliquet, condimentum erat quis, tincidunt ante.
-            Vivamus faucibus vitae urna ut pellentesque. Pellentesque habitant morbi tristique
-            senectus et netus et malesuada fames ac turpis egestas. Ut convallis eleifend nibh.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Cras vel facilisis nunc. Nulla quis eros aliquet, condimentum erat quis, tincidunt ante.
-            Vivamus faucibus vitae urna ut pellentesque. Pellentesque habitant morbi tristique
-            senectus et netus et malesuada fames ac turpis egestas. Ut convallis eleifend nibh.
-            senectus et netus et malesuada fames ac turpis egestas. Ut convallis eleifend nibh.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Cras vel facilisis nunc. Nulla quis eros aliquet, condimentum erat quis, tincidunt ante.
-            Vivamus faucibus vitae urna ut pellentesque. Pellentesque habitant morbi tristique
-            senectus et netus et malesuada fames ac turpis egestas. Ut convallis eleifend nibh.
+            {Value?.item?.additionallnfos}
           </Text>
         </ScrollView>
         <View style={{
@@ -306,7 +312,7 @@ const WalletScreens = () => {
           paddingHorizontal: width * 0.095
         }}>
           <TouchableOpacity
-            onPress={()=>setoui(true)}
+            onPress={()=>{setoui(true),setStatus("accepted",setAppID(item?.item?._id))}}
             style={{
               backgroundColor: "#00b453",
               height: height * 0.038,
@@ -327,7 +333,7 @@ const WalletScreens = () => {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-          onPress={()=>setNon(true)}
+          onPress={()=>{setNon(true),setStatus("declined"),setAppID(item?.item?._id)}}
             style={{
               borderWidth: 1,
               height: height * 0.038,
@@ -360,7 +366,7 @@ const WalletScreens = () => {
           style={{ height: height }}
           source={require('../../assets/images/rbbg.png')}
         >
-          <View>
+          <View style={{backgroundColor:"transparent"}}>
             <FlatList
               data={Array}
               renderItem={Capsules}
@@ -386,14 +392,18 @@ const WalletScreens = () => {
                 style={{ alignSelf: "center", marginTop: height * 0.15, resizeMode: "contain" }}
                 source={require("../../assets/images/noappointment.png")}
               /> :
-              <FlatList
-                data={Array2}
+             <View 
+            //  style={}
+             >
+               <FlatList
+                data={PendingApp?.data}
                 renderItem={Appointments}
                 keyExtractor={item => item.id}
                 scrollEnabled={true}
                 // showsVerticalScrollIndicator={true}
                 style={{ marginBottom: height * 0.0754 }}
               />
+             </View>
             }
 
           </>
@@ -583,7 +593,7 @@ const WalletScreens = () => {
                           paddingHorizontal: width * 0.045,
                         }}>
                         <TouchableOpacity
-                          // onPress={() => handleOnpress2()}
+                          onPress={() => {hit(), setoui(false)}}
                           style={{
                             width: width * 0.18,
                             height: height * 0.055,
@@ -686,7 +696,7 @@ const WalletScreens = () => {
                           paddingHorizontal: width * 0.045,
                         }}>
                         <TouchableOpacity
-                          // onPress={() => handleOnpress2()}
+                          onPress={() => {hit(),setNon(false)}}
                           style={{
                             width: width * 0.18,
                             height: height * 0.055,
