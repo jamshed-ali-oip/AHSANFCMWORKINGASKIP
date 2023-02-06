@@ -23,7 +23,7 @@ import Rejected from './Rejected';
 import History from './History';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { useEffect } from 'react';
-import { appointmentStatus, PendingAppointment } from '../../redux/actions/user.action';
+import { appointmentStatus, PendingAppointment, RevREq, UserDetail } from '../../redux/actions/user.action';
 import moment from 'moment/min/moment-with-locales'
 const { height, width } = Dimensions.get('window');
 
@@ -39,6 +39,9 @@ const WalletScreens = () => {
   const [Value, setValue] = useState()
   const [Status, setStatus] = useState()
   const [AppID, setAppID] = useState()
+  const [detail, setDetail] = useState()
+
+console.log("details ",detail)
 
   const Array = [
     {
@@ -66,7 +69,16 @@ const fetchappointment=async()=>{
   setPendingApp(data)
   // console.log("apoitment data on page",data)
 }
+useEffect(() => {
 
+  UserInfo()
+
+}, [])
+const UserInfo = async () => {
+  const {data}  = await UserDetail(userId)
+  setDetail(data?.User)
+
+}
 const hit=()=>{
  let data={
     status:Status
@@ -74,7 +86,14 @@ const hit=()=>{
  dispatch(appointmentStatus(AppID,data)).then(fetchappointment()),
  setoui(false)
 }
-  const Capsules = (item) => {
+const RequestRevelator=()=>{
+  let data={
+    talentId: detail._id,
+    revelateurId: detail?.relatedRevelateur?._id
+  }
+  dispatch(RevREq(data,setsubmit))
+}  
+const Capsules = (item) => {
     return (
       <TouchableOpacity
         onPress={() => setscreen(item?.item?._id)}
@@ -415,6 +434,7 @@ const hit=()=>{
               alignSelf: "flex-end",
               marginTop: height * 0.83,
               // backgroundColor:"red"
+              zIndex:10000
             }}
           >
             <Image
@@ -445,7 +465,7 @@ const hit=()=>{
                       style={{ flexDirection: "row", marginTop: height * 0.012 }}
                     >
                       <TouchableOpacity
-                        onPress={() => setsubmit(true)}
+                        onPress={() => RequestRevelator()}
                         style={{
                           backgroundColor: "#00b453",
                           height: height * 0.039,

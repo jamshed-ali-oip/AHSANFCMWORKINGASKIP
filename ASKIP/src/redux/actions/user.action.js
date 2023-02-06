@@ -718,3 +718,16 @@ export const appointmentStatus = (AppID,data) => async (dispatch) => {
 
   }
 };
+export const RevREq = (data,setsubmit ) => async (dispatch) => {
+
+  try {
+    const response = await axios.post(`${base_URL}/appointmentRequest`, data)
+    console.log("requsttttttttttttttttttt",response)
+    if (response?.data) {
+      setsubmit(true)
+    }
+  }
+  catch (error) {
+    console.log("erorrrrrrrrrrr", error)
+  }
+};
